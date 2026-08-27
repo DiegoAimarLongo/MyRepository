@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diego Aimar Longo - Software Development ||Game Development</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Cursor retro pixelado -->
+  <div class="px-cursor" id="pxCursor"></div>
+  <div class="px-cursor ring" id="pxRing"></div>
+
+  <!-- Barra de experiencia (progreso de scroll) -->
+  <div class="xp-bar-wrap"><div class="xp-bar-fill" id="xpBar"></div></div>
+
+  <!-- Contenedor de logros desbloqueados -->
+  <div id="achv-container"></div>
+
+  <!-- Easter egg Konami -->
+  <div id="konami-overlay">
+    <div class="konami-text">¡CÓDIGO SECRETO ACTIVADO!</div>
+    <div class="konami-sub">▲ ▲ ▼ ▼ ◀ ▶ ◀ ▶ B A · +30 VIDAS</div>
+    <button class="konami-close" id="konamiClose">CERRAR [ESC]</button>
+  </div>
+
+  <!-- ── SIDEBAR ──────────────────────────── -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <div class="logo-icon">DL</div>
+      <div class="logo-name">DIEGO LONGO</div>
+      <div class="logo-sub">GameDev</div>
+    </div>
+
+    <nav>
+      <a href="#inicio"     class="nav-item active"><span class="nav-icon">⌂</span> Inicio</a>
+      <a href="#sobre-mi"   class="nav-item"><span class="nav-icon">◉</span> Sobre mí</a>
+      <a href="#proyectos"  class="nav-item"><span class="nav-icon">⬡</span> Proyectos</a>
+      <a href="#habilidades"class="nav-item"><span class="nav-icon">&lt;/&gt;</span> Habilidades</a>
+      <a href="#arcade"     class="nav-item"><span class="nav-icon">▣</span> Arcade SQL</a>
+      <a href="#formacion"  class="nav-item"><span class="nav-icon">◈</span> Formación</a>
+      <a href="#contacto"   class="nav-item"><span class="nav-icon">✉</span> Contacto</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <p>Conectemos</p>
+      <div class="social-links">
+        <a href="https://github.com/" title="GitHub" target="_blank" rel="noopener">GH</a>
+        <a href="https://linkedin.com/in/" title="LinkedIn" target="_blank" rel="noopener">in</a>
+        <a href="mailto:longodiegoaimar@gmail.com" title="Email">@</a>
+      </div>
+      <button class="sound-toggle" id="soundToggle">🔇 SFX: OFF</button>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ─────────────────────────────── -->
+  <main class="main">
+
+    <!-- HERO -->
+    <section id="inicio" style="padding: 0; border: none;">
+      <div class="hero">
+        <div class="hero-bg"></div>
+        <canvas id="particles"></canvas>
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+          <p class="hero-greeting">Hola, soy</p>
+          <h1 id="heroName" data-text="Diego AimarLongo">Diego AimarLongo</h1>
+          <div class="hero-title" id="heroTypeTitle"></div>
+          <p class="hero-desc">
+            Apasionado por la programación orientada a objetos y la arquitectura de software.
+            Con experiencia en desarrollo de videojuegos y sistemas, me especializo en
+            código limpio, modular y escalable.
+          </p>
+          <div class="hero-btns">
+            <a href="#proyectos" class="btn-primary">🎮 Ver Proyectos</a>
+            <a href="#contacto"  class="btn-outline">↓ Descargar CV</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE MÍ -->
+    <section id="sobre-mi">
+      <div class="section-header">
+        <div class="section-label">// Sobre mí</div>
+        <h2 class="section-title">Quién soy</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>Soy un <strong>desarrollador de software junior</strong> con formación técnica en desarrollo de videojuegos y sistemas, egresado de UNAHUR y actualmente cursando Ingeniería en Sistemas en UTN.</p>
+          <p>Me oriento a la <strong>programación orientada a objetos</strong> y arquitecturas MVC/MVP. Me apasiona escribir código limpio, estructurado y fácil de mantener, con especial interés en <strong>desarrollo backend, aplicaciones desktop y sistemas escalables</strong>.</p>
+          <p>Trabajo cómodamente en entornos colaborativos usando <strong>Git, GitHub, Jira y metodologías Scrum</strong>. También tengo experiencia en desarrollo de videojuegos con Unity y Godot Engine.</p>
+          <p>🇦🇷 Rosario, Santa Fe, Argentina &nbsp;|&nbsp; 🇬🇧 Inglés A2/B1</p>
+        </div>
+
+        <div class="about-stats">
+          <div class="stat-card">
+            <span class="stat-num">3+</span>
+            <span class="stat-label">Proyectos</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">2°</span>
+            <span class="stat-label">Lugar Rally Latinoam.</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">5+</span>
+            <span class="stat-label">Tecnologías</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">UTN</span>
+            <span class="stat-label">En curso 2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="proyectos">
+      <div class="section-header">
+        <div class="section-label">// Proyectos destacados</div>
+        <h2 class="section-title">Mi trabajo</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-thumb thumb-1">TRAIL OF BONES</div>
+          <div class="project-body">
+            <div class="project-title">Trail of Bones</div>
+            <div class="project-tags">
+              <span class="tag tag-purple">Unity</span>
+              <span class="tag tag-cyan">C#</span>
+              <span class="tag tag-green">MVC/MVP</span>
+            </div>
+            <p class="project-desc">Proyecto colaborativo en Unity. Desarrollo de lógica y sistemas de gameplay usando arquitectura orientada a objetos, patrones MVC, MVP y Singleton. Workflow con GitHub y Jira/Scrum.</p>
+            <!-- Reemplazá # con el link real de tu repo -->
+            <a href="#" class="project-link">Ver repositorio →</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-thumb thumb-2">ORBITAL AROUSAL</div>
+          <div class="project-body">
+            <div class="project-title">Orbital Arousal</div>
+            <div class="project-tags">
+              <span class="tag tag-cyan">JavaScript</span>
+              <span class="tag tag-orange">PixiJS</span>
+              <span class="tag tag-green">2D</span>
+            </div>
+            <p class="project-desc">Proyecto colaborativo con JavaScript y PixiJS. Programación de lógica de juego, mecánicas interactivas y desarrollo colaborativo con GitHub y Trello.</p>
+            <a href="#" class="project-link">Ver repositorio →</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-thumb thumb-3">MATE E' MITOS</div>
+          <div class="project-body">
+            <div class="project-title">Mate e' Mitos</div>
+            <div class="project-tags">
+              <span class="tag tag-orange">MMORPG</span>
+              <span class="tag tag-purple">Game Design</span>
+              <span class="tag tag-green">Concepto</span>
+            </div>
+            <p class="project-desc">Proyecto conceptual MMORPG basado en folklore argentino y fantasía gauchesca. Diseño de sistemas sociales, monetización freemium y Business Model Canvas.</p>
+            <a href="#" class="project-link">Ver documentación →</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- HABILIDADES -->
+    <section id="habilidades">
+      <div class="section-header">
+        <div class="section-label">// Stack tecnológico</div>
+        <h2 class="section-title">Habilidades</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-top">
+            <div class="skill-icon icon-cs">C#</div>
+            <div class="skill-name">C# / OOP</div>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct:85%"></div></div>
+          <div class="skill-pct">85%</div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-top">
+            <div class="skill-icon icon-js">JS</div>
+            <div class="skill-name">JavaScript</div>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct:75%"></div></div>
+          <div class="skill-pct">75%</div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-top">
+            <div class="skill-icon icon-unity">U</div>
+            <div class="skill-name">Unity</div>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct:80%"></div></div>
+          <div class="skill-pct">80%</div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-top">
+            <div class="skill-icon icon-git">GIT</div>
+            <div class="skill-name">Git / GitHub</div>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct:80%"></div></div>
+          <div class="skill-pct">80%</div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-top">
+            <div class="skill-icon icon-sql">SQL</div>
+            <div class="skill-name">SQL</div>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct:60%"></div></div>
+          <div class="skill-pct">60%</div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-top">
+            <div class="skill-icon icon-godot">GO</div>
+            <div class="skill-name">Godot Engine</div>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct:65%"></div></div>
+          <div class="skill-pct">65%</div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-top">
+            <div class="skill-icon icon-pixi">PX</div>
+            <div class="skill-name">PixiJS</div>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct:65%"></div></div>
+          <div class="skill-pct">65%</div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-top">
+            <div class="skill-icon icon-scrum">AG</div>
+            <div class="skill-name">Scrum / Agile</div>
+          </div>
+          <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct:75%"></div></div>
+          <div class="skill-pct">75%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCADE / SQL LEADERBOARD -->
+    <section id="arcade">
+      <div class="section-header">
+        <div class="section-label">// Base de datos en vivo</div>
+        <h2 class="section-title">Arcade High Scores (SQL en el navegador)</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <p style="color:var(--text2); max-width: 640px; margin-bottom: 2rem; line-height:1.7; font-size: 0.95rem;">
+        Esta tabla de puntajes corre sobre una base de datos <strong>SQLite real</strong>, compilada a
+        WebAssembly y ejecutándose 100% en tu navegador (sin servidor). Cada vez que agregás un puntaje,
+        se ejecuta una sentencia <code>INSERT</code> de verdad, y el ranking se calcula con un <code>SELECT ... ORDER BY</code>.
+        Una pequeña demo de cómo aplico SQL a un contexto de videojuegos.
+      </p>
+
+      <div class="arcade-cabinet">
+        <div class="arcade-header">
+          <div class="arcade-title">◆ HIGH SCORES ◆</div>
+          <div class="arcade-coin" id="dbStatus">Cargando motor SQL…</div>
+        </div>
+
+        <div class="arcade-grid">
+          <div>
+            <ol class="leaderboard" id="leaderboardList">
+              <li>Cargando base de datos…</li>
+            </ol>
+          </div>
+
+          <div class="arcade-form">
+            <input type="text" id="playerName" maxlength="14" placeholder="NOMBRE DEL JUGADOR" autocomplete="off">
+            <input type="number" id="playerScore" placeholder="PUNTAJE" min="0" max="999999">
+            <button id="submitScore" disabled>▶ INSERTAR EN LA BASE DE DATOS</button>
+            <div class="sql-console" id="sqlConsole"><span class="sql-comment">-- las consultas SQL ejecutadas aparecerán acá</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMACIÓN -->
+    <section id="formacion">
+      <div class="section-header">
+        <div class="section-label">// Educación</div>
+        <h2 class="section-title">Formación académica</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-date">Marzo 2026 → Presente</div>
+          <div class="timeline-title">Ingeniería en Sistemas</div>
+          <div class="timeline-sub">Universidad Tecnológica Nacional (UTN)</div>
+          <p class="timeline-desc">En curso. Profundizando en fundamentos de ingeniería de software, algoritmos y arquitecturas de sistemas.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">Marzo 2022 → Diciembre 2025</div>
+          <div class="timeline-title">Técnico Universitario en Programación de Videojuegos</div>
+          <div class="timeline-sub">Universidad Nacional de Hurlingham (UNAHUR)</div>
+          <ul class="timeline-desc">
+            <li>Desarrollo de videojuegos con Unity, Godot y PixiJS</li>
+            <li>Arquitecturas MVC, MVP, Singleton y OOP</li>
+            <li>Metodologías ágiles: Scrum, Jira, Trello</li>
+            <li>Proyectos colaborativos con Git y GitHub</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">Reconocimiento</div>
+          <div class="timeline-title">🏆 Rally Latinoamericano de Innovación</div>
+          <div class="timeline-sub">Segundo Lugar — Categoría Impacto Social · Nivel Nacional</div>
+          <p class="timeline-desc">Competencia realizada en diez países latinoamericanos. Premio obtenido en la categoría de mayor relevancia social.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+      <div class="section-header">
+        <div class="section-label">// Contacto</div>
+        <h2 class="section-title">Hablemos</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">✉</div>
+            <div>
+              <div class="contact-label">Email</div>
+              <div class="contact-val">longodiegoaimar@gmail.com</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📱</div>
+            <div>
+              <div class="contact-label">Teléfono / WhatsApp</div>
+              <div class="contact-val">(+54) 9 341 520-0532</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">in</div>
+            <div>
+              <div class="contact-label">LinkedIn</div>
+              <!-- Reemplazá con tu URL real de LinkedIn -->
+              <div class="contact-val">linkedin.com/in/diego-longo</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">◎</div>
+            <div>
+              <div class="contact-label">Ubicación</div>
+              <div class="contact-val">Rosario, Santa Fe, Argentina</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-award">
+          <div class="award-icon">🏆</div>
+          <div class="award-title">Rally Latinoamericano de Innovación</div>
+          <div class="award-desc">Segundo lugar a nivel nacional en la categoría Impacto Social, compitiendo contra equipos de diez países latinoamericanos.</div>
+          <div class="award-title" style="margin-top: 1.5rem;">Disponible para</div>
+          <div class="award-desc" style="margin-top: 0.5rem;">
+            ▸ Trabajo full-time o part-time<br>
+            ▸ Proyectos freelance<br>
+            ▸ Prácticas / pasantías<br>
+            ▸ Colaboraciones open source
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── SCRIPTS ───────────────────────────── -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/sql-wasm.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
