@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Diego Aimar Longo - Software Development ||Game Development</title>
+  <title>Diego Aimar Longo - Software Development | Game Development</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -28,9 +28,11 @@
   <!-- ── SIDEBAR ──────────────────────────── -->
   <aside class="sidebar">
     <div class="logo-area">
-      <div class="logo-icon">DL</div>
-      <div class="logo-name">DIEGO LONGO</div>
-      <div class="logo-sub">GameDev</div>
+      <div class="logo-icon">
+        <img src="assets/diegoCV.png" alt="Diego Longo" />
+      </div>
+      <div class="logo-name"></div>
+      <div class="logo-sub"></div>
     </div>
 
     <nav>
@@ -38,7 +40,6 @@
       <a href="#sobre-mi"   class="nav-item"><span class="nav-icon">◉</span> Sobre mí</a>
       <a href="#proyectos"  class="nav-item"><span class="nav-icon">⬡</span> Proyectos</a>
       <a href="#habilidades"class="nav-item"><span class="nav-icon">&lt;/&gt;</span> Habilidades</a>
-      <a href="#arcade"     class="nav-item"><span class="nav-icon">▣</span> Arcade SQL</a>
       <a href="#formacion"  class="nav-item"><span class="nav-icon">◈</span> Formación</a>
       <a href="#contacto"   class="nav-item"><span class="nav-icon">✉</span> Contacto</a>
     </nav>
@@ -64,13 +65,13 @@
         <canvas id="particles"></canvas>
         <div class="hero-grid"></div>
         <div class="hero-content">
-          <p class="hero-greeting">Hola, soy</p>
-          <h1 id="heroName" data-text="Diego AimarLongo">Diego AimarLongo</h1>
+          <p class="hero-greeting">Hi, I'm</p>
+          <h1 id="heroName" data-text="Diego Aimar Longo">Diego Aimar Longo</h1>
           <div class="hero-title" id="heroTypeTitle"></div>
           <p class="hero-desc">
-            Apasionado por la programación orientada a objetos y la arquitectura de software.
-            Con experiencia en desarrollo de videojuegos y sistemas, me especializo en
-            código limpio, modular y escalable.
+            Software Developer specialized in building robust, modular, and scalable solutions. 
+            I combine object-oriented programming, software architecture, and engineering best practices
+             to develop maintainable, efficient systems designed to evolve.
           </p>
           <div class="hero-btns">
             <a href="#proyectos" class="btn-primary">🎮 Ver Proyectos</a>
@@ -256,44 +257,6 @@
       </div>
     </section>
 
-    <!-- ARCADE / SQL LEADERBOARD -->
-    <section id="arcade">
-      <div class="section-header">
-        <div class="section-label">// Base de datos en vivo</div>
-        <h2 class="section-title">Arcade High Scores (SQL en el navegador)</h2>
-        <div class="section-line"></div>
-      </div>
-
-      <p style="color:var(--text2); max-width: 640px; margin-bottom: 2rem; line-height:1.7; font-size: 0.95rem;">
-        Esta tabla de puntajes corre sobre una base de datos <strong>SQLite real</strong>, compilada a
-        WebAssembly y ejecutándose 100% en tu navegador (sin servidor). Cada vez que agregás un puntaje,
-        se ejecuta una sentencia <code>INSERT</code> de verdad, y el ranking se calcula con un <code>SELECT ... ORDER BY</code>.
-        Una pequeña demo de cómo aplico SQL a un contexto de videojuegos.
-      </p>
-
-      <div class="arcade-cabinet">
-        <div class="arcade-header">
-          <div class="arcade-title">◆ HIGH SCORES ◆</div>
-          <div class="arcade-coin" id="dbStatus">Cargando motor SQL…</div>
-        </div>
-
-        <div class="arcade-grid">
-          <div>
-            <ol class="leaderboard" id="leaderboardList">
-              <li>Cargando base de datos…</li>
-            </ol>
-          </div>
-
-          <div class="arcade-form">
-            <input type="text" id="playerName" maxlength="14" placeholder="NOMBRE DEL JUGADOR" autocomplete="off">
-            <input type="number" id="playerScore" placeholder="PUNTAJE" min="0" max="999999">
-            <button id="submitScore" disabled>▶ INSERTAR EN LA BASE DE DATOS</button>
-            <div class="sql-console" id="sqlConsole"><span class="sql-comment">-- las consultas SQL ejecutadas aparecerán acá</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- FORMACIÓN -->
     <section id="formacion">
       <div class="section-header">
@@ -392,7 +355,6 @@
   </main>
 
   <!-- ── SCRIPTS ───────────────────────────── -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/sql-wasm.js"></script>
   <script src="script.js"></script>
 
 </body>

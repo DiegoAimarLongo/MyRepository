@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════════════════
    PORTFOLIO — Diego Longo · GameDev
-   Efectos interactivos + demo SQL (sql.js / SQLite en WASM)
+  Efectos interactivos del portfolio
    ══════════════════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -120,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
     'sobre-mi':   { icon: '◉', label: 'Logro desbloqueado', title: 'Conociste al desarrollador' },
     'proyectos':  { icon: '⬡', label: 'Logro desbloqueado', title: 'Explorador de proyectos' },
     'habilidades':{ icon: '⚔', label: 'Logro desbloqueado', title: 'Stack Tecnológico revisado' },
-    'arcade':     { icon: '🕹', label: 'Logro desbloqueado', title: 'Insert Coin: SQL en vivo' },
     'formacion':  { icon: '🎓', label: 'Logro desbloqueado', title: 'Ruta académica completada' },
     'contacto':   { icon: '✉', label: 'Logro desbloqueado', title: '¡Listo para conectar!' },
   };
@@ -158,21 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ────────────────────────────────────────
-     5. GLITCH EN EL NOMBRE + TYPEWRITER
+     5. TYPEWRITER
      ──────────────────────────────────────── */
-  const heroName = document.getElementById('heroName');
-  if (heroName) {
-    let glitchTimeout;
-    const triggerGlitch = () => {
-      heroName.classList.add('glitching');
-      clearTimeout(glitchTimeout);
-      glitchTimeout = setTimeout(() => heroName.classList.remove('glitching'), 500);
-    };
-    heroName.addEventListener('mouseenter', triggerGlitch);
-    // Glitch aleatorio ambiental cada tanto para dar vida a la página
-    setInterval(triggerGlitch, 6000);
-  }
-
   const typeTitleEl = document.getElementById('heroTypeTitle');
   if (typeTitleEl) {
     const fullText = 'Desarrollador de Software Junior';
@@ -322,116 +308,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   if (konamiClose) konamiClose.addEventListener('click', () => konamiOverlay.classList.remove('show'));
-
-  /* ────────────────────────────────────────
-     10. ARCADE HIGH SCORES — SQLite en WASM (sql.js)
-     ──────────────────────────────────────── */
-  const dbStatus = document.getElementById('dbStatus');
-  const leaderboardList = document.getElementById('leaderboardList');
-  const sqlConsole = document.getElementById('sqlConsole');
-  const submitBtn = document.getElementById('submitScore');
-  const nameInput = document.getElementById('playerName');
-  const scoreInput = document.getElementById('playerScore');
-
-  let db = null;
-
-  function logSql(query) {
-    if (!sqlConsole) return;
-    const line = document.createElement('div');
-    line.textContent = '› ' + query;
-    sqlConsole.appendChild(line);
-    sqlConsole.scrollTop = sqlConsole.scrollHeight;
-  }
-
-  function refreshLeaderboard() {
-    if (!db || !leaderboardList) return;
-    const query = 'SELECT name, score FROM high_scores ORDER BY score DESC LIMIT 5;';
-    logSql(query);
-    const res = db.exec(query);
-    leaderboardList.innerHTML = '';
-    if (!res.length) {
-      leaderboardList.innerHTML = '<li>Sin registros aún.</li>';
-      return;
-    }
-    res[0].values.forEach((row, i) => {
-      const li = document.createElement('li');
-      li.innerHTML = `<span><span class="rank">#${i + 1}</span>${row[0]}</span><span>${row[1]}</span>`;
-      leaderboardList.appendChild(li);
-    });
-  }
-
-  function insertScore(name, score) {
-    if (!db) return;
-    const safeName = name.replace(/'/g, "''").slice(0, 14) || 'PLAYER';
-    const query = `INSERT INTO high_scores (name, score) VALUES ('${safeName}', ${score});`;
-    db.run(query);
-    logSql(query);
-    beep(950, 0.08, 'square', 0.06);
-    refreshLeaderboard();
-  }
-
-  async function initDb() {
-    try {
-      if (dbStatus) dbStatus.textContent = 'Inicializando SQLite (WASM)…';
-      const SQL = await initSqlJs({
-        locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/${file}`
-      });
-      db = new SQL.Database();
-
-      const createQuery = `CREATE TABLE high_scores (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL,
-  score INTEGER NOT NULL
-);`;
-      db.run(createQuery);
-      logSql(createQuery.replace(/\s+/g, ' '));
-
-      const seed = [
-        ['TRAIL_OF_BONES', 9800],
-        ['ORBITAL_ARO', 8750],
-        ['MATE_E_MITOS', 7600],
-        ['DIEGO_L', 6400],
-        ['RALLY_2DO', 9990],
-      ];
-      const insertSeed = db.prepare('INSERT INTO high_scores (name, score) VALUES (?, ?)');
-      seed.forEach(([n, s]) => insertSeed.run([n, s]));
-      insertSeed.free();
-      logSql(`-- se insertaron ${seed.length} registros iniciales`);
-
-      if (dbStatus) dbStatus.textContent = '● SQLite (WASM) en vivo · sql.js';
-      if (submitBtn) submitBtn.disabled = false;
-      refreshLeaderboard();
-    } catch (err) {
-      console.error('No se pudo inicializar sql.js:', err);
-      if (dbStatus) dbStatus.textContent = '⚠ No se pudo cargar el motor SQL';
-      if (leaderboardList) leaderboardList.innerHTML = '<li>Error al cargar la base de datos.</li>';
-    }
-  }
-
-  if (submitBtn) {
-    submitBtn.addEventListener('click', () => {
-      const name = (nameInput.value || 'PLAYER').trim().toUpperCase();
-      const score = parseInt(scoreInput.value, 10);
-      if (!score && score !== 0) {
-        scoreInput.focus();
-        return;
-      }
-      insertScore(name, score);
-      nameInput.value = '';
-      scoreInput.value = '';
-      nameInput.focus();
-    });
-    [nameInput, scoreInput].forEach(input => {
-      input.addEventListener('keydown', e => {
-        if (e.key === 'Enter') submitBtn.click();
-      });
-    });
-  }
-
-  if (typeof initSqlJs !== 'undefined') {
-    initDb();
-  } else if (dbStatus) {
-    dbStatus.textContent = '⚠ Motor SQL no disponible (revisá tu conexión)';
-  }
 
 });
