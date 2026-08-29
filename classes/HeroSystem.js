@@ -1,4 +1,4 @@
-class TypewriterEffect {
+export class TypewriterEffect {
   constructor({ elementSelector = '#heroTypeTitle', text = 'Desarrollador de Software Junior' } = {}) {
     // Intent: prepara el elemento del hero y el texto base para desplegar un efecto de escritura.
     this.element = document.querySelector(elementSelector);
@@ -23,7 +23,7 @@ class TypewriterEffect {
   }
 }
 
-class ParticlesHero {
+export class ParticlesHero {
   constructor({ canvasSelector = '#particles', heroSelector = '.hero' } = {}) {
     // Intent: guarda la referencia del canvas y del hero para generar partículas interactivas en la sección principal.
     this.canvas = document.querySelector(canvasSelector);
@@ -119,7 +119,7 @@ class ParticlesHero {
   }
 }
 
-class ProjectCardTilt {
+export class ProjectCardTilt {
   constructor({ cardSelector = '.project-card' } = {}) {
     // Intent: captura todas las tarjetas de proyectos para aplicar efecto 3D al mover el mouse.
     this.cards = [...document.querySelectorAll(cardSelector)];

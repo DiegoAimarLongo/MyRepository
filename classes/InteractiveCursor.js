@@ -1,4 +1,4 @@
-class InteractiveCursor {
+export default class InteractiveCursor {
   constructor({ cursorSelector = '#pxCursor', ringSelector = '#pxRing' } = {}) {
     // Intent: inicializa el cursor retro y prepara sus coordenadas para seguir el puntero con suavizado.
     this.cursor = document.querySelector(cursorSelector);

@@ -1,4 +1,4 @@
-class NavigationManager {
+export class NavigationManager {
   constructor({ beep } = {}) {
     // Intent: guarda la referencia al efecto de sonido y registra la navegación activa de la página.
     this.beep = beep || (() => {});
@@ -39,7 +39,7 @@ class NavigationManager {
   }
 }
 
-class ExperienceBar {
+export class ExperienceBar {
   constructor({ barSelector = '#xpBar' } = {}) {
     // Intent: guarda la referencia de la barra de progreso y la activa al cargar la página.
     this.bar = document.querySelector(barSelector);
@@ -64,7 +64,7 @@ class ExperienceBar {
   }
 }
 
-class AchievementManager {
+export class AchievementManager {
   constructor({ containerSelector = '#achv-container', beep } = {}) {
     // Intent: prepara el contenedor de toasts y el sistema de logros para secciones visibles.
     this.container = document.querySelector(containerSelector);
@@ -120,7 +120,7 @@ class AchievementManager {
   }
 }
 
-class SkillReveal {
+export class SkillReveal {
   constructor({ skillSelector = '.skill-card' } = {}) {
     // Intent: obtiene todas las tarjetas de habilidades para animarlas cuando entren en la vista.
     this.cards = [...document.querySelectorAll(skillSelector)];

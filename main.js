@@ -1,3 +1,9 @@
+import AudioManager from './classes/AudioManager.js';
+import InteractiveCursor from './classes/InteractiveCursor.js';
+import { NavigationManager, ExperienceBar, AchievementManager, SkillReveal } from './classes/SectionSystem.js';
+import { TypewriterEffect, ParticlesHero, ProjectCardTilt } from './classes/HeroSystem.js';
+import KonamiSystem from './classes/KonamiSystem.js';
+
 class PortfolioApp {
   constructor() {
     // Intent: inicializa la aplicación completa ensamblando todos los módulos del portfolio y sus dependencias.

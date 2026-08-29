@@ -1,4 +1,4 @@
-class KonamiSystem {
+export default class KonamiSystem {
   constructor({ beep, achievementFactory, overlaySelector = '#konami-overlay', closeSelector = '#konamiClose' } = {}) {
     // Intent: prepara la secuencia, la capa modal y la fábrica de logros para activar el easter egg de forma centralizada.
     this.beep = beep || (() => {});

@@ -1,4 +1,4 @@
-class AudioManager {
+export default class AudioManager {
   constructor({ soundToggleSelector = '#soundToggle' } = {}) {
     // Intent: guarda el estado del sonido y enlaza el botón para activar la interfaz de audio.
     this.audioCtx = null;
