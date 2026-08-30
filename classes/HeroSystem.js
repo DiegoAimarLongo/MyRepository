@@ -25,7 +25,8 @@ export class TypewriterEffect {
 
 export class ParticlesHero {
   constructor({ canvasSelector = '#particles', heroSelector = '.hero' } = {}) {
-    // Intent: guarda la referencia del canvas y del hero para generar partículas interactivas en la sección principal.
+    // Intent: guarda la referencia del canvas y del hero
+    // para generar partículas interactivas en la sección principal.
     this.canvas = document.querySelector(canvasSelector);
     this.hero = document.querySelector(heroSelector);
     this.ctx = this.canvas ? this.canvas.getContext('2d') : null;
@@ -35,7 +36,8 @@ export class ParticlesHero {
     this.init();
   }
 
-  // Intent: crea una partícula con color, velocidad y posición aleatoria para simular polvo pixelado.
+  // Intent: crea una partícula con color, velocidad y posición
+  // aleatoria para simular polvo pixelado.
   createParticle() {
     const colors = ['#7b5cf0', '#00d4ff', '#00ff88'];
     return {

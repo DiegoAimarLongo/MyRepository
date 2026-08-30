@@ -1,23 +1,34 @@
 export default class AudioManager {
+
   constructor({ soundToggleSelector = '#soundToggle' } = {}) {
-    // Intent: guarda el estado del sonido y enlaza el botón para activar la interfaz de audio.
+    // Intent: guarda el estado del sonido y enlaza el botón
+    // para activar la interfaz de audio.
     this.audioCtx = null;
-    this.soundOn = false;
+    this.soundOn = true;
     this.button = document.querySelector(soundToggleSelector);
     this.init();
   }
 
-  // Intent: crea el contexto de audio solo cuando el usuario lo necesita, evitando inicializaciones innecesarias.
-  createAudioContext() {
-    if (!this.audioCtx) {
-      const AudioCtor = window.AudioContext || window.webkitAudioContext;
-      if (AudioCtor) this.audioCtx = new AudioCtor();
-    }
-    return this.audioCtx;
+  updateButtonLabel() {
+    if (!this.button) return;
+
+    this.button.textContent = this.soundOn ? '🔊 SFX: ON' : '🔇 SFX: OFF';
+    this.button.setAttribute('aria-pressed', String(this.soundOn));
+    this.button.classList.toggle('is-on', this.soundOn);
   }
 
-  // Intent: emite un beep retro con frecuencia, duración y volumen específicos para feedback de acciones.
+  resumeAudioContext() {
+    const ctx = this.createAudioContext();
+    if (!ctx) return;
+
+    if (ctx.state === 'suspended') {
+      ctx.resume();
+    }
+  }
+
   beep(freq = 440, duration = 0.06, type = 'square', vol = 0.05) {
+  // Intent: emite un beep retro con frecuencia, duración y volumen
+  // específicos para feedback de acciones.
     if (!this.soundOn) return;
     const ctx = this.createAudioContext();
     if (!ctx) return;
@@ -37,16 +48,42 @@ export default class AudioManager {
     osc.stop(ctx.currentTime + duration);
   }
 
-  // Intent: sincroniza el toggle del sonido con la UI y activa el primer efecto cuando se habilita.
+  createAudioContext() {
+  // Intent: crea el contexto de audio solo cuando el usuario lo necesita,
+  // evitando inicializaciones innecesarias.
+    if (!this.audioCtx) {
+      const AudioCtor = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtor) this.audioCtx = new AudioCtor();
+    }
+    return this.audioCtx;
+  }
+
   init() {
+  // Intent: sincroniza el toggle del sonido con la UI y activa
+  // el primer efecto cuando se habilita.
     if (!this.button) return;
+
+    this.updateButtonLabel();
+    this.resumeAudioContext();
+
+    const unlockAudio = () => {
+      this.resumeAudioContext();
+      if (this.soundOn) this.beep(660, 0.08);
+      window.removeEventListener('pointerdown', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
+    };
+
+    window.addEventListener('pointerdown', unlockAudio, { once: true });
+    window.addEventListener('keydown', unlockAudio, { once: true });
 
     this.button.addEventListener('click', () => {
       this.soundOn = !this.soundOn;
-      if (this.soundOn && !this.audioCtx) this.createAudioContext();
+      this.updateButtonLabel();
 
-      this.button.textContent = this.soundOn ? '🔊 SFX: ON' : '🔇 SFX: OFF';
-      if (this.soundOn) this.beep(660, 0.08);
+      if (this.soundOn) {
+        this.resumeAudioContext();
+        this.beep(660, 0.08);
+      }
     });
   }
 }
