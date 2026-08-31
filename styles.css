@@ -59,14 +59,14 @@ body {
 
 .logo-area {
   text-align: center;
-  padding: 0 1.5rem 2rem;
+  padding: 0 1rem 1.5rem;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .logo-icon {
-  width: 56px;
-  height: 56px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -91,18 +91,18 @@ nav {
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 0.7rem 1rem;
+  gap: 10px;
+  padding: 0.6rem 0.8rem;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--text3);
   transition: all 0.2s;
   border: 1px solid transparent;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   text-decoration: none;
 }
 
@@ -124,7 +124,7 @@ nav {
 }
 
 .sidebar-bottom {
-  padding: 1.5rem;
+  padding: 1rem;
   border-top: 1px solid var(--border);
 }
 
@@ -142,16 +142,16 @@ nav {
 }
 
 .social-links a {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text2);
-  font-size: 14px;
+  font-size: 12px;
   text-decoration: none;
   transition: all 0.2s;
 }
@@ -895,15 +895,15 @@ section {
 /* ── SOUND TOGGLE ─────────────────────────── */
 .sound-toggle {
   width: 100%;
-  margin-top: 0.85rem;
-  padding: 8px;
+  margin-top: 0.5rem;
+  padding: 6px;
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 6px;
   color: var(--text2);
   font-family: 'Share Tech Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 1px;
+  font-size: 9px;
+  letter-spacing: 0.5px;
   cursor: pointer;
   transition: all 0.2s;
 }
