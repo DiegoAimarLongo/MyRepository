@@ -1,5 +1,5 @@
 export class TypewriterEffect {
-  constructor({ elementSelector = '#heroTypeTitle', text = 'Desarrollador de Software Junior' } = {}) {
+  constructor({ elementSelector = '#heroTypeTitle', text = 'Game Development | Backend Developer' } = {}) {
     // Intent: prepara el elemento del hero y el texto base para desplegar un efecto de escritura.
     this.element = document.querySelector(elementSelector);
     this.text = text;

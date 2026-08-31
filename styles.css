@@ -83,22 +83,6 @@ body {
   display: block;
 }
 
-.logo-name {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: 2px;
-}
-
-.logo-sub {
-  font-size: 10px;
-  color: var(--accent2);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-top: 2px;
-}
-
 nav {
   flex: 1;
   padding: 0 1rem;
@@ -238,7 +222,7 @@ nav {
   font-family: 'Rajdhani', sans-serif;
   font-size: 1.3rem;
   font-weight: 600;
-  color: var(--accent2);
+  color: #ffd700;
   letter-spacing: 2px;
   margin-bottom: 0.2rem;
 }
@@ -256,7 +240,7 @@ nav {
   font-family: 'Rajdhani', sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
-  color: var(--accent2);
+  color: #ffd700;
   letter-spacing: 1px;
   margin-bottom: 1.5rem;
 }
