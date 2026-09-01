@@ -4,6 +4,34 @@ import { NavigationManager, ExperienceBar, AchievementManager, SkillReveal } fro
 import { TypewriterEffect, ParticlesHero, ProjectCardTilt } from './classes/HeroSystem.js';
 import KonamiSystem from './classes/KonamiSystem.js';
 
+class ScrollToTopButton {
+  constructor() {
+    this.button = document.getElementById('scrollToTop');
+    this.threshold = 300;
+    this.init();
+  }
+
+  init() {
+    window.addEventListener('scroll', () => this.handleScroll());
+    this.button.addEventListener('click', () => this.scrollToTop());
+  }
+
+  handleScroll() {
+    if (window.scrollY > this.threshold) {
+      this.button.classList.add('visible');
+    } else {
+      this.button.classList.remove('visible');
+    }
+  }
+
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+}
+
 class PortfolioApp {
   constructor() {
     // Intent: inicializa la aplicación completa ensamblando todos los módulos del portfolio y sus dependencias.
@@ -20,6 +48,7 @@ class PortfolioApp {
       beep: this.audio.beep.bind(this.audio),
       achievementFactory: (payload) => this.achievements.showAchievement(payload)
     });
+    this.scrollToTop = new ScrollToTopButton();
   }
 }
 
