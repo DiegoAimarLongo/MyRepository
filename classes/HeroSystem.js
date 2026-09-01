@@ -110,7 +110,7 @@ export class ParticlesHero {
       this.mouseY = -9999;
     });
 
-    const count = 70;
+    const count = 750;
     for (let i = 0; i < count; i += 1) {
       const particle = this.createParticle();
       particle.y = Math.random() * this.canvas.height;
