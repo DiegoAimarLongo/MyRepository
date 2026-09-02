@@ -1030,3 +1030,105 @@ section {
 @media (prefers-reduced-motion: reduce) {
   .konami-text { animation: none !important; }
 }
+
+/* ── CAROUSEL SYSTEM ──────────────────────── */
+.projects-grid.carousel-mode {
+  display: block;
+  position: relative;
+}
+
+.carousel-wrapper {
+  overflow: hidden;
+  border-radius: 14px;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+}
+
+.carousel-track .project-card {
+  flex: 0 0 calc(33.333% - 1rem);
+  min-width: 280px;
+}
+
+@media (max-width: 1200px) {
+  .carousel-track .project-card {
+    flex: 0 0 calc(50% - 0.75rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-track .project-card {
+    flex: 0 0 100%;
+  }
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.carousel-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--accent2);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(123, 92, 240, 0.15);
+}
+
+.carousel-btn:hover:not(:disabled) {
+  border-color: var(--accent2);
+  background: var(--panel2);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(123, 92, 240, 0.3);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 0;
+  box-shadow: none;
+}
+
+.carousel-dot:hover {
+  border-color: var(--accent2);
+  background: rgba(123, 92, 240, 0.2);
+}
+
+.carousel-dot.active {
+  background: var(--accent2);
+  border-color: var(--accent2);
+  box-shadow: 0 0 12px rgba(123, 92, 240, 0.6);
+}

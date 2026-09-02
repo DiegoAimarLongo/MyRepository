@@ -3,6 +3,7 @@ import InteractiveCursor from './classes/InteractiveCursor.js';
 import { NavigationManager, ExperienceBar, AchievementManager, SkillReveal } from './classes/SectionSystem.js';
 import { TypewriterEffect, ParticlesHero, ProjectCardTilt } from './classes/HeroSystem.js';
 import KonamiSystem from './classes/KonamiSystem.js';
+import CarouselSystem from './classes/CarouselSystem.js';
 
 class ScrollToTopButton {
   constructor() {
@@ -48,6 +49,7 @@ class PortfolioApp {
       beep: this.audio.beep.bind(this.audio),
       achievementFactory: (payload) => this.achievements.showAchievement(payload)
     });
+    this.carousel = new CarouselSystem({ containerSelector: '.projects-grid', cardsPerView: 3 });
     this.scrollToTop = new ScrollToTopButton();
   }
 }
