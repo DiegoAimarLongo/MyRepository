@@ -88,12 +88,19 @@ export default class CarouselSystem {
 
   updateCarousel() {
     // Intent: actualiza la posición del carrusel y desactiva botones
-    // cuando está en los extremos.
-    if (!this.track) return;
+    // cuando está en los extremos, manteniendo todo dentro de la pantalla.
+    if (!this.track || !this.wrapper) return;
 
+    // Calcular el ancho disponible del contenedor
+    const wrapperWidth = this.wrapper.offsetWidth;
+    
+    // Calcular el ancho de cada tarjeta
     const cardWidth = this.cards[0]?.offsetWidth || 280;
     const gap = 24; // 1.5rem en pixels
-    const offset = -this.currentIndex * (cardWidth + gap);
+    const singleCardWidth = cardWidth + gap;
+
+    // Calcular el desplazamiento
+    const offset = -this.currentIndex * singleCardWidth;
 
     this.track.style.transform = `translateX(${offset}px)`;
     this.updateDots();

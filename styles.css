@@ -357,6 +357,8 @@ nav {
 section {
   padding: 5rem 3rem;
   border-top: 1px solid var(--border);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .section-header {
@@ -499,6 +501,8 @@ section {
 .thumb-1 { background: linear-gradient(135deg, #1a0a3e, #2d1b69, #0d2a1a); color: #00ff88; }
 .thumb-2 { background: linear-gradient(135deg, #0a1a3e, #1b3069, #0a2a3a); color: #00d4ff; }
 .thumb-3 { background: linear-gradient(135deg, #2e1a0a, #4a2a10, #1a0a0a); color: #ff8800; }
+.thumb-4 { background: linear-gradient(135deg, #1a1a2e, #3d1a5c, #2d1a1a); color: #ff00ff; }
+.thumb-5 { background: linear-gradient(135deg, #0a3e1a, #1a6b2d, #0a2d1a); color: #00ff00; }
 
 .project-body {
   padding: 1.25rem;
@@ -1035,12 +1039,17 @@ section {
 .projects-grid.carousel-mode {
   display: block;
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
 }
 
 .carousel-wrapper {
   overflow: hidden;
   border-radius: 14px;
   position: relative;
+  width: 100%;
+  max-width: 100%;
 }
 
 .carousel-track {
@@ -1048,22 +1057,26 @@ section {
   gap: 1.5rem;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 0;
+  width: 100%;
 }
 
 .carousel-track .project-card {
-  flex: 0 0 calc(33.333% - 1rem);
-  min-width: 280px;
+  flex: 0 0 calc((100% - 3rem) / 3);
+  min-width: 0;
+  max-width: calc((100% - 3rem) / 3);
 }
 
 @media (max-width: 1200px) {
   .carousel-track .project-card {
-    flex: 0 0 calc(50% - 0.75rem);
+    flex: 0 0 calc((100% - 1.5rem) / 2);
+    max-width: calc((100% - 1.5rem) / 2);
   }
 }
 
 @media (max-width: 768px) {
   .carousel-track .project-card {
     flex: 0 0 100%;
+    max-width: 100%;
   }
 }
 
@@ -1073,6 +1086,8 @@ section {
   justify-content: center;
   gap: 2rem;
   margin-top: 2rem;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .carousel-btn {
@@ -1090,6 +1105,7 @@ section {
   align-items: center;
   justify-content: center;
   box-shadow: 0 0 12px rgba(123, 92, 240, 0.15);
+  flex-shrink: 0;
 }
 
 .carousel-btn:hover:not(:disabled) {
@@ -1108,6 +1124,8 @@ section {
   display: flex;
   gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .carousel-dot {
@@ -1120,6 +1138,7 @@ section {
   transition: all 0.3s;
   padding: 0;
   box-shadow: none;
+  flex-shrink: 0;
 }
 
 .carousel-dot:hover {
@@ -1131,4 +1150,5 @@ section {
   background: var(--accent2);
   border-color: var(--accent2);
   box-shadow: 0 0 12px rgba(123, 92, 240, 0.6);
+}
 }
