@@ -23,8 +23,8 @@ export default class InteractiveCursor {
     });
 
     const animate = () => {
-      this.rx += (this.mx - this.rx) * 0.18;
-      this.ry += (this.my - this.ry) * 0.18;
+      this.rx += (this.mx - this.rx) * 0.30;
+      this.ry += (this.my - this.ry) * 0.30;
       this.ring.style.left = this.rx + 'px';
       this.ring.style.top = this.ry + 'px';
       requestAnimationFrame(animate);
