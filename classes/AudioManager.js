@@ -85,5 +85,11 @@ export default class AudioManager {
         this.beep(660, 0.08);
       }
     });
+
+    // Intent: reproduce un beep cada vez que el usuario hace click
+    // en cualquier parte de la pantalla si el sonido está activado.
+    document.addEventListener('click', () => {
+      if (this.soundOn) this.beep();
+    });
   }
 }
