@@ -121,29 +121,3 @@ export class ParticlesHero {
   }
 }
 
-export class ProjectCardTilt {
-  constructor({ cardSelector = '.project-card' } = {}) {
-    // Intent: captura todas las tarjetas de proyectos para aplicar efecto 3D al mover el mouse.
-    this.cards = [...document.querySelectorAll(cardSelector)];
-    this.init();
-  }
-
-  // Intent: rotan las tarjetas según la posición del cursor para crear profundidad y sensación premium.
-  init() {
-    this.cards.forEach((card) => {
-      card.addEventListener('mousemove', (event) => {
-        const rect = card.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        const rotateX = ((y - rect.height / 2) / rect.height) * -10;
-        const rotateY = ((x - rect.width / 2) / rect.width) * 10;
-
-        card.style.transform = `translateY(-4px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
-  }
-}

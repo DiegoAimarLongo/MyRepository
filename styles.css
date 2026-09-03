@@ -469,14 +469,13 @@ section {
   border: 1px solid var(--border);
   border-radius: 14px;
   overflow: hidden;
-  transition: all 0.3s;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
   cursor: pointer;
 }
 
 .project-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent);
-  box-shadow: 0 8px 40px rgba(123, 92, 240, 0.25);
+  border-color: var(--accent2);
+  box-shadow: 0 12px 24px rgba(5, 6, 15, 0.22);
 }
 
 .project-thumb {
@@ -970,10 +969,6 @@ section {
   color: var(--accent2);
 }
 
-/* ── TILT EN PROJECT CARDS ────────────────── */
-.projects-grid { perspective: 1000px; }
-.project-card { will-change: transform; transform-style: preserve-3d; }
-
 /* ── SKILL BAR ANIMADA ─────────────────────── */
 .skill-bar-fill {
   width: 0% !important;
@@ -1151,4 +1146,4 @@ section {
   border-color: var(--accent2);
   box-shadow: 0 0 12px rgba(123, 92, 240, 0.6);
 }
-}
+

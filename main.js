@@ -1,7 +1,7 @@
 import AudioManager from './classes/AudioManager.js';
 import InteractiveCursor from './classes/InteractiveCursor.js';
 import { NavigationManager, ExperienceBar, AchievementManager, SkillReveal } from './classes/SectionSystem.js';
-import { TypewriterEffect, ParticlesHero, ProjectCardTilt } from './classes/HeroSystem.js';
+import { TypewriterEffect, ParticlesHero } from './classes/HeroSystem.js';
 import KonamiSystem from './classes/KonamiSystem.js';
 import CarouselSystem from './classes/CarouselSystem.js';
 
@@ -43,7 +43,6 @@ class PortfolioApp {
     this.achievements = new AchievementManager({ beep: this.audio.beep.bind(this.audio) });
     this.typewriter = new TypewriterEffect();
     this.heroParticles = new ParticlesHero();
-    this.projectTilt = new ProjectCardTilt();
     this.skillReveal = new SkillReveal();
     this.konami = new KonamiSystem({
       beep: this.audio.beep.bind(this.audio),
