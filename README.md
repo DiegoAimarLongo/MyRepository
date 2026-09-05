@@ -1,202 +1,106 @@
-### Software Developer · Game Developer
+# 🎮 Diego Aimar Longo
 
-I'm a **Software Developer** with a background in **Game Development** and currently studying **Systems Engineering**.
+### Software Developer · Game Developer · Systems Engineering Student
 
-I enjoy understanding how things work, solving problems through logic and algorithms, and building software that is **clean, modular, maintainable, and scalable**.
+📍 Rosario, Santa Fe, Argentina
 
-My main interests are **software development, backend systems, game programming, and software architecture**.
+I'm a Software Developer with a background in Game Development and currently studying Systems Engineering.
 
----
+I enjoy understanding how things work, solving problems through logic and algorithms, and building software that is clean, modular, maintainable, and scalable.
 
-## 🧠 About Me
+My main interests are software development, backend systems, game programming, and software architecture.
 
-- 💻 Software Developer focused on programming and problem solving
-- 🎮 Background in Game Development and Gameplay Programming
-- 🏗️ Interested in Software Architecture and scalable systems
-- 🧩 Strong interest in Object-Oriented Programming and design principles
-- 🔧 Currently expanding my knowledge in Backend Development
-- 📚 Systems Engineering student
-- 🎯 Always focused on understanding the fundamentals behind the technology
+## Caracteristicas
 
-> **Technology changes. Logic, algorithms, and solid fundamentals remain.**
+- Hero section con fondo animado y particulas.
+- Navegacion lateral entre secciones.
+- Barra de progreso basada en el scroll.
+- Carrusel interactivo para los proyectos.
+- Cursor personalizado con estilo pixelado.
+- Efectos de audio configurables.
+- Sistema de logros y easter egg Konami.
+- Seccion responsive para distintos tamanos de pantalla.
+- Imagenes individuales para los proyectos destacados.
 
----
+## Tecnologias
 
-## 🛠️ Technologies & Tools
+- HTML5
+- CSS3
+- JavaScript ES Modules
+- Canvas API
 
-### Languages
-
-<p>
-  <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"/>
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
-  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
-</p>
-
-### Game Development
-
-<p>
-  <img src="https://img.shields.io/badge/Unity-000000?style=for-the-badge&logo=unity&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Godot-478CBF?style=for-the-badge&logo=godotengine&logoColor=white"/>
-  <img src="https://img.shields.io/badge/PixiJS-EF2D5E?style=for-the-badge&logo=pixijs&logoColor=white"/>
-</p>
-
-### Development & Tools
-
-<p>
-  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white"/>
-  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/>
-  <img src="https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white"/>
-</p>
-
----
-
-## 🧩 Programming & Software Concepts
-
-- Object-Oriented Programming
-- Algorithms & Data Structures
-- SOLID Principles
-- MVC / MVP
-- Design Patterns
-- Event-Driven Programming
-- Game Loops
-- 2D Collision Systems
-- Modular & Maintainable Code
-- Software Architecture
-
----
-
-## 🎮 Featured Projects
-
-### 🦴 Trail of Bones
-
-Collaborative **Unity / C#** project focused on gameplay programming.
-
-**Technologies & Concepts**
-
-- C#
-- Unity
-- Object-Oriented Programming
-- MVC
-- MVP
-- Singleton
-- Gameplay Logic
-
-🔗 Repository: [View Project](https://github.com/Francofrt1/TrailOfBones)
-
----
-
-### 🪐 Orbital Arousal
-
-Collaborative **JavaScript / PixiJS** project focused on game logic and interactive 2D mechanics.
-
-**Technologies & Concepts**
-
-- JavaScript
-- PixiJS
-- 2D Game Development
-- Game Logic
-- Interactive Systems
-
-🔗 Repository: [View Project](https://github.com/IbarraCM/PixiGame)
-
----
-
-### 🧉 Mate e' Mitos
-
-MMORPG concept inspired by **Argentine folklore and gaucho fantasy**.
-
-The project explores multiplayer systems, social mechanics, freemium monetization, and game design documentation.
-
-**Concepts**
-
-- MMORPG Design
-- Game Systems
-- Social Mechanics
-- Freemium Monetization
-- Game Design Documentation
-
----
-
-### 🥚 Save The EGG
-
-Freelance **2D game** developed with Construct 2.
-
-A small project focused on interactive mechanics and retro-inspired visual design.
-
-**Technologies**
-
-- Construct 2
-- 2D Game Development
-- Gameplay Mechanics
-
----
-
-## 🚀 Currently Learning
+## Estructura del proyecto
 
 ```text
-Backend Development
-        │
-        ├── REST APIs
-        ├── HTTP
-        ├── JSON
-        ├── ASP.NET Core
-        └── Database Integration
-
-Software Engineering
-        │
-        ├── Architecture
-        ├── Design Patterns
-        ├── SOLID
-        └── Scalable Systems
-````
-
----
-
-## 📂 Portfolio
-
-🌐 **Personal Portfolio**
-
-My interactive portfolio combines software development with a retro video-game-inspired experience.
-
-👉 [Visit my Portfolio](#)
-
----
-
-## 📫 Contact
-
-<p>
-  <a href="mailto:longodiegoaimar@gmail.com">
-    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"/>
-  </a>
-  <a href="https://www.linkedin.com/in/diego-longo">
-    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
-  </a>
-  <a href="https://github.com/DiegoAimarLongo">
-    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/>
-  </a>
-</p>
-
----
-
-## 📊 GitHub
-
-<p>
-  <img src="https://github-readme-stats.vercel.app/api?username=DiegoAimarLongo&show_icons=true&theme=tokyonight&hide_border=true" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=DiegoAimarLongo&layout=compact&theme=tokyonight&hide_border=true" />
-</p>
-
----
-
-### 💡 Philosophy
-
-> **"Don't just learn technologies. Understand the logic behind them."**
-
----
-
-⭐ If you find my projects interesting, feel free to explore the repositories and connect with me.
-
+.
+├── index.html
+├── main.js
+├── styles.css
+├── assets/
+│   ├── diegoCV.png
+│   ├── hero-bg.png
+│   ├── trailOfBonesPicture.jpg
+│   ├── orbitalPicture.jpg
+│   ├── matePicture.jpg
+│   └── saveTheEggPicture.jpg
+└── classes/
+    ├── AudioManager.js
+    ├── CarouselSystem.js
+    ├── HeroSystem.js
+    ├── InteractiveCursor.js
+    ├── KonamiSystem.js
+    └── SectionSystem.js
 ```
+
+## Ejecutar localmente
+
+Este proyecto no requiere instalacion de dependencias.
+
+### Opcion 1: abrir directamente
+
+Abrir `index.html` en un navegador moderno.
+
+### Opcion 2: usar un servidor local
+
+Desde la raiz del proyecto, ejecutar uno de estos comandos:
+
+```bash
+# Python
+python -m http.server 8000
 ```
+
+Luego visitar:
+
+```text
+http://localhost:8000
+```
+
+Tambien se puede utilizar la extension Live Server de Visual Studio Code.
+
+## Proyectos destacados
+
+### Trail of Bones
+
+Proyecto colaborativo en Unity desarrollado con C#. Incluye logica de gameplay, programacion orientada a objetos y patrones MVC, MVP y Singleton.
+
+### Orbital Arousal
+
+Proyecto colaborativo desarrollado con JavaScript y PixiJS, enfocado en logica de juego y mecanicas interactivas 2D.
+
+### Mate e' Mitos
+
+Concepto de MMORPG basado en folklore argentino y fantasia gauchesca, con sistemas sociales, monetizacion freemium y documentacion de diseno.
+
+### Save The EGG
+
+Juego 2D freelance desarrollado con Construct 2, con mecanicas interactivas y una estetica visual retro.
+
+## Contacto
+
+- Email: longodiegoaimar@gmail.com
+- Ubicacion: Rosario, Santa Fe, Argentina
+- LinkedIn: linkedin.com/in/diego-longo
+
+## Licencia
+
+Este proyecto es un portfolio personal. El contenido, las imagenes y los datos presentados pertenecen a sus respectivos autores.
