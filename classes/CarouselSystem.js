@@ -48,7 +48,7 @@ export default class CarouselSystem {
   }
 
   createControls() {
-    // Intent: genera los botones prev/next y los indicadores de página.
+    // Intent: genera los botones prev/next.
     const controlsContainer = document.createElement('div');
     controlsContainer.className = 'carousel-controls';
 
@@ -63,22 +63,6 @@ export default class CarouselSystem {
     nextBtn.addEventListener('click', () => this.next());
 
     controlsContainer.appendChild(prevBtn);
-    
-    // Indicadores
-    const dotsContainer = document.createElement('div');
-    dotsContainer.className = 'carousel-dots';
-    
-    const totalPages = Math.ceil(this.cards.length / this.cardsPerView);
-    for (let i = 0; i < totalPages; i++) {
-      const dot = document.createElement('button');
-      dot.className = 'carousel-dot';
-      if (i === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => this.goToPage(i));
-      dotsContainer.appendChild(dot);
-    }
-    
-    this.dotsContainer = dotsContainer;
-    controlsContainer.appendChild(dotsContainer);
     controlsContainer.appendChild(nextBtn);
 
     this.wrapper.parentElement.appendChild(controlsContainer);
@@ -103,20 +87,7 @@ export default class CarouselSystem {
     const offset = -this.currentIndex * singleCardWidth;
 
     this.track.style.transform = `translateX(${offset}px)`;
-    this.updateDots();
     this.updateButtonStates();
-  }
-
-  updateDots() {
-    // Intent: marca el indicador activo según la página actual.
-    if (!this.dotsContainer) return;
-
-    const dots = this.dotsContainer.querySelectorAll('.carousel-dot');
-    const currentPage = Math.floor(this.currentIndex / this.cardsPerView);
-    
-    dots.forEach((dot, idx) => {
-      dot.classList.toggle('active', idx === currentPage);
-    });
   }
 
   updateButtonStates() {
@@ -149,9 +120,4 @@ export default class CarouselSystem {
     }
   }
 
-  goToPage(pageIdx) {
-    // Intent: salta a una página específica del carrusel.
-    this.currentIndex = pageIdx * this.cardsPerView;
-    this.updateCarousel();
-  }
 }

@@ -1115,35 +1115,3 @@ section {
   cursor: not-allowed;
 }
 
-.carousel-dots {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.carousel-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: transparent;
-  border: 1px solid var(--border);
-  cursor: pointer;
-  transition: all 0.3s;
-  padding: 0;
-  box-shadow: none;
-  flex-shrink: 0;
-}
-
-.carousel-dot:hover {
-  border-color: var(--accent2);
-  background: rgba(123, 92, 240, 0.2);
-}
-
-.carousel-dot.active {
-  background: var(--accent2);
-  border-color: var(--accent2);
-  box-shadow: 0 0 12px rgba(123, 92, 240, 0.6);
-}
-
