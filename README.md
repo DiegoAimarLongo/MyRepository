@@ -1,8 +1,4 @@
-# 🎮 Diego Aimar Longo
-
 ### Software Developer · Game Developer · Systems Engineering Student
-
-📍 Rosario, Santa Fe, Argentina
 
 I'm a Software Developer with a background in Game Development and currently studying Systems Engineering.
 
