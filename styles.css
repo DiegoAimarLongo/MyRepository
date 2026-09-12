@@ -502,8 +502,11 @@ section {
 
 .thumb-1 { background: linear-gradient(135deg, #1a0a3e, #2d1b69, #0d2a1a); color: #00ff88; }
 .thumb-2 { background: linear-gradient(135deg, #0a1a3e, #1b3069, #0a2a3a); color: #00d4ff; }
+.thumb-2 .project-image,
+.thumb-3 .project-image { object-position: center top; }
 .thumb-3 { background: linear-gradient(135deg, #2e1a0a, #4a2a10, #1a0a0a); color: #ff8800; }
 .thumb-4 { background: linear-gradient(135deg, #1a1a2e, #3d1a5c, #2d1a1a); color: #ff00ff; }
+.thumb-4 .project-image { object-position: center top; }
 .thumb-5 { background: linear-gradient(135deg, #0a3e1a, #1a6b2d, #0a2d1a); color: #00ff00; }
 
 .project-body {
@@ -541,6 +544,7 @@ section {
 .tag-cyan   { background: rgba(0, 212, 255, 0.1);  color: var(--cyan);    border: 1px solid rgba(0, 212, 255, 0.3); }
 .tag-green  { background: rgba(0, 255, 136, 0.1);  color: var(--green);   border: 1px solid rgba(0, 255, 136, 0.3); }
 .tag-orange { background: rgba(255, 136, 0, 0.1);  color: #ff8800;        border: 1px solid rgba(255, 136, 0, 0.3); }
+.tag-red    { background: rgba(255, 70, 70, 0.12); color: #ff7070;        border: 1px solid rgba(255, 70, 70, 0.4); }
 
 .project-desc {
   font-size: 13px;
