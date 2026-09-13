@@ -1,7 +1,8 @@
 export class NavigationManager {
-  constructor({ beep } = {}) {
+  constructor({ beep, eventBus } = {}) {
     // Intent: guarda la referencia al efecto de sonido y registra la navegación activa de la página.
     this.beep = beep || (() => {});
+    this.eventBus = eventBus;
     this.navItems = [...document.querySelectorAll('.nav-item')];
     this.sections = [...document.querySelectorAll('section[id]')];
     this.init();
@@ -16,6 +17,7 @@ export class NavigationManager {
         this.navItems.forEach((navItem) => navItem.classList.remove('active'));
         const activeItem = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
         if (activeItem) activeItem.classList.add('active');
+        this.eventBus?.emit('section:active', entry.target.id);
       });
     }, { threshold: 0.3 });
 
@@ -40,9 +42,10 @@ export class NavigationManager {
 }
 
 export class ExperienceBar {
-  constructor({ barSelector = '#xpBar' } = {}) {
+  constructor({ barSelector = '#xpBar', eventBus } = {}) {
     // Intent: guarda la referencia de la barra de progreso y la activa al cargar la página.
     this.bar = document.querySelector(barSelector);
+    this.eventBus = eventBus;
     this.init();
   }
 
@@ -55,6 +58,7 @@ export class ExperienceBar {
     const max = root.scrollHeight - root.clientHeight;
     const percent = max > 0 ? (scrolled / max) * 100 : 0;
     this.bar.style.width = percent + '%';
+    this.eventBus?.emit('scroll:progress', percent);
   }
 
   // Intent: escucha el scroll y sincroniza la barra en cada movimiento para dar feedback de recorrido.
@@ -65,10 +69,11 @@ export class ExperienceBar {
 }
 
 export class AchievementManager {
-  constructor({ containerSelector = '#achv-container', beep } = {}) {
+  constructor({ containerSelector = '#achv-container', beep, eventBus } = {}) {
     // Intent: prepara el contenedor de toasts y el sistema de logros para secciones visibles.
     this.container = document.querySelector(containerSelector);
     this.beep = beep || (() => {});
+    this.eventBus = eventBus;
     this.achvData = {
       'sobre-mi': { icon: '◉', label: 'Logro desbloqueado', title: 'Conociste al desarrollador' },
       proyectos: { icon: '⬡', label: 'Logro desbloqueado', title: 'Explorador de proyectos' },
@@ -81,7 +86,14 @@ export class AchievementManager {
   }
 
   // Intent: crea una notificación visual de logro con tono de audio para reforzar el feedback del usuario.
-  showAchievement({ icon, label, title }) {
+  showAchievement({ id, icon, label, title }) {
+    if (this.eventBus) {
+      this.eventBus.emit('achievement:detected', { id, icon, label, title });
+      this.beep(880, 0.05, 'square', 0.05);
+      setTimeout(() => this.beep(1046, 0.08, 'square', 0.05), 90);
+      return;
+    }
+
     if (!this.container) return;
 
     const toast = document.createElement('div');
@@ -108,7 +120,7 @@ export class AchievementManager {
         const id = entry.target.id;
         if (entry.isIntersecting && this.achvData[id] && !this.unlocked.has(id)) {
           this.unlocked.add(id);
-          this.showAchievement(this.achvData[id]);
+          this.showAchievement({ ...this.achvData[id], id });
         }
       });
     }, { threshold: 0.4 });

@@ -1,8 +1,9 @@
 export default class KonamiSystem {
-  constructor({ beep, achievementFactory, overlaySelector = '#konami-overlay', closeSelector = '#konamiClose' } = {}) {
+  constructor({ beep, achievementFactory, eventBus, overlaySelector = '#konami-overlay', closeSelector = '#konamiClose' } = {}) {
     // Intent: prepara la secuencia, la capa modal y la fábrica de logros para activar el easter egg de forma centralizada.
     this.beep = beep || (() => {});
     this.achievementFactory = achievementFactory || (() => {});
+    this.eventBus = eventBus;
     this.sequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
     this.position = 0;
     this.overlay = document.querySelector(overlaySelector);
@@ -27,19 +28,34 @@ export default class KonamiSystem {
       }
 
       if (event.key === 'Escape' && this.overlay) {
-        this.overlay.classList.remove('show');
+        this.close();
       }
     });
 
     if (this.closeButton) {
       this.closeButton.addEventListener('click', () => {
-        if (this.overlay) this.overlay.classList.remove('show');
+        this.close();
       });
     }
   }
 
   // Intent: muestra el overlay secreto y lanza una secuencia musical junto con el logro del usuario.
   activate() {
+    const achievement = {
+      id: 'konami',
+      icon: '🎮',
+      label: 'Logro secreto',
+      title: 'Jugador Nº2 detectado'
+    };
+
+    if (this.eventBus) {
+      this.eventBus.emit('konami:activated', achievement);
+      [523, 659, 784, 1046].forEach((frequency, index) => {
+        setTimeout(() => this.beep(frequency, 0.12, 'square', 0.06), index * 120);
+      });
+      return;
+    }
+
     if (!this.overlay) return;
 
     this.overlay.classList.add('show');
@@ -47,10 +63,14 @@ export default class KonamiSystem {
       setTimeout(() => this.beep(frequency, 0.12, 'square', 0.06), index * 120);
     });
 
-    this.achievementFactory({
-      icon: '🎮',
-      label: 'Logro secreto',
-      title: 'Jugador Nº2 detectado'
-    });
+    this.achievementFactory(achievement);
+  }
+
+  close() {
+    if (this.eventBus) {
+      this.eventBus.emit('konami:closed');
+      return;
+    }
+    this.overlay?.classList.remove('show');
   }
 }

@@ -1,10 +1,11 @@
 export default class AudioManager {
 
-  constructor({ soundToggleSelector = '#soundToggle' } = {}) {
+  constructor({ soundToggleSelector = '#soundToggle', eventBus } = {}) {
     // Intent: guarda el estado del sonido y enlaza el botón
     // para activar la interfaz de audio.
     this.audioCtx = null;
     this.soundOn = true;
+    this.eventBus = eventBus;
     this.button = document.querySelector(soundToggleSelector);
     this.init();
   }
@@ -79,6 +80,7 @@ export default class AudioManager {
     this.button.addEventListener('click', () => {
       this.soundOn = !this.soundOn;
       this.updateButtonLabel();
+      this.eventBus?.emit('audio:changed', this.soundOn);
 
       if (this.soundOn) {
         this.resumeAudioContext();

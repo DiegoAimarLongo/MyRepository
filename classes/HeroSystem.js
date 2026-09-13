@@ -23,6 +23,74 @@ export class TypewriterEffect {
   }
 }
 
+export class HeroInteraction {
+  constructor({ heroSelector = '.hero', cardSelector = '.project-card, .skill-card' } = {}) {
+    this.hero = document.querySelector(heroSelector);
+    this.cards = [...document.querySelectorAll(cardSelector)];
+    this.isTouch = matchMedia('(hover: none), (pointer: coarse)').matches;
+    this.pointer = { x: 0.5, y: 0.5 };
+    this.targetRotation = { x: 0, y: 0 };
+    this.rotation = { x: 0, y: 0 };
+    this.init();
+  }
+
+  init() {
+    if (this.isTouch || !this.hero) return;
+
+    this.hero.addEventListener('mousemove', (event) => this.handleMove(event));
+    this.hero.addEventListener('mouseleave', () => this.reset());
+
+    this.cards.forEach((card) => {
+      card.addEventListener('mousemove', (event) => this.handleCardMove(event, card));
+      card.addEventListener('mouseleave', () => this.resetCard(card));
+    });
+
+    this.animate();
+  }
+
+  handleMove(event) {
+    const rect = this.hero.getBoundingClientRect();
+    this.pointer.x = (event.clientX - rect.left) / rect.width;
+    this.pointer.y = (event.clientY - rect.top) / rect.height;
+    this.targetRotation.x = (0.5 - this.pointer.y) * 5;
+    this.targetRotation.y = (this.pointer.x - 0.5) * 7;
+    this.hero.style.setProperty('--mouse-x', `${this.pointer.x * 100}%`);
+    this.hero.style.setProperty('--mouse-y', `${this.pointer.y * 100}%`);
+    this.hero.classList.add('is-aiming');
+  }
+
+  handleCardMove(event, card) {
+    const rect = card.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    card.style.setProperty('--card-tilt-x', `${y * -7}deg`);
+    card.style.setProperty('--card-tilt-y', `${x * 9}deg`);
+    card.style.setProperty('--card-glow-x', `${(x + 0.5) * 100}%`);
+    card.style.setProperty('--card-glow-y', `${(y + 0.5) * 100}%`);
+    card.classList.add('is-targeted');
+  }
+
+  reset() {
+    this.targetRotation.x = 0;
+    this.targetRotation.y = 0;
+    this.hero.classList.remove('is-aiming');
+  }
+
+  resetCard(card) {
+    card.classList.remove('is-targeted');
+    card.style.removeProperty('--card-tilt-x');
+    card.style.removeProperty('--card-tilt-y');
+  }
+
+  animate() {
+    this.rotation.x += (this.targetRotation.x - this.rotation.x) * 0.08;
+    this.rotation.y += (this.targetRotation.y - this.rotation.y) * 0.08;
+    this.hero.style.setProperty('--hero-tilt-x', `${this.rotation.x}deg`);
+    this.hero.style.setProperty('--hero-tilt-y', `${this.rotation.y}deg`);
+    requestAnimationFrame(() => this.animate());
+  }
+}
+
 export class ParticlesHero {
   constructor({ canvasSelector = '#particles', heroSelector = '.hero' } = {}) {
     // Intent: guarda la referencia del canvas y del hero
