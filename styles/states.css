@@ -1,0 +1,74 @@
+/* Script-owned states: controllers change state, CSS decides presentation. */
+.nav-item.active {
+  color: var(--accent2);
+  background: rgba(123, 92, 240, 0.15);
+  border-color: var(--border);
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sound-toggle.is-on {
+  border-color: var(--green2);
+  color: var(--green);
+}
+
+.hero.is-aiming .hero-reticle {
+  opacity: 1;
+}
+
+.project-card.is-targeted,
+.skill-card.is-targeted {
+  border-color: var(--cyan);
+  box-shadow: var(--state-target-glow);
+}
+
+.skill-card.in-view {
+  animation: skill-card-reveal var(--motion-base) var(--ease-ui) both;
+}
+
+@keyframes skill-card-reveal {
+  from {
+    opacity: 0;
+    transform: perspective(900px) translateY(14px) rotateX(var(--card-tilt-x, 0deg)) rotateY(var(--card-tilt-y, 0deg));
+  }
+  to {
+    opacity: 1;
+    transform: perspective(900px) rotateX(var(--card-tilt-x, 0deg)) rotateY(var(--card-tilt-y, 0deg));
+  }
+}
+
+.px-cursor.click {
+  transform: translate(-50%, -50%) scale(0.7);
+}
+
+#konami-overlay.show {
+  display: flex;
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+:where(a, button, .nav-item, .project-card, .skill-card, .contact-item):focus-visible {
+  outline: none;
+  box-shadow: var(--state-focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .skill-card.in-view {
+    animation: none;
+  }
+}

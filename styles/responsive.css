@@ -1,0 +1,44 @@
+@media (max-width: 1200px) {
+  .carousel-track .project-card {
+    flex-basis: calc((100% - 1.5rem) / 2);
+    max-width: calc((100% - 1.5rem) / 2);
+  }
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main {
+    margin-left: 0;
+  }
+
+  .xp-bar-wrap {
+    left: 0;
+  }
+
+  .about-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  section {
+    padding: 3rem 1.5rem;
+  }
+
+  .hero {
+    padding: 3rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-track .project-card {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  .hero-reticle {
+    display: none;
+  }
+}

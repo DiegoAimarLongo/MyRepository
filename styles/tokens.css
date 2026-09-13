@@ -1,0 +1,17 @@
+:root {
+  --layout-sidebar-width: 220px;
+  --layout-content-padding: 3rem;
+  --layout-section-padding: 5rem;
+  --layout-mobile-breakpoint: 900px;
+  --layout-carousel-breakpoint: 1200px;
+  --layout-card-radius: 12px;
+  --space-section: var(--layout-section-padding);
+  --space-content: var(--layout-content-padding);
+  --space-grid: 1.5rem;
+  --motion-fast: 0.18s;
+  --motion-base: 0.3s;
+  --motion-slow: 0.5s;
+  --ease-ui: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --state-focus-ring: 0 0 0 3px rgba(0, 212, 255, 0.28);
+  --state-target-glow: 0 16px 34px rgba(0, 212, 255, 0.16), 0 0 24px rgba(0, 212, 255, 0.12);
+}

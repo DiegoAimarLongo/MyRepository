@@ -1,0 +1,20 @@
+@import url('./tokens.css');
+@import url('./states.css');
+
+/* Scalable visual contracts for the MVC application. */
+.sidebar {
+  width: var(--layout-sidebar-width);
+  min-width: var(--layout-sidebar-width);
+}
+
+.main {
+  margin-left: var(--layout-sidebar-width);
+}
+
+section {
+  padding: var(--space-section) var(--space-content);
+}
+
+.carousel-track {
+  gap: var(--space-grid);
+}

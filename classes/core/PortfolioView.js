@@ -25,14 +25,17 @@ export default class PortfolioView {
   }
 
   setActiveSection(sectionId) {
+    document.body.dataset.activeSection = sectionId;
     this.navItems.forEach((item) => item.classList.toggle('active', item.getAttribute('href') === `#${sectionId}`));
   }
 
   setScrollProgress(progress) {
+    document.body.style.setProperty('--scroll-progress', `${progress}%`);
     if (this.xpBar) this.xpBar.style.width = `${progress}%`;
   }
 
   setSoundEnabled(isEnabled) {
+    document.body.dataset.sound = isEnabled ? 'on' : 'off';
     if (!this.soundToggle) return;
     this.soundToggle.textContent = isEnabled ? '🔊 SFX: ON' : '🔇 SFX: OFF';
     this.soundToggle.setAttribute('aria-pressed', String(isEnabled));
@@ -40,6 +43,7 @@ export default class PortfolioView {
   }
 
   setKonamiVisible(isVisible) {
+    document.body.dataset.konami = isVisible ? 'active' : 'idle';
     this.konamiOverlay?.classList.toggle('show', isVisible);
   }
 
