@@ -40,6 +40,8 @@ export default class PortfolioController {
     new AchievementManager({ beep, eventBus: this.eventBus });
     new TypewriterEffect();
     new ParticlesHero();
+    new ParticlesHero({ canvasSelector: '#skillsParticles', heroSelector: '#habilidades', particleCount: 260 });
+    new ParticlesHero({ canvasSelector: '#contactParticles', heroSelector: '#contacto', particleCount: 180 });
     new HeroInteraction();
     new SkillReveal();
     new KonamiSystem({ beep, eventBus: this.eventBus });

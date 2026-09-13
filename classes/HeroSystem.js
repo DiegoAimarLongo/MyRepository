@@ -92,13 +92,14 @@ export class HeroInteraction {
 }
 
 export class ParticlesHero {
-  constructor({ canvasSelector = '#particles', heroSelector = '.hero' } = {}) {
+  constructor({ canvasSelector = '#particles', heroSelector = '.hero', particleCount = 750 } = {}) {
     // Intent: guarda la referencia del canvas y del hero
     // para generar partículas interactivas en la sección principal.
     this.canvas = document.querySelector(canvasSelector);
     this.hero = document.querySelector(heroSelector);
     this.ctx = this.canvas ? this.canvas.getContext('2d') : null;
     this.particles = [];
+    this.particleCount = particleCount;
     this.mouseX = -9999;
     this.mouseY = -9999;
     this.init();
@@ -178,8 +179,7 @@ export class ParticlesHero {
       this.mouseY = -9999;
     });
 
-    const count = 750;
-    for (let i = 0; i < count; i += 1) {
+    for (let i = 0; i < this.particleCount; i += 1) {
       const particle = this.createParticle();
       particle.y = Math.random() * this.canvas.height;
       this.particles.push(particle);
