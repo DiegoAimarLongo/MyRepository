@@ -248,6 +248,30 @@ nav {
   box-shadow: var(--glow);
 }
 
+.konami-clues {
+  display: grid;
+  grid-template-columns: repeat(5, 14px);
+  justify-content: center;
+  gap: 3px;
+  margin: 0.75rem auto;
+  opacity: 0.16;
+  transition: opacity 0.25s ease;
+}
+
+.konami-clues:hover,
+.konami-clues:focus-within {
+  opacity: 0.9;
+}
+
+.konami-clues span {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--accent);
+  color: var(--cyan);
+  font: 9px/12px 'Share Tech Mono', monospace;
+  text-align: center;
+}
+
 /* ── SCROLL TO TOP BUTTON ────────────────── */
 .scroll-to-top {
   position: fixed;
@@ -937,7 +961,7 @@ section {
 }
 
 .contact-award {
-  background: linear-gradient(135deg, rgba(123, 92, 240, 0.1), rgba(0, 212, 255, 0.05));
+  background: transparent;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 2rem;
@@ -1190,6 +1214,27 @@ section {
   color: var(--text2);
   font-size: 13px;
   letter-spacing: 2px;
+}
+
+.konami-puzzle {
+  display: grid;
+  grid-template-columns: repeat(5, 34px);
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--border2);
+  background: rgba(15, 17, 32, 0.8);
+  box-shadow: 0 0 18px rgba(0, 212, 255, 0.15);
+}
+
+.konami-puzzle span {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--accent);
+  color: var(--cyan);
+  font: 700 15px 'Share Tech Mono', monospace;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.7);
 }
 
 .konami-close {

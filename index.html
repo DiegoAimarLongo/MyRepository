@@ -23,7 +23,11 @@
   <!-- Easter egg Konami -->
   <div id="konami-overlay">
     <div class="konami-text">¡CÓDIGO SECRETO ACTIVADO!</div>
-    <div class="konami-sub">▲ ▲ ▼ ▼ ◀ ▶ ◀ ▶ B A · +30 VIDAS</div>
+    <div class="konami-puzzle" aria-label="Secuencia secreta descubierta">
+      <span>↑</span><span>↑</span><span>↓</span><span>↓</span><span>←</span>
+      <span>→</span><span>←</span><span>→</span><span>B</span><span>A</span>
+    </div>
+    <div class="konami-sub">SEÑAL COMPLETA · +30 VIDAS</div>
     <button class="konami-close" id="konamiClose">CERRAR [ESC]</button>
   </div>
 
@@ -395,16 +399,10 @@
           </div>
         </div>
 
-        <div class="contact-award">
-          <div class="award-icon">🏆</div>
-          <div class="award-title">Rally Latinoamericano de Innovación</div>
-          <div class="award-desc">Segundo lugar a nivel nacional en la categoría Impacto Social, compitiendo contra equipos de diez países latinoamericanos.</div>
-          <div class="award-title" style="margin-top: 1.5rem;">Disponible para</div>
-          <div class="award-desc" style="margin-top: 0.5rem;">
-            ▸ Trabajo full-time o part-time<br>
-            ▸ Proyectos freelance<br>
-            ▸ Prácticas / pasantías<br>
-            ▸ Colaboraciones open source
+        <div class="contact-award contact-konami" aria-label="Fragmentos de una secuencia secreta">
+          <div class="konami-clues">
+            <span>↑</span><span>↑</span><span>↓</span><span>↓</span><span>←</span>
+            <span>→</span><span>←</span><span>→</span><span>B</span><span>A</span>
           </div>
         </div>
       </div>

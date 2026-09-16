@@ -1,7 +1,78 @@
+:root {
+  --responsive-content-padding: clamp(1rem, 4vw, 4rem);
+}
+
+img,
+canvas {
+  max-width: 100%;
+}
+
+.main,
+section,
+.hero-content,
+.about-text,
+.project-card,
+.skill-card,
+.contact-item,
+.contact-award {
+  min-width: 0;
+}
+
+section {
+  padding-inline: var(--responsive-content-padding);
+}
+
+.hero {
+  min-height: 100svh;
+  padding-inline: var(--responsive-content-padding);
+}
+
+.hero-content {
+  width: min(100%, 1000px);
+}
+
+.hero-desc,
+.about-text,
+.project-desc,
+.timeline-desc,
+.contact-val {
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .sidebar {
+    width: 190px;
+    min-width: 190px;
+  }
+
+  .main {
+    margin-left: 190px;
+  }
+
+  .nav-item {
+    padding-inline: 0.5rem;
+    gap: 7px;
+    letter-spacing: 0.5px;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .about-grid,
+  .contact-grid {
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 1200px) {
   .carousel-track .project-card {
     flex-basis: calc((100% - 1.5rem) / 2);
     max-width: calc((100% - 1.5rem) / 2);
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   }
 }
 
@@ -24,11 +95,15 @@
   }
 
   section {
-    padding: 3rem 1.5rem;
+    padding-block: clamp(3rem, 8vw, 5rem);
   }
 
   .hero {
-    padding: 3rem 1.5rem;
+    padding-block: 3rem;
+  }
+
+  .contact-award {
+    min-height: 180px;
   }
 }
 
@@ -38,7 +113,132 @@
     max-width: 100%;
   }
 
+  .hero {
+    min-height: 100svh;
+  }
+
   .hero-reticle {
     display: none;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+    line-height: 1.08;
+  }
+
+  .hero-title {
+    font-size: clamp(1rem, 4vw, 1.35rem);
+    margin-bottom: 1rem;
+  }
+
+  .hero-desc {
+    font-size: 0.98rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-btns {
+    width: min(100%, 320px);
+    margin-inline: auto;
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .section-label {
+    letter-spacing: 2px;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .projects-grid,
+  .skills-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-body,
+  .skill-card,
+  .timeline-item,
+  .contact-award {
+    padding: 1rem;
+  }
+
+  .timeline {
+    padding-left: 1rem;
+  }
+
+  .timeline-item::before {
+    left: -1.4rem;
+  }
+
+  .contact-item {
+    align-items: flex-start;
+    padding: 0.9rem;
+  }
+
+  .contact-val {
+    font-size: 13px;
+  }
+
+  .konami-puzzle {
+    grid-template-columns: repeat(5, minmax(26px, 34px));
+    gap: 6px;
+    padding: 9px;
+  }
+
+  .konami-puzzle span {
+    width: auto;
+    aspect-ratio: 1;
+    height: auto;
+  }
+
+  .scroll-to-top {
+    right: 1rem;
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    width: 42px;
+    height: 42px;
+  }
+}
+
+@media (max-width: 480px) {
+  section {
+    padding-inline: 1rem;
+  }
+
+  .hero {
+    padding-inline: 1rem;
+  }
+
+  .hero-greeting {
+    font-size: 1.1rem;
+  }
+
+  .about-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .stat-card {
+    width: min(100%, 180px);
+  }
+
+  .contact-grid {
+    gap: 1.25rem;
+  }
+
+  .contact-icon {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+  }
+
+  .konami-sub {
+    font-size: 10px;
+    letter-spacing: 1px;
   }
 }
