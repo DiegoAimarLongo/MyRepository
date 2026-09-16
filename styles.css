@@ -62,6 +62,12 @@ body {
   padding: 0 1rem 1.5rem;
   border-bottom: 1px solid var(--border);
   margin-bottom: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.logo-area:hover,
+.logo-area:focus-within {
+  border-color: var(--accent2);
 }
 
 .logo-icon {
@@ -75,6 +81,19 @@ body {
   box-shadow: 0 0 16px rgba(123, 92, 240, 0.5), inset 0 0 12px rgba(0, 212, 255, 0.2);
   overflow: hidden;
   border: 2px solid rgba(123, 92, 240, 0.4);
+  position: relative;
+  transition: box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.logo-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background-image: linear-gradient(rgba(0, 212, 255, 0.32) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123, 92, 240, 0.32) 1px, transparent 1px);
+  background-size: 8px 8px;
 }
 
 .logo-icon img {
@@ -82,6 +101,72 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: opacity 0.35s ease, transform 0.45s ease, filter 0.35s ease;
+}
+
+.logo-icon .logo-hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.08) rotate(2deg);
+  image-rendering: pixelated;
+}
+
+.logo-area:hover .logo-icon,
+.logo-area:focus-within .logo-icon {
+  border-color: var(--cyan);
+  box-shadow: 0 0 22px rgba(0, 212, 255, 0.6), inset 0 0 14px rgba(123, 92, 240, 0.25);
+}
+
+.logo-icon.is-pixel > img:first-child {
+  opacity: 0;
+  transform: scale(0.94);
+}
+
+.logo-icon.is-pixel .logo-hover {
+  opacity: 1;
+  transform: scale(1.12) rotate(0);
+  filter: saturate(1.1) brightness(1.08);
+  animation: logo-pixel-reveal 0.7s steps(7, end) both;
+}
+
+.logo-icon.is-pixel::after {
+  animation: logo-pixel-grid 0.7s steps(7, end) both;
+}
+
+@keyframes logo-pixel-reveal {
+  0% {
+    opacity: 0;
+    transform: scale(1.2);
+    clip-path: inset(100% 0 0 0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.12);
+    clip-path: inset(0);
+  }
+}
+
+@keyframes logo-pixel-grid {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-area,
+  .logo-icon,
+  .logo-icon img {
+    transition: none;
+  }
+
+  .logo-icon.is-pixel .logo-hover,
+  .logo-icon.is-pixel::after {
+    animation: none;
+  }
 }
 
 nav {
