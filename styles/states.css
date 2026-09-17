@@ -44,10 +44,6 @@
   transform: translate(-50%, -50%) scale(0.7);
 }
 
-#konami-overlay.show {
-  display: flex;
-}
-
 .carousel-btn:disabled {
   opacity: 0.3;
   cursor: not-allowed;

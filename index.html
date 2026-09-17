@@ -20,17 +20,6 @@
   <!-- Contenedor de logros desbloqueados -->
   <div id="achv-container"></div>
 
-  <!-- Easter egg Konami -->
-  <div id="konami-overlay">
-    <div class="konami-text">¡CÓDIGO SECRETO ACTIVADO!</div>
-    <div class="konami-puzzle" aria-label="Secuencia secreta descubierta">
-      <span>↑</span><span>↑</span><span>↓</span><span>↓</span><span>←</span>
-      <span>→</span><span>←</span><span>→</span><span>B</span><span>A</span>
-    </div>
-    <div class="konami-sub">SEÑAL COMPLETA · +30 VIDAS</div>
-    <button class="konami-close" id="konamiClose">CERRAR [ESC]</button>
-  </div>
-
   <!-- ── SIDEBAR ──────────────────────────── -->
   <aside class="sidebar">
     <div class="logo-area">
@@ -68,6 +57,7 @@
       <div class="hero">
         <div class="hero-bg"></div>
         <canvas id="particles"></canvas>
+        <div class="hero-ships" id="heroShips" aria-label="Interactive ships"></div>
         <div class="hero-grid"></div>
         <div class="hero-reticle" aria-hidden="true">
           <span class="reticle-corner reticle-corner-tl"></span>
@@ -399,12 +389,6 @@
           </div>
         </div>
 
-        <div class="contact-award contact-konami" aria-label="Fragmentos de una secuencia secreta">
-          <div class="konami-clues">
-            <span>↑</span><span>↑</span><span>↓</span><span>↓</span><span>←</span>
-            <span>→</span><span>←</span><span>→</span><span>B</span><span>A</span>
-          </div>
-        </div>
       </div>
     </section>
 

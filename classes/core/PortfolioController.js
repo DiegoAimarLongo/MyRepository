@@ -1,8 +1,7 @@
 import AudioManager from '../AudioManager.js';
 import InteractiveCursor from '../InteractiveCursor.js';
 import { NavigationManager, ExperienceBar, AchievementManager, SkillReveal } from '../SectionSystem.js';
-import { TypewriterEffect, ParticlesHero, HeroInteraction } from '../HeroSystem.js';
-import KonamiSystem from '../KonamiSystem.js';
+import { TypewriterEffect, ParticlesHero, HeroInteraction, ShipsHero } from '../HeroSystem.js';
 import CarouselSystem from '../CarouselSystem.js';
 import PortfolioModel from './PortfolioModel.js';
 import PortfolioView from './PortfolioView.js';
@@ -24,11 +23,6 @@ export default class PortfolioController {
     this.eventBus.on('section:active', (sectionId) => this.model.setActiveSection(sectionId));
     this.eventBus.on('scroll:progress', (progress) => this.model.setScrollProgress(progress));
     this.eventBus.on('achievement:detected', (achievement) => this.model.unlockAchievement(achievement));
-    this.eventBus.on('konami:activated', (achievement) => {
-      this.model.setKonamiActive(true);
-      this.model.unlockAchievement(achievement);
-    });
-    this.eventBus.on('konami:closed', () => this.model.setKonamiActive(false));
     this.eventBus.on('audio:changed', (isEnabled) => this.model.setSoundEnabled(isEnabled));
   }
 
@@ -40,11 +34,11 @@ export default class PortfolioController {
     new AchievementManager({ beep, eventBus: this.eventBus });
     new TypewriterEffect();
     new ParticlesHero();
+    new ShipsHero();
     new ParticlesHero({ canvasSelector: '#skillsParticles', heroSelector: '#habilidades', particleCount: 260 });
     new ParticlesHero({ canvasSelector: '#contactParticles', heroSelector: '#contacto', particleCount: 180 });
     new HeroInteraction();
     new SkillReveal();
-    new KonamiSystem({ beep, eventBus: this.eventBus });
     new CarouselSystem({ containerSelector: '.projects-grid', cardsPerView: 3 });
     this.bindScrollToTop();
   }

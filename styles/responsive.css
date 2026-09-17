@@ -185,18 +185,6 @@ section {
     font-size: 13px;
   }
 
-  .konami-puzzle {
-    grid-template-columns: repeat(5, minmax(26px, 34px));
-    gap: 6px;
-    padding: 9px;
-  }
-
-  .konami-puzzle span {
-    width: auto;
-    aspect-ratio: 1;
-    height: auto;
-  }
-
   .scroll-to-top {
     right: 1rem;
     bottom: max(1rem, env(safe-area-inset-bottom));
@@ -237,8 +225,4 @@ section {
     height: 32px;
   }
 
-  .konami-sub {
-    font-size: 10px;
-    letter-spacing: 1px;
-  }
 }

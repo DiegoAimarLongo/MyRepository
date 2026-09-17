@@ -189,3 +189,151 @@ export class ParticlesHero {
   }
 }
 
+export class ShipsHero {
+  constructor({ containerSelector = '#heroShips', heroSelector = '.hero', shipCount = 7 } = {}) {
+    this.container = document.querySelector(containerSelector);
+    this.hero = document.querySelector(heroSelector);
+    this.shipCount = shipCount;
+    this.shipId = 0;
+    this.activeShips = new Map();
+    this.respawnTimers = new Set();
+    this.lastFrameTime = 0;
+    this.init();
+  }
+
+  init() {
+    if (!this.container) return;
+
+    for (let index = 0; index < this.shipCount; index += 1) {
+      this.spawnShip();
+    }
+
+    this.animate();
+  }
+
+  getTrajectory() {
+    let start;
+    let target;
+    let attempts = 0;
+
+    do {
+      const side = Math.floor(Math.random() * 4);
+      const edgePosition = 5 + Math.random() * 90;
+      start = [
+        { x: -7, y: edgePosition },
+        { x: 107, y: edgePosition },
+        { x: edgePosition, y: -7 },
+        { x: edgePosition, y: 107 }
+      ][side];
+      target = {
+        x: 38 + Math.random() * 24,
+        y: 38 + Math.random() * 24
+      };
+      attempts += 1;
+    } while (this.crossesButtons(start, target) && attempts < 30);
+
+    const length = Math.hypot(target.x - start.x, target.y - start.y);
+    const speed = 0.0035 + Math.random() * 0.0018;
+
+    return {
+      x: start.x,
+      y: start.y,
+      vx: ((target.x - start.x) / length) * speed,
+      vy: ((target.y - start.y) / length) * speed,
+      angle: Math.atan2(target.y - start.y, target.x - start.x) * (180 / Math.PI) + 90
+    };
+  }
+
+  crossesButtons(start, target) {
+    const buttons = this.hero?.querySelector('.hero-btns');
+    if (!buttons || !this.hero) return false;
+
+    const heroRect = this.hero.getBoundingClientRect();
+    const buttonsRect = buttons.getBoundingClientRect();
+    const paddingX = 52 / heroRect.width * 100;
+    const paddingY = 28 / heroRect.height * 100;
+    const forbidden = {
+      left: ((buttonsRect.left - heroRect.left) / heroRect.width) * 100 - paddingX,
+      right: ((buttonsRect.right - heroRect.left) / heroRect.width) * 100 + paddingX,
+      top: ((buttonsRect.top - heroRect.top) / heroRect.height) * 100 - paddingY,
+      bottom: ((buttonsRect.bottom - heroRect.top) / heroRect.height) * 100 + paddingY
+    };
+
+    for (let progress = 0; progress <= 1; progress += 0.02) {
+      const x = start.x + (target.x - start.x) * progress;
+      const y = start.y + (target.y - start.y) * progress;
+      if (x >= forbidden.left && x <= forbidden.right && y >= forbidden.top && y <= forbidden.bottom) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  isOutside(ship) {
+    return ship.x < -9 || ship.x > 109 || ship.y < -9 || ship.y > 109;
+  }
+
+  animate(timestamp = performance.now()) {
+    const delta = this.lastFrameTime ? Math.min(timestamp - this.lastFrameTime, 32) : 16;
+    this.lastFrameTime = timestamp;
+
+    this.activeShips.forEach((ship, element) => {
+      if (element.classList.contains('is-destroying')) return;
+
+      ship.x += ship.vx * delta;
+      ship.y += ship.vy * delta;
+      element.style.left = `${ship.x}%`;
+      element.style.top = `${ship.y}%`;
+
+      if (this.isOutside(ship)) {
+        this.activeShips.delete(element);
+        element.remove();
+        this.spawnShip();
+      }
+    });
+
+    window.requestAnimationFrame((nextTimestamp) => this.animate(nextTimestamp));
+  }
+
+  spawnShip() {
+    const ship = document.createElement('button');
+    const trajectory = this.getTrajectory();
+    const shipId = this.shipId;
+    this.shipId += 1;
+
+    ship.type = 'button';
+    ship.className = 'hero-ship';
+    ship.dataset.shipId = String(shipId);
+    ship.setAttribute('aria-label', 'Destroy ship');
+    ship.style.left = `${trajectory.x}%`;
+    ship.style.top = `${trajectory.y}%`;
+    ship.style.setProperty('--ship-angle', `${trajectory.angle}deg`);
+    ship.innerHTML = '<span class="ship-core" aria-hidden="true"></span><span class="ship-wing ship-wing-left" aria-hidden="true"></span><span class="ship-wing ship-wing-right" aria-hidden="true"></span>';
+    ship.addEventListener('click', () => this.destroyShip(ship));
+    this.activeShips.set(ship, trajectory);
+    this.container.appendChild(ship);
+  }
+
+  scheduleRespawn(ship, delay = 620) {
+    const timer = window.setTimeout(() => {
+      this.respawnTimers.delete(timer);
+      ship.remove();
+      this.spawnShip();
+    }, delay);
+    this.respawnTimers.add(timer);
+  }
+
+  destroyShip(ship) {
+    if (ship.classList.contains('is-destroying')) return;
+
+    this.activeShips.delete(ship);
+    ship.classList.add('is-destroying');
+    ship.setAttribute('aria-label', 'Ship destroyed');
+    ship.innerHTML = '<span class="ship-explosion" aria-hidden="true">' +
+      Array.from({ length: 8 }, () => '<i></i>').join('') +
+      '</span>';
+    this.scheduleRespawn(ship);
+  }
+}
+

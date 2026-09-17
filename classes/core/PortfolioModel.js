@@ -5,8 +5,7 @@ export default class PortfolioModel {
       activeSection: null,
       scrollProgress: 0,
       soundEnabled: true,
-      unlockedAchievements: new Set(),
-      konamiActive: false
+      unlockedAchievements: new Set()
     };
   }
 
@@ -34,8 +33,4 @@ export default class PortfolioModel {
     return true;
   }
 
-  setKonamiActive(active) {
-    this.state.konamiActive = Boolean(active);
-    this.eventBus.emit('state:konami-changed', this.state.konamiActive);
-  }
 }

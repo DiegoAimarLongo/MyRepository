@@ -6,13 +6,11 @@ export default class PortfolioView {
       sections: selectors.sections || 'section[id]',
       xpBar: selectors.xpBar || '#xpBar',
       achievements: selectors.achievements || '#achv-container',
-      konamiOverlay: selectors.konamiOverlay || '#konami-overlay',
       soundToggle: selectors.soundToggle || '#soundToggle'
     };
     this.navItems = [...document.querySelectorAll(this.selectors.navItems)];
     this.xpBar = document.querySelector(this.selectors.xpBar);
     this.achievements = document.querySelector(this.selectors.achievements);
-    this.konamiOverlay = document.querySelector(this.selectors.konamiOverlay);
     this.soundToggle = document.querySelector(this.selectors.soundToggle);
   }
 
@@ -20,7 +18,6 @@ export default class PortfolioView {
     this.eventBus.on('state:active-section-changed', (sectionId) => this.setActiveSection(sectionId));
     this.eventBus.on('state:scroll-progress-changed', (progress) => this.setScrollProgress(progress));
     this.eventBus.on('state:achievement-unlocked', (achievement) => this.renderAchievement(achievement));
-    this.eventBus.on('state:konami-changed', (isActive) => this.setKonamiVisible(isActive));
     this.eventBus.on('state:sound-changed', (isEnabled) => this.setSoundEnabled(isEnabled));
   }
 
@@ -40,11 +37,6 @@ export default class PortfolioView {
     this.soundToggle.textContent = isEnabled ? '🔊 SFX: ON' : '🔇 SFX: OFF';
     this.soundToggle.setAttribute('aria-pressed', String(isEnabled));
     this.soundToggle.classList.toggle('is-on', isEnabled);
-  }
-
-  setKonamiVisible(isVisible) {
-    document.body.dataset.konami = isVisible ? 'active' : 'idle';
-    this.konamiOverlay?.classList.toggle('show', isVisible);
   }
 
   renderAchievement({ icon, label, title }) {

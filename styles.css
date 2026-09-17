@@ -248,30 +248,6 @@ nav {
   box-shadow: var(--glow);
 }
 
-.konami-clues {
-  display: grid;
-  grid-template-columns: repeat(5, 14px);
-  justify-content: center;
-  gap: 3px;
-  margin: 0.75rem auto;
-  opacity: 0.16;
-  transition: opacity 0.25s ease;
-}
-
-.konami-clues:hover,
-.konami-clues:focus-within {
-  opacity: 0.9;
-}
-
-.konami-clues span {
-  width: 14px;
-  height: 14px;
-  border: 1px solid var(--accent);
-  color: var(--cyan);
-  font: 9px/12px 'Share Tech Mono', monospace;
-  text-align: center;
-}
-
 /* ── SCROLL TO TOP BUTTON ────────────────── */
 .scroll-to-top {
   position: fixed;
@@ -338,6 +314,7 @@ nav {
 .hero-bg {
   position: absolute;
   inset: 0;
+  z-index: 0;
   background: linear-gradient(
     90deg,
     rgba(10, 11, 20, 0.97) 0%,
@@ -353,6 +330,7 @@ nav {
 .hero-grid {
   position: absolute;
   inset: 0;
+  z-index: 0;
   background: linear-gradient(
     180deg,
     transparent 70%,
@@ -419,11 +397,17 @@ nav {
 .hero-content {
   position: relative;
   z-index: 2;
+  pointer-events: none;
   max-width: 1000px;
   text-align: center;
   transform: rotateX(calc(35deg + var(--hero-tilt-x))) rotateY(var(--hero-tilt-y));
   transform-style: preserve-3d;
   transition: transform 0.12s ease-out;
+}
+
+.hero-content a,
+.hero-content button {
+  pointer-events: auto;
 }
 
 .hero-greeting {
@@ -1067,6 +1051,137 @@ section {
   pointer-events: none;
 }
 
+.hero-ships {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-ship {
+  position: absolute;
+  left: var(--ship-x);
+  top: var(--ship-y);
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: crosshair;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) rotate(var(--ship-angle));
+}
+
+.hero-ship::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(0, 212, 255, 0.55);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.35);
+  transform: rotate(45deg);
+}
+
+.hero-ship:hover::before,
+.hero-ship:focus-visible::before {
+  border-color: var(--green);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.75);
+}
+
+.hero-ship:focus-visible {
+  outline: 1px solid var(--green);
+  outline-offset: 5px;
+}
+
+.ship-core,
+.ship-wing {
+  position: absolute;
+  display: block;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+
+.ship-core {
+  inset: 15px;
+  background: #f5fbff;
+  transform: rotate(45deg);
+}
+
+.ship-wing {
+  top: 20px;
+  width: 9px;
+  height: 4px;
+}
+
+.ship-wing-left { left: 3px; }
+.ship-wing-right { right: 3px; }
+
+.hero-ship.is-destroying {
+  pointer-events: none;
+  animation: ship-destroy 0.62s ease-out forwards;
+}
+
+.hero-ship.is-destroying::before {
+  animation: ship-flash 0.62s ease-out forwards;
+}
+
+.ship-explosion {
+  position: absolute;
+  inset: 50%;
+  width: 8px;
+  height: 8px;
+  display: block;
+  background: #fff6b0;
+  box-shadow: 0 0 18px 7px #ff9d00, 0 0 34px 10px rgba(255, 52, 52, 0.65);
+  transform: translate(-50%, -50%);
+  animation: explosion-core 0.62s ease-out forwards;
+}
+
+.ship-explosion i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 10px;
+  background: #ffcf40;
+  box-shadow: 0 0 8px #ff6a00;
+  transform-origin: 50% 0;
+  animation: explosion-shard 0.62s ease-out forwards;
+}
+
+.ship-explosion i:nth-child(1) { --shard-angle: 0deg; }
+.ship-explosion i:nth-child(2) { --shard-angle: 45deg; }
+.ship-explosion i:nth-child(3) { --shard-angle: 90deg; }
+.ship-explosion i:nth-child(4) { --shard-angle: 135deg; }
+.ship-explosion i:nth-child(5) { --shard-angle: 180deg; }
+.ship-explosion i:nth-child(6) { --shard-angle: 225deg; }
+.ship-explosion i:nth-child(7) { --shard-angle: 270deg; }
+.ship-explosion i:nth-child(8) { --shard-angle: 315deg; }
+
+@keyframes ship-destroy {
+}
+
+@keyframes ship-flash {
+  35% { background: rgba(255, 180, 30, 0.95); box-shadow: 0 0 28px 10px #ff5d00; }
+  100% { opacity: 0; }
+}
+
+@keyframes explosion-core {
+  45% { transform: translate(-50%, -50%) scale(2); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+}
+
+@keyframes explosion-shard {
+  100% { opacity: 0; transform: rotate(var(--shard-angle, 0deg)) translateY(30px) scale(0.4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-ship { animation: none; }
+  .hero-ship.is-destroying,
+  .hero-ship.is-destroying::before,
+  .ship-explosion,
+  .ship-explosion i { animation-duration: 0.01ms; }
+}
+
 #skillsParticles,
 #contactParticles {
   position: absolute;
@@ -1178,79 +1293,6 @@ section {
 .sound-toggle:hover {
   border-color: var(--accent);
   color: var(--accent2);
-}
-
-/* ── EASTER EGG: KONAMI OVERLAY ───────────── */
-#konami-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(5, 6, 15, 0.96);
-  z-index: 9998;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  gap: 1rem;
-}
-
-#konami-overlay.show { display: flex; }
-
-.konami-text {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.5rem, 5vw, 3rem);
-  color: var(--green);
-  text-shadow: 0 0 20px rgba(0,255,136,0.7);
-  animation: konami-flicker 0.6s infinite alternate;
-}
-
-@keyframes konami-flicker {
-  from { opacity: 1; }
-  to   { opacity: 0.7; }
-}
-
-.konami-sub {
-  font-family: 'Share Tech Mono', monospace;
-  color: var(--text2);
-  font-size: 13px;
-  letter-spacing: 2px;
-}
-
-.konami-puzzle {
-  display: grid;
-  grid-template-columns: repeat(5, 34px);
-  gap: 8px;
-  padding: 12px;
-  border: 1px solid var(--border2);
-  background: rgba(15, 17, 32, 0.8);
-  box-shadow: 0 0 18px rgba(0, 212, 255, 0.15);
-}
-
-.konami-puzzle span {
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--accent);
-  color: var(--cyan);
-  font: 700 15px 'Share Tech Mono', monospace;
-  text-shadow: 0 0 8px rgba(0, 212, 255, 0.7);
-}
-
-.konami-close {
-  margin-top: 1rem;
-  background: transparent;
-  border: 1px solid var(--accent);
-  color: var(--accent2);
-  padding: 8px 20px;
-  border-radius: 8px;
-  font-family: 'Share Tech Mono', monospace;
-  cursor: pointer;
-}
-
-/* Respeta reduce motion */
-@media (prefers-reduced-motion: reduce) {
-  .konami-text { animation: none !important; }
 }
 
 /* ── CAROUSEL SYSTEM ──────────────────────── */
