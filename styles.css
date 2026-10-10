@@ -101,6 +101,7 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+  transform: scale(1.2);
   transition: opacity 0.35s ease, transform 0.45s ease, filter 0.35s ease;
 }
 
@@ -108,8 +109,7 @@ body {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transform: scale(1.08) rotate(2deg);
-  image-rendering: pixelated;
+  object-position: center;
 }
 
 .logo-area:hover .logo-icon,
@@ -120,31 +120,16 @@ body {
 
 .logo-icon.is-pixel > img:first-child {
   opacity: 0;
-  transform: scale(0.94);
 }
 
 .logo-icon.is-pixel .logo-hover {
   opacity: 1;
-  transform: scale(1.12) rotate(0);
-  filter: saturate(1.1) brightness(1.08);
-  animation: logo-pixel-reveal 0.7s steps(7, end) both;
+  transform: scale(1.2);
+  filter: none;
 }
 
 .logo-icon.is-pixel::after {
-  animation: logo-pixel-grid 0.7s steps(7, end) both;
-}
-
-@keyframes logo-pixel-reveal {
-  0% {
-    opacity: 0;
-    transform: scale(1.2);
-    clip-path: inset(100% 0 0 0);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1.12);
-    clip-path: inset(0);
-  }
+  animation: logo-pixel-grid 0.7s ease-out both;
 }
 
 @keyframes logo-pixel-grid {
@@ -344,8 +329,8 @@ nav {
   position: absolute;
   left: var(--mouse-x);
   top: var(--mouse-y);
-  width: 150px;
-  height: 150px;
+  width: 75px;
+  height: 75px;
   border: 1px solid rgba(0, 212, 255, 0.18);
   transform: translate(-50%, -50%) rotate(45deg) scale(0.7);
   opacity: 0;
@@ -383,15 +368,78 @@ nav {
   transform: translate(-50%, -50%);
 }
 
-.reticle-label {
+.reticle-info {
   position: absolute;
   left: 50%;
-  bottom: -28px;
-  color: var(--cyan);
-  font: 10px 'Share Tech Mono', monospace;
-  letter-spacing: 2px;
-  white-space: nowrap;
+  top: calc(100% + 16px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
   transform: translateX(-50%) rotate(-45deg);
+  transform-origin: top center;
+  white-space: nowrap;
+}
+
+.reticle-label,
+.hero-ammo,
+.hero-reload {
+  color: var(--cyan);
+  font: 13px 'Share Tech Mono', monospace;
+  letter-spacing: 2px;
+}
+
+.hero-ammo,
+.hero-reload {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+}
+
+.hero-reticle::before {
+  content: '';
+  position: absolute;
+  inset: -9px;
+  border: 1px dashed #ff3b4f;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-reload {
+  color: #ff3b4f;
+  opacity: 0;
+  text-transform: uppercase;
+}
+
+.hero.is-reloading .hero-reticle::before {
+  opacity: 0.85;
+  animation: reticle-reload 0.65s linear infinite, reload-ring-blink 0.45s ease-in-out infinite alternate;
+}
+
+.hero.is-reloading .hero-ammo {
+  color: #ff3b4f;
+  opacity: 0.9;
+  animation: reload-blink 0.45s ease-in-out infinite alternate;
+}
+
+.hero.is-reloading .hero-reload {
+  opacity: 0.9;
+  animation: reload-blink 0.45s ease-in-out infinite alternate;
+}
+
+@keyframes reticle-reload {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes reload-blink {
+  from { opacity: 0.25; text-shadow: 0 0 2px rgba(255, 59, 79, 0.25); }
+  to { opacity: 1; text-shadow: 0 0 10px rgba(255, 59, 79, 0.9); }
+}
+
+@keyframes reload-ring-blink {
+  from { opacity: 0.25; box-shadow: 0 0 4px rgba(255, 59, 79, 0.2); }
+  to { opacity: 1; box-shadow: 0 0 14px rgba(255, 59, 79, 0.85); }
 }
 
 .hero-content {
@@ -1051,6 +1099,18 @@ section {
   pointer-events: none;
 }
 
+.hero-score {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  z-index: 2;
+  color: var(--cyan);
+  font: 11px 'Share Tech Mono', monospace;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.55);
+  pointer-events: none;
+}
+
 .hero-ships {
   position: absolute;
   inset: 0;
@@ -1062,29 +1122,22 @@ section {
   position: absolute;
   left: var(--ship-x);
   top: var(--ship-y);
-  width: 44px;
-  height: 44px;
+  width: 68px;
+  height: 54.4px;
   padding: 0;
   border: 0;
-  background: transparent;
-  cursor: crosshair;
+  background-color: transparent;
+  background-image: url('assets/asteroid.png');
+  background-size: 400% 500%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: asteroid-sprite 1.7s steps(1, end) infinite;
+  cursor: none;
   pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
   transform: translate(-50%, -50%) rotate(var(--ship-angle));
-}
-
-.hero-ship::before {
-  content: '';
-  position: absolute;
-  inset: 8px;
-  border: 1px solid rgba(0, 212, 255, 0.55);
-  box-shadow: 0 0 16px rgba(0, 212, 255, 0.35);
-  transform: rotate(45deg);
-}
-
-.hero-ship:hover::before,
-.hero-ship:focus-visible::before {
-  border-color: var(--green);
-  box-shadow: 0 0 20px rgba(0, 255, 136, 0.75);
 }
 
 .hero-ship:focus-visible {
@@ -1092,36 +1145,10 @@ section {
   outline-offset: 5px;
 }
 
-.ship-core,
-.ship-wing {
-  position: absolute;
-  display: block;
-  background: var(--cyan);
-  box-shadow: 0 0 10px var(--cyan);
-}
-
-.ship-core {
-  inset: 15px;
-  background: #f5fbff;
-  transform: rotate(45deg);
-}
-
-.ship-wing {
-  top: 20px;
-  width: 9px;
-  height: 4px;
-}
-
-.ship-wing-left { left: 3px; }
-.ship-wing-right { right: 3px; }
-
 .hero-ship.is-destroying {
   pointer-events: none;
+  background-image: none;
   animation: ship-destroy 0.62s ease-out forwards;
-}
-
-.hero-ship.is-destroying::before {
-  animation: ship-flash 0.62s ease-out forwards;
 }
 
 .ship-explosion {
@@ -1160,9 +1187,12 @@ section {
 @keyframes ship-destroy {
 }
 
-@keyframes ship-flash {
-  35% { background: rgba(255, 180, 30, 0.95); box-shadow: 0 0 28px 10px #ff5d00; }
-  100% { opacity: 0; }
+@keyframes asteroid-sprite {
+  0% { background-position: 0 0; }
+  25% { background-position: 33.333% 0; }
+  50% { background-position: 66.667% 0; }
+  75% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
 }
 
 @keyframes explosion-core {
@@ -1177,7 +1207,6 @@ section {
 @media (prefers-reduced-motion: reduce) {
   .hero-ship { animation: none; }
   .hero-ship.is-destroying,
-  .hero-ship.is-destroying::before,
   .ship-explosion,
   .ship-explosion i { animation-duration: 0.01ms; }
 }
@@ -1379,4 +1408,3 @@ section {
   opacity: 0.3;
   cursor: not-allowed;
 }
-

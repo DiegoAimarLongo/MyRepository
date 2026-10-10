@@ -57,7 +57,8 @@
       <div class="hero">
         <div class="hero-bg"></div>
         <canvas id="particles"></canvas>
-        <div class="hero-ships" id="heroShips" aria-label="Interactive ships"></div>
+        <div class="hero-ships" id="heroShips" aria-label="Interactive meteors"></div>
+        <div class="hero-score" id="heroScore" aria-live="polite">METEORS DESTROYED 0</div>
         <div class="hero-grid"></div>
         <div class="hero-reticle" aria-hidden="true">
           <span class="reticle-corner reticle-corner-tl"></span>
@@ -65,7 +66,11 @@
           <span class="reticle-corner reticle-corner-bl"></span>
           <span class="reticle-corner reticle-corner-br"></span>
           <span class="reticle-dot"></span>
-          <span class="reticle-label">PLAYER 01 // ONLINE</span>
+          <span class="reticle-info">
+            <span class="reticle-label">PLAYER 01 -- ONLINE</span>
+            <span class="hero-ammo" id="heroAmmo">AMMO 5/5</span>
+            <span class="hero-reload" id="heroReload">Reload</span>
+          </span>
         </div>
         <div class="hero-content">
           <p class="hero-greeting">Hi, I'm</p>

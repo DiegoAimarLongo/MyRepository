@@ -92,7 +92,7 @@ export class HeroInteraction {
 }
 
 export class ParticlesHero {
-  constructor({ canvasSelector = '#particles', heroSelector = '.hero', particleCount = 750 } = {}) {
+  constructor({ canvasSelector = '#particles', heroSelector = '.hero', particleCount = 300 } = {}) {
     // Intent: guarda la referencia del canvas y del hero
     // para generar partículas interactivas en la sección principal.
     this.canvas = document.querySelector(canvasSelector);
@@ -193,7 +193,14 @@ export class ShipsHero {
   constructor({ containerSelector = '#heroShips', heroSelector = '.hero', shipCount = 7 } = {}) {
     this.container = document.querySelector(containerSelector);
     this.hero = document.querySelector(heroSelector);
+    this.ammoElement = document.querySelector('#heroAmmo');
+    this.reloadElement = document.querySelector('#heroReload');
+    this.scoreElement = document.querySelector('#heroScore');
     this.shipCount = shipCount;
+    this.maxAmmo = 5;
+    this.ammo = this.maxAmmo;
+    this.destroyedShips = 0;
+    this.isReloading = false;
     this.shipId = 0;
     this.activeShips = new Map();
     this.respawnTimers = new Set();
@@ -203,6 +210,11 @@ export class ShipsHero {
 
   init() {
     if (!this.container) return;
+
+    this.hero?.addEventListener('click', (event) => {
+      if (event.target.closest('.hero-ship, .hero-btns a, button')) return;
+      this.consumeAmmo();
+    });
 
     for (let index = 0; index < this.shipCount; index += 1) {
       this.spawnShip();
@@ -305,14 +317,33 @@ export class ShipsHero {
     ship.type = 'button';
     ship.className = 'hero-ship';
     ship.dataset.shipId = String(shipId);
-    ship.setAttribute('aria-label', 'Destroy ship');
+    ship.setAttribute('aria-label', 'Destroy meteor');
     ship.style.left = `${trajectory.x}%`;
     ship.style.top = `${trajectory.y}%`;
+    ship.style.animationDelay = `${-Math.random() * 3.2}s`;
     ship.style.setProperty('--ship-angle', `${trajectory.angle}deg`);
-    ship.innerHTML = '<span class="ship-core" aria-hidden="true"></span><span class="ship-wing ship-wing-left" aria-hidden="true"></span><span class="ship-wing ship-wing-right" aria-hidden="true"></span>';
-    ship.addEventListener('click', () => this.destroyShip(ship));
+    ship.addEventListener('click', (event) => {
+      event.stopPropagation();
+      this.destroyShip(ship);
+    });
     this.activeShips.set(ship, trajectory);
     this.container.appendChild(ship);
+  }
+
+  updateAmmo() {
+    if (this.ammoElement) this.ammoElement.textContent = `AMMO ${this.ammo}/${this.maxAmmo}`;
+  }
+
+  reload() {
+    this.isReloading = true;
+    this.hero?.classList.add('is-reloading');
+
+    window.setTimeout(() => {
+      this.ammo = this.maxAmmo;
+      this.isReloading = false;
+      this.updateAmmo();
+      this.hero?.classList.remove('is-reloading');
+    }, 4000);
   }
 
   scheduleRespawn(ship, delay = 620) {
@@ -324,16 +355,27 @@ export class ShipsHero {
     this.respawnTimers.add(timer);
   }
 
-  destroyShip(ship) {
-    if (ship.classList.contains('is-destroying')) return;
+  consumeAmmo() {
+    if (this.isReloading || this.ammo <= 0) return false;
 
+    this.ammo -= 1;
+    this.updateAmmo();
+    if (this.ammo === 0) this.reload();
+    return true;
+  }
+
+  destroyShip(ship) {
+    if (ship.classList.contains('is-destroying') || this.isReloading || this.ammo <= 0) return;
+
+    this.consumeAmmo();
+    this.destroyedShips += 1;
+    if (this.scoreElement) this.scoreElement.textContent = `METEORS DESTROYED ${this.destroyedShips}`;
     this.activeShips.delete(ship);
     ship.classList.add('is-destroying');
-    ship.setAttribute('aria-label', 'Ship destroyed');
+    ship.setAttribute('aria-label', 'Meteor destroyed');
     ship.innerHTML = '<span class="ship-explosion" aria-hidden="true">' +
       Array.from({ length: 8 }, () => '<i></i>').join('') +
       '</span>';
     this.scheduleRespawn(ship);
   }
 }
-
