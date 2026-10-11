@@ -602,7 +602,7 @@ section {
 }
 
 .about-text {
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: var(--text2);
   line-height: 1.8;
 }
@@ -664,8 +664,8 @@ section {
 /* ── PROJECTS ────────────────────────────── */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
 }
 
 .project-card {
@@ -673,7 +673,7 @@ section {
   border: 1px solid var(--border);
   border-radius: 14px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   transform: perspective(900px) rotateX(var(--card-tilt-x, 0deg)) rotateY(var(--card-tilt-y, 0deg));
@@ -712,6 +712,7 @@ section {
   height: 140px;
   position: relative;
   overflow: hidden;
+  border-radius: 14px 14px 0 0;
 }
 
 .project-image {
@@ -1334,25 +1335,26 @@ section {
 }
 
 .carousel-wrapper {
-  overflow: hidden;
+  overflow: visible;
   border-radius: 14px;
   position: relative;
   width: 100%;
   max-width: 100%;
+  padding: 0.25rem 0.1rem;
 }
 
 .carousel-track {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.25rem;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 0;
   width: 100%;
 }
 
 .carousel-track .project-card {
-  flex: 0 0 calc((100% - 3rem) / 3);
+  flex: 0 0 calc((100% - 4.5rem) / 3);
   min-width: 0;
-  max-width: calc((100% - 3rem) / 3);
+  max-width: calc((100% - 4.5rem) / 3);
 }
 
 @media (max-width: 1200px) {
