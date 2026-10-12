@@ -1,12 +1,21 @@
 export default class AudioManager {
 
-  constructor({ soundToggleSelector = '#soundToggle', eventBus } = {}) {
+  constructor({
+    soundToggleSelector = '#soundToggle',
+    musicToggleSelector = '#musicToggle',
+    eventBus
+  } = {}) {
     // Intent: guarda el estado del sonido y enlaza el botón
     // para activar la interfaz de audio.
     this.audioCtx = null;
     this.soundOn = true;
+    this.musicOn = true;
     this.eventBus = eventBus;
     this.button = document.querySelector(soundToggleSelector);
+    this.musicButton = document.querySelector(musicToggleSelector);
+    this.backgroundMusic = new Audio('assets/audio/global.mp3');
+    this.backgroundMusic.loop = true;
+    this.backgroundMusic.preload = 'auto';
     this.init();
   }
 
@@ -16,6 +25,27 @@ export default class AudioManager {
     this.button.textContent = this.soundOn ? '🔊 SFX: ON' : '🔇 SFX: OFF';
     this.button.setAttribute('aria-pressed', String(this.soundOn));
     this.button.classList.toggle('is-on', this.soundOn);
+  }
+
+  updateMusicButtonLabel() {
+    if (!this.musicButton) return;
+
+    this.musicButton.textContent = this.musicOn ? '🎵 Music: ON' : '🔇 Music: OFF';
+    this.musicButton.setAttribute('aria-pressed', String(this.musicOn));
+    this.musicButton.classList.toggle('is-on', this.musicOn);
+  }
+
+  playMusic() {
+    if (!this.musicOn) return;
+
+    const playRequest = this.backgroundMusic.play();
+    if (playRequest) {
+      playRequest.catch((error) => {
+        if (error.name !== 'NotAllowedError') {
+          console.error('No se pudo reproducir la música de fondo.', error);
+        }
+      });
+    }
   }
 
   resumeAudioContext() {
@@ -62,14 +92,15 @@ export default class AudioManager {
   init() {
   // Intent: sincroniza el toggle del sonido con la UI y activa
   // el primer efecto cuando se habilita.
-    if (!this.button) return;
-
     this.updateButtonLabel();
+    this.updateMusicButtonLabel();
     this.resumeAudioContext();
+    this.playMusic();
 
     const unlockAudio = () => {
       this.resumeAudioContext();
       if (this.soundOn) this.beep(660, 0.08);
+      this.playMusic();
       window.removeEventListener('pointerdown', unlockAudio);
       window.removeEventListener('keydown', unlockAudio);
     };
@@ -77,7 +108,7 @@ export default class AudioManager {
     window.addEventListener('pointerdown', unlockAudio, { once: true });
     window.addEventListener('keydown', unlockAudio, { once: true });
 
-    this.button.addEventListener('click', () => {
+    this.button?.addEventListener('click', () => {
       this.soundOn = !this.soundOn;
       this.updateButtonLabel();
       this.eventBus?.emit('audio:changed', this.soundOn);
@@ -88,10 +119,22 @@ export default class AudioManager {
       }
     });
 
+    this.musicButton?.addEventListener('click', () => {
+      this.musicOn = !this.musicOn;
+      this.updateMusicButtonLabel();
+
+      if (this.musicOn) {
+        this.playMusic();
+      } else {
+        this.backgroundMusic.pause();
+      }
+    });
+
     // Intent: reproduce un beep cada vez que el usuario hace click
-    // en cualquier parte de la pantalla si el sonido está activado.
+    // en cualquier parte de la pantalla, incluso si otro listener detiene
+    // la propagación del evento.
     document.addEventListener('click', () => {
       if (this.soundOn) this.beep();
-    });
+    }, true);
   }
 }
