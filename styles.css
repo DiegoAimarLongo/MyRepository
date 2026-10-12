@@ -216,20 +216,23 @@ nav {
   width: 28px;
   height: 28px;
   background: var(--panel);
-  border: 1px solid var(--border);
+  border: 1px solid #00cc6a;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text2);
-  font-size: 12px;
   text-decoration: none;
   transition: all 0.2s;
 }
 
+.social-links img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
 .social-links a:hover {
   border-color: var(--accent);
-  color: var(--accent2);
   box-shadow: var(--glow);
 }
 
