@@ -34,7 +34,7 @@ export default class PortfolioController {
     new AchievementManager({ beep, eventBus: this.eventBus });
     new TypewriterEffect();
     new ParticlesHero();
-    new ShipsHero();
+    new ShipsHero({ playExplosion: this.audio.playMeteorExplosion.bind(this.audio) });
     new ParticlesHero({ canvasSelector: '#skillsParticles', heroSelector: '#habilidades', particleCount: 260 });
     new ParticlesHero({ canvasSelector: '#contactParticles', heroSelector: '#contacto', particleCount: 180 });
     new HeroInteraction();

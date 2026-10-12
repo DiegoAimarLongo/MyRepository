@@ -10,6 +10,12 @@ export default class AudioManager {
     this.audioCtx = null;
     this.soundOn = true;
     this.musicOn = true;
+    this.explosionSounds = [
+      'assets/audio/Fx/explotion1.mp3',
+      'assets/audio/Fx/explotion2.mp3',
+      'assets/audio/Fx/explotion3.mp3',
+      'assets/audio/Fx/explotion4.mp3'
+    ];
     this.eventBus = eventBus;
     this.button = document.querySelector(soundToggleSelector);
     this.musicButton = document.querySelector(musicToggleSelector);
@@ -43,6 +49,22 @@ export default class AudioManager {
       playRequest.catch((error) => {
         if (error.name !== 'NotAllowedError') {
           console.error('No se pudo reproducir la música de fondo.', error);
+        }
+      });
+    }
+  }
+
+  playMeteorExplosion() {
+    if (!this.soundOn) return;
+
+    const randomIndex = Math.floor(Math.random() * this.explosionSounds.length);
+    const explosion = new Audio(this.explosionSounds[randomIndex]);
+    const playRequest = explosion.play();
+
+    if (playRequest) {
+      playRequest.catch((error) => {
+        if (error.name !== 'NotAllowedError') {
+          console.error('No se pudo reproducir el efecto de explosión.', error);
         }
       });
     }

@@ -190,9 +190,15 @@ export class ParticlesHero {
 }
 
 export class ShipsHero {
-  constructor({ containerSelector = '#heroShips', heroSelector = '.hero', shipCount = 7 } = {}) {
+  constructor({
+    containerSelector = '#heroShips',
+    heroSelector = '.hero',
+    shipCount = 7,
+    playExplosion = () => {}
+  } = {}) {
     this.container = document.querySelector(containerSelector);
     this.hero = document.querySelector(heroSelector);
+    this.playExplosion = playExplosion;
     this.ammoElement = document.querySelector('#heroAmmo');
     this.reloadElement = document.querySelector('#heroReload');
     this.scoreElement = document.querySelector('#heroScore');
@@ -369,6 +375,7 @@ export class ShipsHero {
 
     this.consumeAmmo();
     this.destroyedShips += 1;
+    this.playExplosion();
     if (this.scoreElement) this.scoreElement.textContent = `METEORS DESTROYED ${this.destroyedShips}`;
     this.activeShips.delete(ship);
     ship.classList.add('is-destroying');
