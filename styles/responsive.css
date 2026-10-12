@@ -226,3 +226,27 @@ section {
   }
 
 }
+
+@media (min-width: 901px) and (max-height: 720px) {
+  .sidebar {
+    padding-block: 0.75rem;
+    overflow-y: auto;
+  }
+
+  .logo-area {
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .nav-item {
+    padding-block: 0.45rem;
+  }
+
+  .sidebar-bottom {
+    padding: 0.65rem 1rem;
+  }
+
+  .sidebar-bottom p {
+    margin-bottom: 0.4rem;
+  }
+}

@@ -45,8 +45,14 @@
         <a href="https://linkedin.com/in/diegogamedev/" title="LinkedIn" target="_blank" rel="noopener"><img src="assets/linkedin.png" alt="LinkedIn"></a>
         <a href="https://instagram.com/eldiegazzok/" title="Instagram" target="_blank" rel="noopener"><img src="assets/instagram.png" alt="Instagram"></a>
       </div>
-      <button class="sound-toggle" id="soundToggle" type="button"> SFX: ON</button>
-      <button class="sound-toggle" id="musicToggle" type="button" aria-pressed="true">🎵 Music: ON</button>
+      <div class="volume-control">
+        <label for="soundVolume">🔊 SFX <output id="soundVolumeValue" for="soundVolume">100%</output></label>
+        <input id="soundVolume" type="range" min="0" max="100" value="100" aria-label="SFX volume">
+      </div>
+      <div class="volume-control">
+        <label for="musicVolume">🎵 Music <output id="musicVolumeValue" for="musicVolume">70%</output></label>
+        <input id="musicVolume" type="range" min="0" max="100" value="70" aria-label="Music volume">
+      </div>
     </div>
   </aside>
 

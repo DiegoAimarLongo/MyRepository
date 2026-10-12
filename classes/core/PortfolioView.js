@@ -6,19 +6,21 @@ export default class PortfolioView {
       sections: selectors.sections || 'section[id]',
       xpBar: selectors.xpBar || '#xpBar',
       achievements: selectors.achievements || '#achv-container',
-      soundToggle: selectors.soundToggle || '#soundToggle'
+      soundVolume: selectors.soundVolume || '#soundVolume',
+      soundVolumeValue: selectors.soundVolumeValue || '#soundVolumeValue'
     };
     this.navItems = [...document.querySelectorAll(this.selectors.navItems)];
     this.xpBar = document.querySelector(this.selectors.xpBar);
     this.achievements = document.querySelector(this.selectors.achievements);
-    this.soundToggle = document.querySelector(this.selectors.soundToggle);
+    this.soundVolume = document.querySelector(this.selectors.soundVolume);
+    this.soundVolumeValue = document.querySelector(this.selectors.soundVolumeValue);
   }
 
   bindState() {
     this.eventBus.on('state:active-section-changed', (sectionId) => this.setActiveSection(sectionId));
     this.eventBus.on('state:scroll-progress-changed', (progress) => this.setScrollProgress(progress));
     this.eventBus.on('state:achievement-unlocked', (achievement) => this.renderAchievement(achievement));
-    this.eventBus.on('state:sound-changed', (isEnabled) => this.setSoundEnabled(isEnabled));
+    this.eventBus.on('state:sound-volume-changed', (volume) => this.setSoundVolume(volume));
   }
 
   setActiveSection(sectionId) {
@@ -31,12 +33,10 @@ export default class PortfolioView {
     if (this.xpBar) this.xpBar.style.width = `${progress}%`;
   }
 
-  setSoundEnabled(isEnabled) {
-    document.body.dataset.sound = isEnabled ? 'on' : 'off';
-    if (!this.soundToggle) return;
-    this.soundToggle.textContent = isEnabled ? '🔊 SFX: ON' : '🔇 SFX: OFF';
-    this.soundToggle.setAttribute('aria-pressed', String(isEnabled));
-    this.soundToggle.classList.toggle('is-on', isEnabled);
+  setSoundVolume(volume) {
+    document.body.dataset.sound = volume > 0 ? 'on' : 'off';
+    if (this.soundVolume) this.soundVolume.value = String(volume);
+    if (this.soundVolumeValue) this.soundVolumeValue.textContent = `${volume}%`;
   }
 
   renderAchievement({ icon, label, title }) {

@@ -10,11 +10,6 @@
   visibility: visible;
 }
 
-.sound-toggle.is-on {
-  border-color: var(--green2);
-  color: var(--green);
-}
-
 .hero.is-aiming .hero-reticle {
   opacity: 1;
 }

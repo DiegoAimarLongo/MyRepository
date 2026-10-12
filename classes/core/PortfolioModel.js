@@ -4,7 +4,7 @@ export default class PortfolioModel {
     this.state = {
       activeSection: null,
       scrollProgress: 0,
-      soundEnabled: true,
+      soundVolume: 100,
       unlockedAchievements: new Set()
     };
   }
@@ -21,9 +21,9 @@ export default class PortfolioModel {
     this.eventBus.emit('state:scroll-progress-changed', normalizedProgress);
   }
 
-  setSoundEnabled(enabled) {
-    this.state.soundEnabled = Boolean(enabled);
-    this.eventBus.emit('state:sound-changed', this.state.soundEnabled);
+  setSoundVolume(volume) {
+    this.state.soundVolume = Math.max(0, Math.min(100, Number(volume)));
+    this.eventBus.emit('state:sound-volume-changed', this.state.soundVolume);
   }
 
   unlockAchievement(achievement) {

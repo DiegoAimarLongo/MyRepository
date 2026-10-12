@@ -15,7 +15,7 @@ export default class PortfolioController {
     this.audio = new AudioManager({ eventBus });
     this.bindEvents();
     this.initializeSystems();
-    this.model.setSoundEnabled(this.audio.soundOn);
+    this.model.setSoundVolume(this.audio.soundVolume);
     this.model.setActiveSection('inicio');
   }
 
@@ -23,7 +23,7 @@ export default class PortfolioController {
     this.eventBus.on('section:active', (sectionId) => this.model.setActiveSection(sectionId));
     this.eventBus.on('scroll:progress', (progress) => this.model.setScrollProgress(progress));
     this.eventBus.on('achievement:detected', (achievement) => this.model.unlockAchievement(achievement));
-    this.eventBus.on('audio:changed', (isEnabled) => this.model.setSoundEnabled(isEnabled));
+    this.eventBus.on('audio:volume-changed', (volume) => this.model.setSoundVolume(volume));
   }
 
   initializeSystems() {
