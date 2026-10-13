@@ -352,7 +352,7 @@ export class ShipsHero {
     }, 4000);
   }
 
-  scheduleRespawn(ship, delay = 620) {
+  scheduleRespawn(ship, delay = 1650) {
     const timer = window.setTimeout(() => {
       this.respawnTimers.delete(timer);
       ship.remove();
@@ -378,6 +378,9 @@ export class ShipsHero {
     this.playExplosion();
     if (this.scoreElement) this.scoreElement.textContent = `METEORS DESTROYED ${this.destroyedShips}`;
     this.activeShips.delete(ship);
+    ship.style.animationDelay = '0s';
+    const explosionVariants = ['burst', 'twirl', 'shockwave', 'shatter'];
+    ship.dataset.explosion = explosionVariants[Math.floor(Math.random() * explosionVariants.length)];
     ship.classList.add('is-destroying');
     ship.setAttribute('aria-label', 'Meteor destroyed');
     ship.innerHTML = '<span class="ship-explosion" aria-hidden="true">' +

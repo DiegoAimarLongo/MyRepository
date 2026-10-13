@@ -1152,44 +1152,100 @@ section {
 .hero-ship.is-destroying {
   pointer-events: none;
   background-image: none;
-  animation: ship-destroy 0.62s ease-out forwards;
+  transform: translate(-50%, -50%);
+  animation: ship-disintegrate 1.4s ease-out forwards;
 }
 
 .ship-explosion {
   position: absolute;
   inset: 50%;
-  width: 8px;
-  height: 8px;
+  width: 1px;
+  height: 1px;
   display: block;
-  background: #fff6b0;
-  box-shadow: 0 0 18px 7px #ff9d00, 0 0 34px 10px rgba(255, 52, 52, 0.65);
-  transform: translate(-50%, -50%);
-  animation: explosion-core 0.62s ease-out forwards;
+}
+
+.ship-explosion::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #c18a54;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #a8754d, inset 0 0 5px #a8754d;
+  content: '';
+  transform: translate(-50%, -50%) scale(0.2);
+  animation: expanding-ring 1.4s ease-out forwards;
 }
 
 .ship-explosion i {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 4px;
-  height: 10px;
-  background: #ffcf40;
-  box-shadow: 0 0 8px #ff6a00;
-  transform-origin: 50% 0;
-  animation: explosion-shard 0.62s ease-out forwards;
+  width: 7px;
+  height: 7px;
+  background: var(--fragment-color, #82746b);
+  box-shadow: 0 0 4px var(--fragment-glow, #a8754d);
+  transform-origin: center;
+  animation: pixel-fragment 1.4s cubic-bezier(0.15, 0.7, 0.3, 1) forwards;
 }
 
-.ship-explosion i:nth-child(1) { --shard-angle: 0deg; }
-.ship-explosion i:nth-child(2) { --shard-angle: 45deg; }
-.ship-explosion i:nth-child(3) { --shard-angle: 90deg; }
-.ship-explosion i:nth-child(4) { --shard-angle: 135deg; }
-.ship-explosion i:nth-child(5) { --shard-angle: 180deg; }
-.ship-explosion i:nth-child(6) { --shard-angle: 225deg; }
-.ship-explosion i:nth-child(7) { --shard-angle: 270deg; }
-.ship-explosion i:nth-child(8) { --shard-angle: 315deg; }
+.ship-explosion i:nth-child(1) { --fragment-x: -58px; --fragment-y: -48px; --fragment-color: #91847b; }
+.ship-explosion i:nth-child(2) { --fragment-x: 7px; --fragment-y: -68px; --fragment-color: #c18a54; }
+.ship-explosion i:nth-child(3) { --fragment-x: 61px; --fragment-y: -36px; --fragment-color: #74645b; }
+.ship-explosion i:nth-child(4) { --fragment-x: 68px; --fragment-y: 23px; --fragment-color: #db974e; }
+.ship-explosion i:nth-child(5) { --fragment-x: 30px; --fragment-y: 60px; --fragment-color: #89796f; }
+.ship-explosion i:nth-child(6) { --fragment-x: -26px; --fragment-y: 67px; --fragment-color: #695a52; }
+.ship-explosion i:nth-child(7) { --fragment-x: -67px; --fragment-y: 26px; --fragment-color: #c78345; }
+.ship-explosion i:nth-child(8) { --fragment-x: -68px; --fragment-y: -14px; --fragment-color: #81736a; }
 
-@keyframes ship-destroy {
+.hero-ship.is-destroying[data-explosion="twirl"] {
+  animation-name: asteroid-twirl;
 }
+
+.hero-ship.is-destroying[data-explosion="twirl"] .ship-explosion::before {
+  animation-name: twirling-ring;
+}
+
+.hero-ship.is-destroying[data-explosion="twirl"] .ship-explosion i {
+  animation-name: twirling-fragment;
+}
+
+.hero-ship.is-destroying[data-explosion="shockwave"] {
+  animation-name: ship-shockwave;
+}
+
+.hero-ship.is-destroying[data-explosion="shockwave"] .ship-explosion::before {
+  animation-name: shockwave-ring;
+  border-width: 4px;
+  box-shadow: 0 0 16px #a8754d, inset 0 0 8px #a8754d;
+}
+
+.hero-ship.is-destroying[data-explosion="shockwave"] .ship-explosion i {
+  animation-name: shockwave-fragment;
+}
+
+.hero-ship.is-destroying[data-explosion="shatter"] {
+  animation-name: ship-shatter;
+}
+
+.hero-ship.is-destroying[data-explosion="shatter"] .ship-explosion::before {
+  display: none;
+}
+
+.hero-ship.is-destroying[data-explosion="shatter"] .ship-explosion i {
+  animation-name: shatter-fragment;
+  animation-timing-function: steps(5, end);
+}
+
+.hero-ship.is-destroying[data-explosion="shatter"] .ship-explosion i:nth-child(1) { animation-delay: 0s; }
+.hero-ship.is-destroying[data-explosion="shatter"] .ship-explosion i:nth-child(2) { animation-delay: 0.02s; }
+.hero-ship.is-destroying[data-explosion="shatter"] .ship-explosion i:nth-child(3) { animation-delay: 0.04s; }
+.hero-ship.is-destroying[data-explosion="shatter"] .ship-explosion i:nth-child(4) { animation-delay: 0.06s; }
+.hero-ship.is-destroying[data-explosion="shatter"] .ship-explosion i:nth-child(5) { animation-delay: 0.08s; }
+.hero-ship.is-destroying[data-explosion="shatter"] .ship-explosion i:nth-child(6) { animation-delay: 0.1s; }
+.hero-ship.is-destroying[data-explosion="shatter"] .ship-explosion i:nth-child(7) { animation-delay: 0.12s; }
+.hero-ship.is-destroying[data-explosion="shatter"] .ship-explosion i:nth-child(8) { animation-delay: 0.14s; }
 
 @keyframes asteroid-sprite {
   0% { background-position: 0 0; }
@@ -1199,20 +1255,99 @@ section {
   100% { background-position: 0 0; }
 }
 
-@keyframes explosion-core {
-  45% { transform: translate(-50%, -50%) scale(2); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+@keyframes ship-disintegrate {
+  0% { opacity: 1; filter: brightness(1); transform: translate(-50%, -50%) scale(1); }
+  18% { opacity: 1; filter: brightness(1.2); transform: translate(-50%, -50%) scale(1.08); }
+  100% { opacity: 0; filter: brightness(1); transform: translate(-50%, -50%) scale(0.86); }
 }
 
-@keyframes explosion-shard {
-  100% { opacity: 0; transform: rotate(var(--shard-angle, 0deg)) translateY(30px) scale(0.4); }
+@keyframes expanding-ring {
+  0% { opacity: 0.95; transform: translate(-50%, -50%) scale(0.2); }
+  75% { opacity: 0.75; transform: translate(-50%, -50%) scale(5.5); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(6.5); }
+}
+
+@keyframes pixel-fragment {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  14% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+  78% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--fragment-x)), calc(-50% + var(--fragment-y))) rotate(135deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--fragment-x)), calc(-50% + var(--fragment-y))) rotate(210deg) scale(0.45);
+  }
+}
+
+@keyframes asteroid-twirl {
+  0% { opacity: 1; transform: translate(-50%, -50%) rotate(0) scale(1); }
+  35% { opacity: 1; transform: translate(-50%, -50%) rotate(150deg) scale(1.1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) rotate(540deg) scale(0.1); }
+}
+
+@keyframes twirling-ring {
+  0% { opacity: 1; transform: translate(-50%, -50%) rotate(0) scale(0.2); }
+  100% { opacity: 0; transform: translate(-50%, -50%) rotate(360deg) scale(6.5); }
+}
+
+@keyframes twirling-fragment {
+  0% { opacity: 0; transform: translate(-50%, -50%) rotate(0) scale(0.4); }
+  14% { opacity: 1; transform: translate(-50%, -50%) rotate(90deg) scale(1.2); }
+  78% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--fragment-x)), calc(-50% + var(--fragment-y))) rotate(540deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--fragment-x)), calc(-50% + var(--fragment-y))) rotate(720deg) scale(0.3);
+  }
+}
+
+@keyframes ship-shockwave {
+  0%, 16% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+}
+
+@keyframes shockwave-ring {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0.1); }
+  65% { opacity: 0.8; transform: translate(-50%, -50%) scale(8); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(9); }
+}
+
+@keyframes shockwave-fragment {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+  12% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  65% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--fragment-x)), calc(-50% + var(--fragment-y))) scale(1.35);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--fragment-x)), calc(-50% + var(--fragment-y))) scale(0.4);
+  }
+}
+
+@keyframes ship-shatter {
+  0%, 8% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+}
+
+@keyframes shatter-fragment {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+  20% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--fragment-x)), calc(-50% + var(--fragment-y))) rotate(270deg) scale(0.2);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-ship { animation: none; }
   .hero-ship.is-destroying,
-  .ship-explosion,
+  .ship-explosion::before,
   .ship-explosion i { animation-duration: 0.01ms; }
+  .hero-ship.is-destroying[data-explosion="shatter"] .ship-explosion i { animation-delay: 0s; }
 }
 
 #skillsParticles,
