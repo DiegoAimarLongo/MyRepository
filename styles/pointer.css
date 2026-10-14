@@ -1,0 +1,32 @@
+/* ══════════════════════════════════════════════════════════
+  FX PACK — cursor, xp bar, partículas y logros
+   ══════════════════════════════════════════════════════════ */
+
+/* ── CURSOR RETRO ─────────────────────────── */
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+  a, button, .nav-item, .project-card, .skill-card, .contact-item { cursor: none; }
+}
+
+.px-cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  background: var(--cyan);
+  box-shadow: 0 0 0 2px rgba(0,212,255,0.25), 0 0 12px var(--cyan);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width .12s, height .12s, background .12s;
+  image-rendering: pixelated;
+}
+
+.px-cursor.ring {
+  width: 30px; height: 30px;
+  background: transparent;
+  border: 2px solid var(--accent2);
+  box-shadow: none;
+  transition: width .15s, height .15s, border-color .15s, transform .05s;
+}
+
+.px-cursor.click { transform: translate(-50%, -50%) scale(0.7); }

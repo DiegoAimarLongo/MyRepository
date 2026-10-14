@@ -1,0 +1,56 @@
+/* ── TOAST DE LOGROS (achievements) ───────── */
+#achv-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.achv-toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, var(--panel2), var(--panel));
+  border: 1px solid var(--accent);
+  border-left: 4px solid var(--green);
+  border-radius: 10px;
+  padding: 0.85rem 1.1rem;
+  min-width: 260px;
+  max-width: 320px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 20px rgba(0,255,136,0.15);
+  transform: translateX(120%);
+  opacity: 0;
+  animation: achv-in 0.4s forwards, achv-out 0.4s forwards 3.6s;
+}
+
+@keyframes achv-in {
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes achv-out {
+  to { transform: translateX(120%); opacity: 0; }
+}
+
+.achv-icon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 6px rgba(0,255,136,0.6));
+}
+
+.achv-text .achv-label {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--green);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.achv-text .achv-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 700;
+  margin-top: 2px;
+}

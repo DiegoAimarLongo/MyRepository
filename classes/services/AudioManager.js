@@ -1,14 +1,5 @@
 export default class AudioManager {
-
-  constructor({
-    soundVolumeSelector = '#soundVolume',
-    musicVolumeSelector = '#musicVolume',
-    soundVolumeValueSelector = '#soundVolumeValue',
-    musicVolumeValueSelector = '#musicVolumeValue',
-    eventBus
-  } = {}) {
-    // Intent: guarda el estado del sonido y enlaza el botón
-    // para activar la interfaz de audio.
+  constructor({ eventBus } = {}) {
     this.audioCtx = null;
     this.soundVolume = 100;
     this.musicVolume = 70;
@@ -19,15 +10,10 @@ export default class AudioManager {
       'assets/audio/Fx/explotion4.mp3'
     ];
     this.eventBus = eventBus;
-    this.soundVolumeInput = document.querySelector(soundVolumeSelector);
-    this.musicVolumeInput = document.querySelector(musicVolumeSelector);
-    this.soundVolumeValue = document.querySelector(soundVolumeValueSelector);
-    this.musicVolumeValue = document.querySelector(musicVolumeValueSelector);
     this.backgroundMusic = new Audio('assets/audio/global.mp3');
     this.backgroundMusic.loop = true;
     this.backgroundMusic.preload = 'auto';
     this.backgroundMusic.volume = this.musicVolume / 100;
-    this.init();
   }
 
   playMusic() {
@@ -62,16 +48,13 @@ export default class AudioManager {
 
   setSoundVolume(volume) {
     this.soundVolume = Math.max(0, Math.min(100, Number(volume)));
-    if (this.soundVolumeValue) this.soundVolumeValue.textContent = `${this.soundVolume}%`;
-    this.soundVolumeInput?.style.setProperty('--volume-percent', `${this.soundVolume}%`);
     this.eventBus?.emit('audio:volume-changed', this.soundVolume);
   }
 
   setMusicVolume(volume) {
     this.musicVolume = Math.max(0, Math.min(100, Number(volume)));
     this.backgroundMusic.volume = this.musicVolume / 100;
-    if (this.musicVolumeValue) this.musicVolumeValue.textContent = `${this.musicVolume}%`;
-    this.musicVolumeInput?.style.setProperty('--volume-percent', `${this.musicVolume}%`);
+    this.eventBus?.emit('audio:music-volume-changed', this.musicVolume);
 
     if (this.musicVolume === 0) {
       this.backgroundMusic.pause();
@@ -121,41 +104,4 @@ export default class AudioManager {
     return this.audioCtx;
   }
 
-  init() {
-  // Intent: sincroniza los controles de volumen y activa los sonidos.
-    if (this.soundVolumeInput) {
-      this.soundVolumeInput.value = String(this.soundVolume);
-      this.setSoundVolume(this.soundVolumeInput.value);
-      this.soundVolumeInput.addEventListener('input', () => {
-        this.setSoundVolume(this.soundVolumeInput.value);
-      });
-    }
-    if (this.musicVolumeInput) {
-      this.musicVolumeInput.value = String(this.musicVolume);
-      this.setMusicVolume(this.musicVolumeInput.value);
-      this.musicVolumeInput.addEventListener('input', () => {
-        this.setMusicVolume(this.musicVolumeInput.value);
-      });
-    }
-    this.resumeAudioContext();
-    this.playMusic();
-
-    const unlockAudio = () => {
-      this.resumeAudioContext();
-      if (this.soundVolume > 0) this.beep(660, 0.08);
-      this.playMusic();
-      window.removeEventListener('pointerdown', unlockAudio);
-      window.removeEventListener('keydown', unlockAudio);
-    };
-
-    window.addEventListener('pointerdown', unlockAudio, { once: true });
-    window.addEventListener('keydown', unlockAudio, { once: true });
-
-    // Intent: reproduce un beep cada vez que el usuario hace click
-    // en cualquier parte de la pantalla, incluso si otro listener detiene
-    // la propagación del evento.
-    document.addEventListener('click', () => {
-      this.beep();
-    }, true);
-  }
 }

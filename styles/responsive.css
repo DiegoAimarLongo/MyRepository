@@ -2,6 +2,15 @@
   --responsive-content-padding: clamp(1rem, 4vw, 4rem);
 }
 
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .about-grid,
+  .contact-grid { grid-template-columns: 1fr; }
+  section { padding: 3rem 1.5rem; }
+  .hero { padding: 3rem 1.5rem; }
+}
+
 img,
 canvas {
   max-width: 100%;

@@ -42,13 +42,47 @@ No build step or package installation is required.
 ```text
 .
 ├── assets/          # Portfolio and project images
-├── classes/         # JavaScript systems and application controller
-│   └── core/         # Event bus, model, view, and controller
-├── styles/          # Architecture, responsive, and state styles
-├── index.html        # Page structure and portfolio content
-├── main.js           # Application entry point
-└── styles.css        # Main styles
+├── classes/
+│   ├── controllers/ # UI input, feature coordination, and app composition
+│   ├── core/        # Shared infrastructure (event bus)
+│   ├── models/      # Portfolio and game state/business rules
+│   ├── services/    # Browser capabilities and external effects (audio)
+│   └── views/       # DOM rendering for application and game state
+├── styles/
+│   ├── about.css, projects.css, skills.css, timeline.css, contact.css
+│   ├── achievements.css, audio-controls.css, carousel.css, particles.css
+│   ├── base.css, layout.css, hero.css, components.css
+│   ├── pointer.css, progress.css, utilities.css
+│   ├── architecture.css, responsive.css, states.css, tokens.css
+├── index.html       # Semantic structure and static portfolio content
+├── main.js          # Application bootstrap
+└── styles.css       # Ordered stylesheet entry point
 ```
+
+## Architecture
+
+The interactive application uses MVC: models own state and game rules, views
+render model updates to the DOM, and controllers handle browser input and
+coordinate features. `PortfolioController` is the composition root; feature
+controllers receive their collaborators (for example, the shared event bus and
+audio service) rather than creating global dependencies. `AudioManager` keeps
+audio playback separate from the controls that operate it.
+
+MVP is not layered on top of MVC here: the portfolio is a small browser app with
+no separate presentation workflow that benefits from an additional presenter.
+Use MVP only if a future feature needs that distinct interaction contract.
+
+CSS is split by responsibility and imported in order from `styles.css`. Keep
+shared design tokens and global rules in their existing shared files, feature
+rules alongside their section or interaction, and cross-feature viewport
+overrides in `styles/responsive.css`. Keep component-specific breakpoints with
+that component's stylesheet. This keeps the current cascade explicit while
+avoiding a build-tool dependency.
+
+When adding an interactive feature, keep its state/rules out of DOM code, render
+changes through a view, route browser events through a controller, and add
+styles to the matching feature stylesheet. Add tests for model rules without
+requiring a browser where possible.
 
 ## Contact
 

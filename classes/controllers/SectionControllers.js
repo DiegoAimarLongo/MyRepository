@@ -14,9 +14,6 @@ export class NavigationManager {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
 
-        this.navItems.forEach((navItem) => navItem.classList.remove('active'));
-        const activeItem = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
-        if (activeItem) activeItem.classList.add('active');
         this.eventBus?.emit('section:active', entry.target.id);
       });
     }, { threshold: 0.3 });
@@ -42,22 +39,18 @@ export class NavigationManager {
 }
 
 export class ExperienceBar {
-  constructor({ barSelector = '#xpBar', eventBus } = {}) {
-    // Intent: guarda la referencia de la barra de progreso y la activa al cargar la página.
-    this.bar = document.querySelector(barSelector);
+  constructor({ eventBus } = {}) {
+    // Intent: activa la barra de progreso al cargar la página.
     this.eventBus = eventBus;
     this.init();
   }
 
   // Intent: calcula cuánto se avanzó en el documento y actualiza el ancho de la barra de XP.
   update() {
-    if (!this.bar) return;
-
     const root = document.documentElement;
     const scrolled = root.scrollTop;
     const max = root.scrollHeight - root.clientHeight;
     const percent = max > 0 ? (scrolled / max) * 100 : 0;
-    this.bar.style.width = percent + '%';
     this.eventBus?.emit('scroll:progress', percent);
   }
 

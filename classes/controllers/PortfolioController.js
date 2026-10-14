@@ -1,10 +1,11 @@
-import AudioManager from '../AudioManager.js';
-import InteractiveCursor from '../InteractiveCursor.js';
-import { NavigationManager, ExperienceBar, AchievementManager, SkillReveal } from '../SectionSystem.js';
-import { TypewriterEffect, ParticlesHero, HeroInteraction, ShipsHero } from '../HeroSystem.js';
-import CarouselSystem from '../CarouselSystem.js';
-import PortfolioModel from './PortfolioModel.js';
-import PortfolioView from './PortfolioView.js';
+import AudioController from './AudioController.js';
+import AudioManager from '../services/AudioManager.js';
+import InteractiveCursor from './InteractiveCursorController.js';
+import { NavigationManager, ExperienceBar, AchievementManager, SkillReveal } from './SectionControllers.js';
+import { TypewriterEffect, ParticlesHero, HeroInteraction, ShipsHero } from './HeroController.js';
+import CarouselSystem from './CarouselController.js';
+import PortfolioModel from '../models/PortfolioModel.js';
+import PortfolioView from '../views/PortfolioView.js';
 
 export default class PortfolioController {
   constructor({ eventBus }) {
@@ -12,10 +13,10 @@ export default class PortfolioController {
     this.model = new PortfolioModel({ eventBus });
     this.view = new PortfolioView({ eventBus });
     this.view.bindState();
-    this.audio = new AudioManager({ eventBus });
     this.bindEvents();
+    this.audio = new AudioManager({ eventBus });
+    this.audioController = new AudioController({ audioManager: this.audio });
     this.initializeSystems();
-    this.model.setSoundVolume(this.audio.soundVolume);
     this.model.setActiveSection('inicio');
   }
 
@@ -24,23 +25,42 @@ export default class PortfolioController {
     this.eventBus.on('scroll:progress', (progress) => this.model.setScrollProgress(progress));
     this.eventBus.on('achievement:detected', (achievement) => this.model.unlockAchievement(achievement));
     this.eventBus.on('audio:volume-changed', (volume) => this.model.setSoundVolume(volume));
+    this.eventBus.on('audio:music-volume-changed', (volume) => this.model.setMusicVolume(volume));
   }
 
   initializeSystems() {
     const beep = this.audio.beep.bind(this.audio);
+    this.bindLogoEffect();
     new InteractiveCursor();
     new NavigationManager({ beep, eventBus: this.eventBus });
     new ExperienceBar({ eventBus: this.eventBus });
     new AchievementManager({ beep, eventBus: this.eventBus });
     new TypewriterEffect();
     new ParticlesHero();
-    new ShipsHero({ playExplosion: this.audio.playMeteorExplosion.bind(this.audio) });
+    new ShipsHero({
+      eventBus: this.eventBus,
+      playExplosion: this.audio.playMeteorExplosion.bind(this.audio)
+    });
     new ParticlesHero({ canvasSelector: '#skillsParticles', heroSelector: '#habilidades', particleCount: 260 });
     new ParticlesHero({ canvasSelector: '#contactParticles', heroSelector: '#contacto', particleCount: 180 });
     new HeroInteraction();
     new SkillReveal();
     new CarouselSystem({ containerSelector: '.projects-grid', cardsPerView: 3 });
     this.bindScrollToTop();
+  }
+
+  bindLogoEffect() {
+    const logo = document.querySelector('.logo-icon');
+    const aboutSection = document.querySelector('#sobre-mi');
+    if (!logo || !aboutSection) return;
+
+    const aboutObserver = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      logo.classList.add('is-pixel');
+      aboutObserver.disconnect();
+    }, { threshold: 0.35 });
+
+    aboutObserver.observe(aboutSection);
   }
 
   bindScrollToTop() {

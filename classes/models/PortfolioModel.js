@@ -5,6 +5,7 @@ export default class PortfolioModel {
       activeSection: null,
       scrollProgress: 0,
       soundVolume: 100,
+      musicVolume: 70,
       unlockedAchievements: new Set()
     };
   }
@@ -24,6 +25,11 @@ export default class PortfolioModel {
   setSoundVolume(volume) {
     this.state.soundVolume = Math.max(0, Math.min(100, Number(volume)));
     this.eventBus.emit('state:sound-volume-changed', this.state.soundVolume);
+  }
+
+  setMusicVolume(volume) {
+    this.state.musicVolume = Math.max(0, Math.min(100, Number(volume)));
+    this.eventBus.emit('state:music-volume-changed', this.state.musicVolume);
   }
 
   unlockAchievement(achievement) {

@@ -1,3 +1,6 @@
+import HeroGameModel from '../models/HeroGameModel.js';
+import HeroGameView from '../views/HeroGameView.js';
+
 export class TypewriterEffect {
   constructor({ elementSelector = '#heroTypeTitle', text = 'Game Development | Backend Developer' } = {}) {
     // Intent: prepara el elemento del hero y el texto base para desplegar un efecto de escritura.
@@ -194,42 +197,20 @@ export class ShipsHero {
     containerSelector = '#heroShips',
     heroSelector = '.hero',
     shipCount = 7,
-    playExplosion = () => {}
+    playExplosion = () => {},
+    eventBus
   } = {}) {
     this.container = document.querySelector(containerSelector);
     this.hero = document.querySelector(heroSelector);
     this.playExplosion = playExplosion;
-    this.ammoElement = document.querySelector('#heroAmmo');
-    this.reloadElement = document.querySelector('#heroReload');
-    this.scoreElement = document.querySelector('#heroScore');
-    this.destroyedStatsElement = document.querySelector('#contactDestroyed');
-    this.shotsStatsElement = document.querySelector('#contactShots');
-    this.missesStatsElement = document.querySelector('#contactMisses');
-    this.messageStatsElement = document.querySelector('#contactMessage');
-    this.messageTextElement = document.querySelector('#contactMessageText');
-    this.statsPanelElement = this.messageStatsElement?.closest('.contact-stats');
+    this.model = new HeroGameModel({ eventBus });
+    this.view = new HeroGameView({ eventBus, model: this.model });
     this.shipCount = shipCount;
-    this.maxAmmo = 5;
-    this.ammo = this.maxAmmo;
-    this.destroyedShips = 0;
-    this.totalShots = 0;
-    this.missedClicks = 0;
-    this.isReloading = false;
     this.shipId = 0;
     this.activeShips = new Map();
     this.respawnTimers = new Set();
     this.lastFrameTime = 0;
     this.init();
-    this.fitMessageToPanel();
-
-    if (this.statsPanelElement) {
-      if ('ResizeObserver' in window) {
-        this.messageResizeObserver = new ResizeObserver(() => this.fitMessageToPanel());
-        this.messageResizeObserver.observe(this.statsPanelElement);
-      } else {
-        window.addEventListener('resize', () => this.fitMessageToPanel());
-      }
-    }
   }
 
   init() {
@@ -238,8 +219,7 @@ export class ShipsHero {
     this.hero?.addEventListener('click', (event) => {
       if (event.target.closest('.hero-ship, .hero-btns a, button')) return;
       if (this.consumeAmmo()) {
-        this.missedClicks += 1;
-        this.updateStats();
+        this.model.recordMiss();
       }
     });
 
@@ -357,79 +337,12 @@ export class ShipsHero {
     this.container.appendChild(ship);
   }
 
-  updateAmmo() {
-    if (this.ammoElement) this.ammoElement.textContent = `AMMO ${this.ammo}/${this.maxAmmo}`;
-  }
-
-  updateStats() {
-    if (this.destroyedStatsElement) this.destroyedStatsElement.textContent = String(this.destroyedShips);
-    if (this.shotsStatsElement) this.shotsStatsElement.textContent = String(this.totalShots);
-    if (this.missesStatsElement) this.missesStatsElement.textContent = String(this.missedClicks);
-    if (this.messageStatsElement) {
-      const message = this.getPerformanceMessage();
-      if (this.messageTextElement) this.messageTextElement.textContent = message;
-      else this.messageStatsElement.textContent = message;
-      this.fitMessageToPanel();
-    }
-  }
-
-  fitMessageToPanel() {
-    if (!this.messageStatsElement?.clientWidth || !this.messageStatsElement.clientHeight) return;
-
-    let minimum = 4;
-    let maximum = 30;
-    let bestFit = minimum;
-
-    while (maximum - minimum > 0.1) {
-      const fontSize = (minimum + maximum) / 2;
-      if (this.messageTextElement) this.messageTextElement.style.fontSize = `${fontSize}px`;
-      else this.messageStatsElement.style.fontSize = `${fontSize}px`;
-      const textElement = this.messageTextElement || this.messageStatsElement;
-
-      if (
-        textElement.scrollHeight <= this.messageStatsElement.clientHeight &&
-        textElement.scrollWidth <= this.messageStatsElement.clientWidth
-      ) {
-        bestFit = fontSize;
-        minimum = fontSize;
-      } else {
-        maximum = fontSize;
-      }
-    }
-
-    if (this.messageTextElement) this.messageTextElement.style.fontSize = `${bestFit}px`;
-    else this.messageStatsElement.style.fontSize = `${bestFit}px`;
-  }
-
-  getPerformanceMessage() {
-    if (this.destroyedShips >= 20) {
-      return `¡RÉCORD DE MISIÓN: Destruiste ${this.destroyedShips} meteoritos y solo erraste ${this.missedClicks} tiros! Dominaste el juego, ahora dominemos tu próximo desarrollo. ¡Enviame un mensaje!`;
-    }
-
-    if (this.totalShots < 5) {
-      return `¡Destruiste solo ${this.destroyedShips} meteoritos! Veo que preferiste explorar la página antes que disparar. ¡Me parece perfecto! Ponete en contacto y hablemos de tu idea.`;
-    }
-
-    if (this.destroyedShips < 5) {
-      return `¡Destruiste ${this.destroyedShips} meteoritos y erraste ${this.missedClicks} tiros! La defensa espacial no es lo tuyo, pero por suerte la programación sí es lo mío. ¡Hablemos por un proyecto!`;
-    }
-
-    const accuracy = this.destroyedShips / this.totalShots;
-    if (accuracy >= 0.75) {
-      return `¡Destruiste ${this.destroyedShips} meteoritos con solo ${this.missedClicks} disparos fallidos! Veo que tenés una puntería impecable. ¡Imaginá lo que podríamos lograr trabajando juntos en un proyecto!`;
-    }
-
-    return `¡Destruiste ${this.destroyedShips} meteoritos, pero dejaste ${this.missedClicks} disparos en el espacio! Se nota tu entusiasmo y rapidez. Hablemos para encauzar esa energía en tu próximo proyecto.`;
-  }
-
   reload() {
-    this.isReloading = true;
+    this.model.startReload();
     this.hero?.classList.add('is-reloading');
 
     window.setTimeout(() => {
-      this.ammo = this.maxAmmo;
-      this.isReloading = false;
-      this.updateAmmo();
+      this.model.completeReload();
       this.hero?.classList.remove('is-reloading');
     }, 4000);
   }
@@ -444,23 +357,17 @@ export class ShipsHero {
   }
 
   consumeAmmo() {
-    if (this.isReloading || this.ammo <= 0) return false;
-
-    this.ammo -= 1;
-    this.totalShots += 1;
-    this.updateAmmo();
-    if (this.ammo === 0) this.reload();
+    if (!this.model.consumeAmmo()) return false;
+    if (!this.model.hasAmmo) this.reload();
     return true;
   }
 
   destroyShip(ship) {
-    if (ship.classList.contains('is-destroying') || this.isReloading || this.ammo <= 0) return;
+    if (ship.classList.contains('is-destroying') || this.model.isReloading || !this.model.hasAmmo) return;
 
     this.consumeAmmo();
-    this.destroyedShips += 1;
+    this.model.recordDestroyedShip();
     this.playExplosion();
-    if (this.scoreElement) this.scoreElement.textContent = `METEORS DESTROYED ${this.destroyedShips}`;
-    this.updateStats();
     this.activeShips.delete(ship);
     ship.style.animationDelay = '0s';
     const explosionVariants = ['burst', 'twirl', 'shockwave', 'shatter'];

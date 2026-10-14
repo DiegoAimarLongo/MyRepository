@@ -1,0 +1,21 @@
+/* ── XP / SCROLL BAR ──────────────────────── */
+.xp-bar-wrap {
+  position: fixed;
+  top: 0; left: 220px; right: 0;
+  height: 5px;
+  background: rgba(255,255,255,0.05);
+  z-index: 200;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--green), var(--cyan), var(--accent));
+  background-size: 200% 100%;
+  box-shadow: 0 0 10px rgba(0,255,136,0.6);
+  transition: width 0.1s linear;
+}
+
+@media (max-width: 900px) {
+  .xp-bar-wrap { left: 0; }
+}
