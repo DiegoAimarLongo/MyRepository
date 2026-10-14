@@ -202,16 +202,34 @@ export class ShipsHero {
     this.ammoElement = document.querySelector('#heroAmmo');
     this.reloadElement = document.querySelector('#heroReload');
     this.scoreElement = document.querySelector('#heroScore');
+    this.destroyedStatsElement = document.querySelector('#contactDestroyed');
+    this.shotsStatsElement = document.querySelector('#contactShots');
+    this.missesStatsElement = document.querySelector('#contactMisses');
+    this.messageStatsElement = document.querySelector('#contactMessage');
+    this.messageTextElement = document.querySelector('#contactMessageText');
+    this.statsPanelElement = this.messageStatsElement?.closest('.contact-stats');
     this.shipCount = shipCount;
     this.maxAmmo = 5;
     this.ammo = this.maxAmmo;
     this.destroyedShips = 0;
+    this.totalShots = 0;
+    this.missedClicks = 0;
     this.isReloading = false;
     this.shipId = 0;
     this.activeShips = new Map();
     this.respawnTimers = new Set();
     this.lastFrameTime = 0;
     this.init();
+    this.fitMessageToPanel();
+
+    if (this.statsPanelElement) {
+      if ('ResizeObserver' in window) {
+        this.messageResizeObserver = new ResizeObserver(() => this.fitMessageToPanel());
+        this.messageResizeObserver.observe(this.statsPanelElement);
+      } else {
+        window.addEventListener('resize', () => this.fitMessageToPanel());
+      }
+    }
   }
 
   init() {
@@ -219,7 +237,10 @@ export class ShipsHero {
 
     this.hero?.addEventListener('click', (event) => {
       if (event.target.closest('.hero-ship, .hero-btns a, button')) return;
-      this.consumeAmmo();
+      if (this.consumeAmmo()) {
+        this.missedClicks += 1;
+        this.updateStats();
+      }
     });
 
     for (let index = 0; index < this.shipCount; index += 1) {
@@ -340,6 +361,67 @@ export class ShipsHero {
     if (this.ammoElement) this.ammoElement.textContent = `AMMO ${this.ammo}/${this.maxAmmo}`;
   }
 
+  updateStats() {
+    if (this.destroyedStatsElement) this.destroyedStatsElement.textContent = String(this.destroyedShips);
+    if (this.shotsStatsElement) this.shotsStatsElement.textContent = String(this.totalShots);
+    if (this.missesStatsElement) this.missesStatsElement.textContent = String(this.missedClicks);
+    if (this.messageStatsElement) {
+      const message = this.getPerformanceMessage();
+      if (this.messageTextElement) this.messageTextElement.textContent = message;
+      else this.messageStatsElement.textContent = message;
+      this.fitMessageToPanel();
+    }
+  }
+
+  fitMessageToPanel() {
+    if (!this.messageStatsElement?.clientWidth || !this.messageStatsElement.clientHeight) return;
+
+    let minimum = 4;
+    let maximum = 30;
+    let bestFit = minimum;
+
+    while (maximum - minimum > 0.1) {
+      const fontSize = (minimum + maximum) / 2;
+      if (this.messageTextElement) this.messageTextElement.style.fontSize = `${fontSize}px`;
+      else this.messageStatsElement.style.fontSize = `${fontSize}px`;
+      const textElement = this.messageTextElement || this.messageStatsElement;
+
+      if (
+        textElement.scrollHeight <= this.messageStatsElement.clientHeight &&
+        textElement.scrollWidth <= this.messageStatsElement.clientWidth
+      ) {
+        bestFit = fontSize;
+        minimum = fontSize;
+      } else {
+        maximum = fontSize;
+      }
+    }
+
+    if (this.messageTextElement) this.messageTextElement.style.fontSize = `${bestFit}px`;
+    else this.messageStatsElement.style.fontSize = `${bestFit}px`;
+  }
+
+  getPerformanceMessage() {
+    if (this.destroyedShips >= 20) {
+      return `¡RÉCORD DE MISIÓN: Destruiste ${this.destroyedShips} meteoritos y solo erraste ${this.missedClicks} tiros! Dominaste el juego, ahora dominemos tu próximo desarrollo. ¡Enviame un mensaje!`;
+    }
+
+    if (this.totalShots < 5) {
+      return `¡Destruiste solo ${this.destroyedShips} meteoritos! Veo que preferiste explorar la página antes que disparar. ¡Me parece perfecto! Ponete en contacto y hablemos de tu idea.`;
+    }
+
+    if (this.destroyedShips < 5) {
+      return `¡Destruiste ${this.destroyedShips} meteoritos y erraste ${this.missedClicks} tiros! La defensa espacial no es lo tuyo, pero por suerte la programación sí es lo mío. ¡Hablemos por un proyecto!`;
+    }
+
+    const accuracy = this.destroyedShips / this.totalShots;
+    if (accuracy >= 0.75) {
+      return `¡Destruiste ${this.destroyedShips} meteoritos con solo ${this.missedClicks} disparos fallidos! Veo que tenés una puntería impecable. ¡Imaginá lo que podríamos lograr trabajando juntos en un proyecto!`;
+    }
+
+    return `¡Destruiste ${this.destroyedShips} meteoritos, pero dejaste ${this.missedClicks} disparos en el espacio! Se nota tu entusiasmo y rapidez. Hablemos para encauzar esa energía en tu próximo proyecto.`;
+  }
+
   reload() {
     this.isReloading = true;
     this.hero?.classList.add('is-reloading');
@@ -365,6 +447,7 @@ export class ShipsHero {
     if (this.isReloading || this.ammo <= 0) return false;
 
     this.ammo -= 1;
+    this.totalShots += 1;
     this.updateAmmo();
     if (this.ammo === 0) this.reload();
     return true;
@@ -377,6 +460,7 @@ export class ShipsHero {
     this.destroyedShips += 1;
     this.playExplosion();
     if (this.scoreElement) this.scoreElement.textContent = `METEORS DESTROYED ${this.destroyedShips}`;
+    this.updateStats();
     this.activeShips.delete(ship);
     ship.style.animationDelay = '0s';
     const explosionVariants = ['burst', 'twirl', 'shockwave', 'shatter'];

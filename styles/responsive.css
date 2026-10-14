@@ -240,13 +240,15 @@ section {
 
   .nav-item {
     padding-block: 0.45rem;
+    min-height: 38px;
+  }
+
+  .sidebar nav {
+    gap: 0.3rem;
   }
 
   .sidebar-bottom {
     padding: 0.65rem 1rem;
   }
 
-  .sidebar-bottom p {
-    margin-bottom: 0.4rem;
-  }
 }

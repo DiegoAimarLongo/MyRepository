@@ -39,12 +39,6 @@
     </nav>
 
     <div class="sidebar-bottom">
-      <p>Let's connect</p>
-      <div class="social-links">
-        <a href="https://github.com/DiegoAimarLongo" title="GitHub" target="_blank" rel="noopener"><img src="assets/gitHub.png" alt="GitHub"></a>
-        <a href="https://linkedin.com/in/diegogamedev/" title="LinkedIn" target="_blank" rel="noopener"><img src="assets/linkedin.png" alt="LinkedIn"></a>
-        <a href="https://instagram.com/eldiegazzok/" title="Instagram" target="_blank" rel="noopener"><img src="assets/instagram.png" alt="Instagram"></a>
-      </div>
       <div class="volume-control">
         <label for="soundVolume">🔊 SFX <output id="soundVolumeValue" for="soundVolume">100%</output></label>
         <input id="soundVolume" type="range" min="0" max="100" value="100" aria-label="SFX volume">
@@ -352,45 +346,66 @@
     <!-- CONTACTO -->
     <section id="contacto">
       <canvas id="contactParticles" aria-hidden="true"></canvas>
-      <div class="section-header">
-        <div class="section-label">// Contacto</div>
-        <h2 class="section-title">Hablemos</h2>
-        <div class="section-line"></div>
-      </div>
-
       <div class="contact-grid">
-        <div class="contact-info">
-          <div class="contact-item">
-            <div class="contact-icon">✉</div>
-            <div>
-              <div class="contact-label">Email</div>
-              <div class="contact-val">longodiegoaimar@gmail.com</div>
-            </div>
+        <div class="contact-details">
+          <div class="section-header">
+            <div class="section-label">// Contacto</div>
+            <h2 class="section-title">Hablemos</h2>
+            <div class="section-line"></div>
           </div>
-          <div class="contact-item">
-            <div class="contact-icon">📱</div>
-            <div>
-              <div class="contact-label">Teléfono / WhatsApp</div>
-              <div class="contact-val">(+54) 9 341 520-0532</div>
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">✉</div>
+              <div>
+                <div class="contact-label">Mail</div>
+                <a class="contact-val" href="mailto:longodiegoaimar@gmail.com">longodiegoaimar@gmail.com</a>
+              </div>
             </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">in</div>
-            <div>
-              <div class="contact-label">LinkedIn</div>
-              <!-- Reemplazá con tu URL real de LinkedIn -->
-              <div class="contact-val">linkedin.com/in/diego-longo</div>
+            <div class="contact-item">
+              <div class="contact-icon"><img src="assets/linkedin.png" alt="" aria-hidden="true"></div>
+              <div>
+                <div class="contact-label">LinkedIn</div>
+                <a class="contact-val" href="https://linkedin.com/in/diegogamedev/" target="_blank" rel="noopener noreferrer">linkedin.com/in/diegogamedev</a>
+              </div>
             </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">◎</div>
-            <div>
-              <div class="contact-label">Ubicación</div>
-              <div class="contact-val">Rosario, Santa Fe, Argentina</div>
+            <div class="contact-item">
+              <div class="contact-icon"><img src="assets/gitHub.png" alt="" aria-hidden="true"></div>
+              <div>
+                <div class="contact-label">GitHub</div>
+                <a class="contact-val" href="https://github.com/DiegoAimarLongo" target="_blank" rel="noopener noreferrer">github.com/DiegoAimarLongo</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><img src="assets/instagram.png" alt="" aria-hidden="true"></div>
+              <div>
+                <div class="contact-label">Instagram</div>
+                <a class="contact-val" href="https://instagram.com/eldiegazzok/" target="_blank" rel="noopener noreferrer">instagram.com/eldiegazzok</a>
+              </div>
             </div>
           </div>
         </div>
-
+        <div class="contact-stats" aria-label="Estadísticas de juego">
+          <img class="contact-stats-frame" src="assets/playerStats.png" alt="" aria-hidden="true">
+          <div class="contact-stats-intro">
+            <p class="contact-stats-heading">Player Stats</p>
+            <p id="contactMessage" aria-live="polite"><span id="contactMessageText">¡Destruiste solo 0 meteoritos! Veo que preferiste explorar la página antes que disparar. ¡Me parece perfecto! Ponete en contacto y hablemos de tu idea.</span></p>
+          </div>
+          <h3 class="contact-stats-title">Mission stats</h3>
+          <dl class="contact-stats-list">
+            <div class="contact-stat">
+              <dt>Meteoritos destruidos</dt>
+              <dd id="contactDestroyed">0</dd>
+            </div>
+            <div class="contact-stat">
+              <dt>Disparos totales</dt>
+              <dd id="contactShots">0</dd>
+            </div>
+            <div class="contact-stat">
+              <dt>Clics errados</dt>
+              <dd id="contactMisses">0</dd>
+            </div>
+          </dl>
+        </div>
       </div>
     </section>
 
