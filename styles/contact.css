@@ -131,24 +131,11 @@
   margin: 0;
 }
 
-.contact-stats-intro .contact-stats-heading {
-  position: absolute;
-  top: 4.1%;
-  left: 18%;
-  right: 18%;
-  color: #fff;
-  font-size: clamp(11px, 3.5cqw, 22px);
-  line-height: 1;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: center;
-}
-
 .contact-stats-intro #contactMessage {
   position: absolute;
-  top: 11%;
+  top: 9%;
   right: 13%;
-  bottom: 78.5%;
+  bottom: 80.5%;
   left: 13%;
   display: flex;
   align-items: center;
@@ -168,51 +155,33 @@
   overflow-wrap: anywhere;
 }
 
-.contact-stats-title {
-  position: absolute;
-  top: 26%;
-  left: 15%;
-  right: 15%;
-  margin: 0;
-  color: #ff77ce;
-  font-size: clamp(11px, 1.65vw, 20px);
-  letter-spacing: 0.06em;
-  text-align: center;
-  text-shadow: 2px 2px #622e88;
-}
-
 .contact-stats-list {
   position: absolute;
-  top: 36%;
-  left: 15%;
-  right: 14%;
+  top: 28%;
+  right: 0;
+  bottom: 22%;
+  left: 60%;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
-  height: 43%;
   margin: 0;
 }
 
 .contact-stat {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
   align-items: center;
-  gap: 0.35rem;
+  justify-content: center;
+  min-width: 0;
 }
 
-.contact-stat dt {
-  max-width: 9ch;
-  font-size: clamp(8px, 1.05vw, 13px);
-  line-height: 1.05;
-  font-weight: 700;
-}
-
-.contact-stat dd {
-  margin: 0;
+.contact-stat output {
+  max-width: 100%;
   color: #fff;
-  font-size: clamp(18px, 2.7vw, 32px);
-  line-height: 1;
+  font-family: 'Press Start 2P', 'Share Tech Mono', monospace;
+  font-size: clamp(18px, 7cqw, 46px);
+  line-height: 1.2;
   font-weight: 700;
-  text-shadow: 2px 2px #35324f;
+  text-align: center;
+  text-shadow: 2px 2px #35324f, 0 0 7px rgba(255, 255, 255, 0.22);
 }
 
 .contact-award {

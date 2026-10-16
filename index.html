@@ -387,24 +387,19 @@
         <div class="contact-stats" aria-label="Estadísticas de juego">
           <img class="contact-stats-frame" src="assets/playerStats.png" alt="" aria-hidden="true">
           <div class="contact-stats-intro">
-            <p class="contact-stats-heading">Player Stats</p>
             <p id="contactMessage" aria-live="polite"><span id="contactMessageText">¡Destruiste solo 0 meteoritos! Veo que preferiste explorar la página antes que disparar. ¡Me parece perfecto! Ponete en contacto y hablemos de tu idea.</span></p>
           </div>
-          <h3 class="contact-stats-title">Mission stats</h3>
-          <dl class="contact-stats-list">
+          <div class="contact-stats-list" aria-label="Estadísticas de la misión">
             <div class="contact-stat">
-              <dt>Meteoritos destruidos</dt>
-              <dd id="contactDestroyed">0</dd>
+              <output id="contactDestroyed" aria-label="Meteoritos destruidos">0</output>
             </div>
             <div class="contact-stat">
-              <dt>Disparos totales</dt>
-              <dd id="contactShots">0</dd>
+              <output id="contactShots" aria-label="Disparos totales">0</output>
             </div>
             <div class="contact-stat">
-              <dt>Clics errados</dt>
-              <dd id="contactMisses">0</dd>
+              <output id="contactMisses" aria-label="Clics errados">0</output>
             </div>
-          </dl>
+          </div>
         </div>
       </div>
     </section>
