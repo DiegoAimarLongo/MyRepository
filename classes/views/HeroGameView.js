@@ -66,6 +66,6 @@ export default class HeroGameView {
     }
 
     const textElement = this.messageTextElement || this.messageStatsElement;
-    textElement.style.fontSize = `${bestFit}px`;
+    textElement.style.fontSize = `${Math.max(4, bestFit * 0.9)}px`;
   }
 }

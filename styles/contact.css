@@ -146,20 +146,100 @@
   font-size: clamp(10px, 2.8cqw, 19px);
   text-wrap: balance;
   text-align: center;
+  isolation: isolate;
+  text-shadow: 0 0 5px rgba(0, 212, 255, 0.35);
+  animation: contact-message-glow 5s ease-in-out infinite;
+}
+
+.contact-stats-intro #contactMessage::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: '';
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgba(84, 231, 255, 0.08) 4px
+  );
+  opacity: 0.55;
+}
+
+.contact-stats-intro #contactMessage::after {
+  position: absolute;
+  inset: -35% 0 auto;
+  z-index: 0;
+  height: 35%;
+  pointer-events: none;
+  content: '';
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(92, 239, 255, 0.22),
+    transparent
+  );
+  animation: contact-message-scan 4s linear infinite;
 }
 
 .contact-stats-intro #contactMessageText {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   line-height: 1.15;
   overflow-wrap: anywhere;
 }
 
+.contact-stats-intro #contactMessageText::after {
+  display: inline-block;
+  margin-left: 0.25em;
+  color: #c6fbff;
+  content: '▌';
+  text-shadow: 0 0 7px rgba(0, 212, 255, 0.85);
+  animation: contact-message-cursor 0.9s steps(2, start) infinite;
+}
+
+@keyframes contact-message-glow {
+  0%,
+  100% {
+    filter: brightness(0.9);
+    text-shadow: 0 0 3px rgba(0, 212, 255, 0.2);
+  }
+  50% {
+    filter: brightness(1.08);
+    text-shadow: 0 0 9px rgba(0, 212, 255, 0.75), 0 0 16px rgba(0, 212, 255, 0.3);
+  }
+}
+
+@keyframes contact-message-cursor {
+  to {
+    visibility: hidden;
+  }
+}
+
+@keyframes contact-message-scan {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(390%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-stats-intro #contactMessage,
+  .contact-stats-intro #contactMessage::after,
+  .contact-stats-intro #contactMessageText::after {
+    animation: none;
+  }
+}
+
 .contact-stats-list {
   position: absolute;
-  top: 28%;
+  top: 38.5%;
   right: 0;
-  bottom: 22%;
+  bottom: 19.25%;
   left: 60%;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
@@ -177,7 +257,7 @@
   max-width: 100%;
   color: #fff;
   font-family: 'Press Start 2P', 'Share Tech Mono', monospace;
-  font-size: clamp(18px, 7cqw, 46px);
+  font-size: clamp(18px, 6.316cqw, 41.55px);
   line-height: 1.2;
   font-weight: 700;
   text-align: center;
