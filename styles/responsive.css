@@ -50,12 +50,12 @@ section {
 
 @media (min-width: 901px) and (max-width: 1100px) {
   .sidebar {
-    width: 190px;
-    min-width: 190px;
+    width: 208px;
+    min-width: 208px;
   }
 
   .main {
-    margin-left: 190px;
+    margin-left: 208px;
   }
 
   .nav-item {
@@ -238,26 +238,11 @@ section {
 
 @media (min-width: 901px) and (max-height: 720px) {
   .sidebar {
-    padding-block: 0.75rem;
     overflow-y: auto;
-  }
-
-  .logo-area {
-    padding-bottom: 0.75rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .nav-item {
-    padding-block: 0.45rem;
-    min-height: 38px;
   }
 
   .sidebar nav {
     gap: 0.3rem;
-  }
-
-  .sidebar-bottom {
-    padding: 0.65rem 1rem;
   }
 
 }

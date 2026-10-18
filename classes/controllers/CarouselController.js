@@ -1,9 +1,10 @@
 export default class CarouselSystem {
-  constructor({ containerSelector = '.projects-grid', cardsPerView = 3 } = {}) {
+  constructor({ containerSelector = '.projects-grid', cardsPerView = 3, localization } = {}) {
     // Intent: maneja el comportamiento de carrusel para las tarjetas de proyectos,
     // permitiendo navegación fluida entre proyectos.
     this.container = document.querySelector(containerSelector);
     this.cardsPerView = cardsPerView;
+    this.localization = localization;
     this.currentIndex = 0;
     this.cards = [];
     this.isTransitioning = false;
@@ -68,6 +69,14 @@ export default class CarouselSystem {
     this.wrapper.parentElement.appendChild(controlsContainer);
     this.prevBtn = prevBtn;
     this.nextBtn = nextBtn;
+    this.updateButtonLabels();
+    this.localization?.eventBus?.on('language:changed', () => this.updateButtonLabels());
+  }
+
+  updateButtonLabels() {
+    if (!this.localization) return;
+    this.prevBtn.setAttribute('aria-label', this.localization.translate('carousel.previous'));
+    this.nextBtn.setAttribute('aria-label', this.localization.translate('carousel.next'));
   }
 
   updateCarousel() {

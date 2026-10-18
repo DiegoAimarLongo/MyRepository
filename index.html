@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,22 +30,30 @@
     </div>
 
     <nav>
-      <a href="#inicio"     class="nav-item active"><span class="nav-icon">⌂</span> Home</a>
-      <a href="#sobre-mi"   class="nav-item"><span class="nav-icon">◉</span> About Me</a>
-      <a href="#proyectos"  class="nav-item"><span class="nav-icon">⬡</span> Projects</a>
-      <a href="#habilidades"class="nav-item"><span class="nav-icon">&lt;/&gt;</span> Skills</a>
-      <a href="#formacion"  class="nav-item"><span class="nav-icon">◈</span> Education</a>
-      <a href="#contacto"   class="nav-item"><span class="nav-icon">✉</span> Contact</a>
+      <a href="#inicio"     class="nav-item active"><span class="nav-icon">⌂</span><span data-i18n="nav.home">Home</span></a>
+      <a href="#sobre-mi"   class="nav-item"><span class="nav-icon">◉</span><span data-i18n="nav.about">About Me</span></a>
+      <a href="#proyectos"  class="nav-item"><span class="nav-icon">⬡</span><span data-i18n="nav.projects">Projects</span></a>
+      <a href="#habilidades"class="nav-item"><span class="nav-icon">&lt;/&gt;</span><span data-i18n="nav.skills">Skills</span></a>
+      <a href="#formacion"  class="nav-item"><span class="nav-icon">◈</span><span data-i18n="nav.education">Education</span></a>
+      <a href="#contacto"   class="nav-item"><span class="nav-icon">✉</span><span data-i18n="nav.contact">Contact</span></a>
     </nav>
 
     <div class="sidebar-bottom">
-      <div class="volume-control">
-        <label for="soundVolume">🔊 SFX <output id="soundVolumeValue" for="soundVolume">100%</output></label>
-        <input id="soundVolume" type="range" min="0" max="100" value="100" aria-label="SFX volume">
+      <div class="language-control">
+        <label for="languageSelect" data-i18n="language.label">🌐 Language</label>
+        <select id="languageSelect" aria-label="Choose language" data-i18n-aria-label="language.choose">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="pt-BR">Português (Brasil)</option>
+        </select>
       </div>
       <div class="volume-control">
-        <label for="musicVolume">🎵 Music <output id="musicVolumeValue" for="musicVolume">70%</output></label>
-        <input id="musicVolume" type="range" min="0" max="100" value="70" aria-label="Music volume">
+        <label for="soundVolume"><span data-i18n="audio.sfx">🔊 SFX</span><output id="soundVolumeValue" for="soundVolume">100%</output></label>
+        <input id="soundVolume" type="range" min="0" max="100" value="100" aria-label="SFX volume" data-i18n-aria-label="audio.sfx">
+      </div>
+      <div class="volume-control">
+        <label for="musicVolume"><span data-i18n="audio.music">🎵 Music</span><output id="musicVolumeValue" for="musicVolume">70%</output></label>
+        <input id="musicVolume" type="range" min="0" max="100" value="70" aria-label="Music volume" data-i18n-aria-label="audio.music">
       </div>
     </div>
   </aside>
@@ -58,7 +66,7 @@
       <div class="hero">
         <div class="hero-bg"></div>
         <canvas id="particles"></canvas>
-        <div class="hero-ships" id="heroShips" aria-label="Interactive meteors"></div>
+        <div class="hero-ships" id="heroShips" aria-label="Interactive meteors" data-i18n-aria-label="hero.interactiveMeteors"></div>
         <div class="hero-score" id="heroScore" aria-live="polite">METEORS DESTROYED 0</div>
         <div class="hero-grid"></div>
         <div class="hero-reticle" aria-hidden="true">
@@ -68,23 +76,19 @@
           <span class="reticle-corner reticle-corner-br"></span>
           <span class="reticle-dot"></span>
           <span class="reticle-info">
-            <span class="reticle-label">PLAYER 01 -- ONLINE</span>
+            <span class="reticle-label" data-i18n="hero.playerOnline">PLAYER 01 -- ONLINE</span>
             <span class="hero-ammo" id="heroAmmo">AMMO 5/5</span>
-            <span class="hero-reload" id="heroReload">Reload</span>
+            <span class="hero-reload" id="heroReload" data-i18n="hero.reload">Reload</span>
           </span>
         </div>
         <div class="hero-content">
-          <p class="hero-greeting">Hi, I'm</p>
+          <p class="hero-greeting" data-i18n="hero.greeting">Hi, I'm</p>
           <h1 id="heroName" data-text="Diego Aimar Longo">Diego Aimar Longo</h1>
-          <div class="hero-title" id="heroTypeTitle">Game Development | Backend Developer</div>
-          <p class="hero-desc">
-            Software Developer specialized in building robust, modular, and scalable solutions. 
-            I combine object-oriented programming, software architecture, and engineering best practices
-             to develop maintainable, efficient systems designed to evolve.
-          </p>
+          <div class="hero-title" id="heroTypeTitle" data-i18n="hero.title">Game Development | Backend Developer</div>
+          <p class="hero-desc" data-i18n="hero.description">Software Developer specialized in building robust, modular, and scalable solutions. I combine object-oriented programming, software architecture, and engineering best practices to develop maintainable, efficient systems designed to evolve.</p>
           <div class="hero-btns">
-            <a href="#proyectos" class="btn-primary">🎮 View Projects</a>
-            <a href="#contacto"  class="btn-outline">↓ Download CV</a>
+            <a href="#proyectos" class="btn-primary" data-i18n="hero.viewProjects">🎮 View Projects</a>
+            <a href="#contacto"  class="btn-outline" data-i18n="hero.downloadCv">↓ Download CV</a>
           </div>
         </div>
       </div>
@@ -93,48 +97,34 @@
     <!-- SOBRE MÍ -->
     <section id="sobre-mi">
       <div class="section-header">
-        <div class="section-label">// About me</div>
-        <h2 class="section-title">Who I am ?</h2>
+        <div class="section-label" data-i18n="about.label">// About me</div>
+        <h2 class="section-title" data-i18n="about.title">Who Am I?</h2>
         <div class="section-line"></div>
       </div>
 
       <div class="about-grid">
         <div class="about-text">
-          <p>
-            <strong>Junior Software Developer</strong> focused on backend and game development, combining a strong academic
-            foundation with practical stack mastery in <strong>C#</strong>, <strong>JavaScript</strong>, <strong>Unity</strong>,
-            and <strong>Godot Engine</strong>.
-          </p>
-          <p>
-            Experienced in designing and implementing core gameplay mechanics, player stats, interactive systems, and UI
-            components by applying <strong>Object-Oriented Programming (OOP)</strong>, SOLID principles, and architectural
-            patterns like <strong>MVC/MVP</strong>.
-          </p>
-          <p>
-            Currently pursuing a <strong>Systems Engineering degree at UTN</strong> after graduating as a
-            <strong>University Technician in Programming from UNAHUR</strong>. Achieved
-            <strong>2nd place at the Latin American Innovation Rally</strong> and experienced in delivering collaborative
-            and freelance projects within agile workflows using <strong>Git/GitHub</strong>, <strong>Scrum</strong>, and
-            <strong>Jira</strong>.
-          </p>
+          <p data-i18n-html="about.paragraph1"><strong>Junior Software Developer</strong> focused on backend and game development, combining a strong academic foundation with practical stack mastery in <strong>C#</strong>, <strong>JavaScript</strong>, <strong>Unity</strong>, and <strong>Godot Engine</strong>.</p>
+          <p data-i18n-html="about.paragraph2">Experienced in designing and implementing core gameplay mechanics, player stats, interactive systems, and UI components by applying <strong>Object-Oriented Programming (OOP)</strong>, SOLID principles, and architectural patterns like <strong>MVC/MVP</strong>.</p>
+          <p data-i18n-html="about.paragraph3">Currently pursuing a <strong>Systems Engineering degree at UTN</strong> after graduating as a <strong>University Technician in Programming from UNAHUR</strong>. Achieved <strong>2nd place at the Latin American Innovation Rally</strong> and experienced in delivering collaborative and freelance projects within agile workflows using <strong>Git/GitHub</strong>, <strong>Scrum</strong>, and <strong>Jira</strong>.</p>
         </div>
 
         <div class="about-stats">
           <div class="stat-card">
             <span class="stat-num">3+</span>
-            <span class="stat-label">Projects</span>
+            <span class="stat-label" data-i18n="about.projects">Projects</span>
           </div>
           <div class="stat-card">
-            <span class="stat-num">2°</span>
-            <span class="stat-label">Place at Latinoam. Rally</span>
+            <span class="stat-num" data-i18n="about.placeNumber">2nd</span>
+            <span class="stat-label" data-i18n="about.rallyPlace">Place at Latin American Rally</span>
           </div>
           <div class="stat-card">
             <span class="stat-num">5+</span>
-            <span class="stat-label">Technologies</span>
+            <span class="stat-label" data-i18n="about.technologies">Technologies</span>
           </div>
           <div class="stat-card">
             <span class="stat-num">UTN</span>
-            <span class="stat-label">In Progress 2026</span>
+            <span class="stat-label" data-i18n="about.inProgress">In Progress 2026</span>
           </div>
         </div>
       </div>
@@ -143,8 +133,8 @@
     <!-- PROYECTOS -->
     <section id="proyectos">
       <div class="section-header">
-        <div class="section-label">// Featured Projects</div>
-        <h2 class="section-title">My Work</h2>
+        <div class="section-label" data-i18n="projects.label">// Featured Projects</div>
+        <h2 class="section-title" data-i18n="projects.title">My Work</h2>
         <div class="section-line"></div>
       </div>
 
@@ -152,24 +142,23 @@
 
          <div class="project-card">
           <div class="project-thumb thumb-1">
-            <img class="project-image" src="assets/GamePointDevelopment.jpg" alt="Imagen de proyecto de prueba" />
+            <img class="project-image" src="assets/GamePointDevelopment.jpg" alt="GamePoint Development project" data-i18n-alt="projects.gamepointAlt">
           </div>
           <div class="project-body">
             <div class="project-title">GamePoint Development</div>
             <div class="project-tags">
               <span class="tag tag-purple">Unity</span>
               <span class="tag tag-cyan">C#</span>
-              <span class="tag tag-green">Prototyping</span>              
+              <span class="tag tag-green" data-i18n="projects.prototyping">Prototyping</span>
             </div>
-            <p class="project-desc">Internship - Working on creating prototypes of existing GamePoint web games for mobile phones using Unity3D engine.
-                I have worked on several projects under NDA contract.</p>
-            <a href="https://www.linkedin.com/company/gamepoint/" class="project-link" target="_blank" rel="noopener noreferrer">View documentation →</a>
+            <p class="project-desc" data-i18n="projects.gamepointDescription">Internship - Working on creating prototypes of existing GamePoint web games for mobile phones using Unity3D engine. I have worked on several projects under NDA contract.</p>
+            <a href="https://www.linkedin.com/company/gamepoint/" class="project-link" target="_blank" rel="noopener noreferrer" data-i18n="projects.viewDocumentation">View documentation →</a>
           </div>
         </div>
 
         <div class="project-card">
           <div class="project-thumb thumb-2">
-            <img class="project-image" src="assets/trailOfBonesPicture.jpg" alt="Escena de Trail of Bones" />
+            <img class="project-image" src="assets/trailOfBonesPicture.jpg" alt="Trail of Bones game scene" data-i18n-alt="projects.trailAlt">
           </div>
           <div class="project-body">
             <div class="project-title">Trail of Bones</div>
@@ -179,14 +168,14 @@
               <span class="tag tag-green">MVC/MVP</span>
               <span class="tag tag-red">PC</span>
             </div>
-            <p class="project-desc">Collaborative project in Unity. Development of game systems, power-ups, and player statistics. Implementation of enemy spawning and OOP using C#.</p>
-            <a href="https://github.com/Francofrt1/TrailOfBones" class="project-link" target="_blank" rel="noopener noreferrer">view repository →</a>
+            <p class="project-desc" data-i18n="projects.trailDescription">Collaborative project in Unity. Development of game systems, power-ups, and player statistics. Implementation of enemy spawning and OOP using C#.</p>
+            <a href="https://github.com/Francofrt1/TrailOfBones" class="project-link" target="_blank" rel="noopener noreferrer" data-i18n="projects.viewRepository">View repository →</a>
           </div>
         </div>
 
         <div class="project-card">
           <div class="project-thumb thumb-3">
-            <img class="project-image" src="assets/orbitalPicture.jpg" alt="Gameplay de Orbital Arousal" />
+            <img class="project-image" src="assets/orbitalPicture.jpg" alt="Orbital Arousal gameplay" data-i18n-alt="projects.orbitalAlt">
           </div>
           <div class="project-body">
             <div class="project-title">Orbital Arousal</div>
@@ -194,43 +183,43 @@
               <span class="tag tag-cyan">JavaScript</span>
               <span class="tag tag-orange">PixiJS</span>
               <span class="tag tag-green">2D</span>
-              <span class="tag tag-red">Web</span>
+              <span class="tag tag-red" data-i18n="projects.web">Web</span>
             </div>
-            <p class="project-desc">Collaborative project with JavaScript and PixiJS. Programming of game logic, interactive mechanics.</p>
-            <a href="https://github.com/IbarraCM/PixiGame" class="project-link" target="_blank" rel="noopener noreferrer">View repository →</a>
+            <p class="project-desc" data-i18n="projects.orbitalDescription">Collaborative project with JavaScript and PixiJS. Programming of game logic, interactive mechanics.</p>
+            <a href="https://github.com/IbarraCM/PixiGame" class="project-link" target="_blank" rel="noopener noreferrer" data-i18n="projects.viewRepository">View repository →</a>
           </div>
         </div>
 
         <div class="project-card">
           <div class="project-thumb thumb-4">
-            <img class="project-image" src="assets/matePicture.jpg" alt="Concept art de Mate e' Mitos" />
+            <img class="project-image" src="assets/matePicture.jpg" alt="Mate e' Mitos concept art" data-i18n-alt="projects.mateAlt">
           </div>
           <div class="project-body">
             <div class="project-title">Mate e' Mitos</div>
             <div class="project-tags">
               <span class="tag tag-orange">MMORPG</span>
-              <span class="tag tag-purple">Game Design</span>
-              <span class="tag tag-green">Concept</span>
+              <span class="tag tag-purple" data-i18n="projects.gameDesign">Game Design</span>
+              <span class="tag tag-green" data-i18n="projects.concept">Concept</span>
             </div>
-            <p class="project-desc">Collaborative conceptual MMORPG project based on Argentine folklore and gauchesca fantasy. Design of social systems, freemium monetization, and Business Model Canvas.</p>
-            <a href="https://docs.google.com/presentation/d/1PeiUUiklXxxD8Gd1XXI48hnqu4Uy5K3jPWtmIvRKBaQ/edit?usp=sharing" class="project-link" target="_blank" rel="noopener noreferrer">View documentation →</a>
+            <p class="project-desc" data-i18n="projects.mateDescription">Collaborative conceptual MMORPG project based on Argentine folklore and gauchesca fantasy. Design of social systems, freemium monetization, and Business Model Canvas.</p>
+            <a href="https://docs.google.com/presentation/d/1PeiUUiklXxxD8Gd1XXI48hnqu4Uy5K3jPWtmIvRKBaQ/edit?usp=sharing" class="project-link" target="_blank" rel="noopener noreferrer" data-i18n="projects.viewDocumentation">View documentation →</a>
           </div>
         </div>
 
         <div class="project-card">
           <div class="project-thumb thumb-5">
-            <img class="project-image" src="assets/saveTheEggPicture.jpg" alt="Gameplay de Save The EGG" />
+            <img class="project-image" src="assets/saveTheEggPicture.jpg" alt="Save The EGG gameplay" data-i18n-alt="projects.eggAlt">
           </div>
           <div class="project-body">
             <div class="project-title">Save The EGG</div>
             <div class="project-tags">
               <span class="tag tag-orange">Construct 2</span>
               <span class="tag tag-cyan">2D</span>
-              <span class="tag tag-purple">Freelance</span>
+              <span class="tag tag-purple" data-i18n="projects.freelance">Freelance</span>
               <span class="tag tag-red">PC</span>
             </div>
-            <p class="project-desc">Freelance project developed with Construct 2. 2D game with interactive mechanics and retro visual design.</p>
-            <a href="#" class="project-link">View repository →</a>
+            <p class="project-desc" data-i18n="projects.eggDescription">Freelance project developed with Construct 2. 2D game with interactive mechanics and retro visual design.</p>
+            <a href="#" class="project-link" data-i18n="projects.viewRepository">View repository →</a>
           </div>
         </div>
       </div>
@@ -240,14 +229,14 @@
     <section id="habilidades">
       <canvas id="skillsParticles" aria-hidden="true"></canvas>
       <div class="section-header">
-        <div class="section-label">// technology stack</div>
-        <h2 class="section-title">Skills</h2>
+        <div class="section-label" data-i18n="skills.label">// technology stack</div>
+        <h2 class="section-title" data-i18n="skills.title">Skills</h2>
         <div class="section-line"></div>
       </div>
 
       <div class="skills-categories">
         <div class="skill-category">
-          <h3 class="skill-category-title">Languages &amp; backend</h3>
+          <h3 class="skill-category-title" data-i18n="skills.languages">Languages &amp; backend</h3>
           <div class="skills-grid">
             <div class="skill-card">
               <div class="skill-top">
@@ -283,7 +272,7 @@
         </div>
 
         <div class="skill-category">
-          <h3 class="skill-category-title">Game engines &amp; frameworks</h3>
+          <h3 class="skill-category-title" data-i18n="skills.engines">Game engines &amp; frameworks</h3>
           <div class="skills-grid">
             <div class="skill-card">
               <div class="skill-top">
@@ -313,7 +302,7 @@
         </div>
 
         <div class="skill-category">
-          <h3 class="skill-category-title">Tools &amp; methodologies</h3>
+          <h3 class="skill-category-title" data-i18n="skills.tools">Tools &amp; methodologies</h3>
           <div class="skills-grid">
             <div class="skill-card">
               <div class="skill-top">
@@ -341,37 +330,37 @@
     <!-- FORMACIÓN -->
     <section id="formacion">
       <div class="section-header">
-        <div class="section-label">// Education</div>
-        <h2 class="section-title">Academic Formation</h2>
+        <div class="section-label" data-i18n="education.label">// Education</div>
+        <h2 class="section-title" data-i18n="education.title">Education</h2>
         <div class="section-line"></div>
       </div>
 
       <div class="timeline">
 
         <div class="timeline-item">
-          <div class="timeline-date">March 2026 → Present</div>
-          <div class="timeline-title">Engineering in Systems</div>
-          <div class="timeline-sub">Universidad Tecnológica Nacional (UTN)</div>
-          <p class="timeline-desc">I am currently studying. Deepening my knowledge in software engineering fundamentals, algorithms, and system architectures.</p>
+          <div class="timeline-date" data-i18n="education.utnDate">March 2026 → Present</div>
+          <div class="timeline-title" data-i18n="education.utnDegree">Engineering in Systems</div>
+          <div class="timeline-sub" data-i18n="education.utn">National Technological University (UTN)</div>
+          <p class="timeline-desc" data-i18n="education.utnDescription">I am currently studying. Deepening my knowledge in software engineering fundamentals, algorithms, and system architectures.</p>
         </div>
 
         <div class="timeline-item">
-          <div class="timeline-date">March 2022 → December 2025</div>
-          <div class="timeline-title">University Technician in Video Game Programming</div>
-          <div class="timeline-sub">Universidad Nacional de Hurlingham (UNAHUR)</div>
+          <div class="timeline-date" data-i18n="education.unahurDate">March 2022 → December 2025</div>
+          <div class="timeline-title" data-i18n="education.unahurDegree">University Technician in Video Game Programming</div>
+          <div class="timeline-sub" data-i18n="education.unahur">National University of Hurlingham (UNAHUR)</div>
           <ul class="timeline-desc">
-            <li>Desarrollo de videojuegos con Unity, Godot y PixiJS</li>
-            <li>Arquitecturas MVC, MVP, Singleton y OOP</li>
-            <li>Metodologías ágiles: Scrum, Jira, Trello</li>
-            <li>Proyectos colaborativos con Git y GitHub</li>
+            <li data-i18n="education.gameDevelopment">Game development with Unity, Godot, and PixiJS</li>
+            <li data-i18n="education.architectures">MVC, MVP, Singleton, and OOP architectures</li>
+            <li data-i18n="education.agile">Agile methodologies: Scrum, Jira, and Trello</li>
+            <li data-i18n="education.collaboration">Collaborative projects using Git and GitHub</li>
           </ul>
         </div>
 
         <div class="timeline-item">
-          <div class="timeline-date">Reconocimiento</div>
-          <div class="timeline-title">🏆 Rally Latinoamericano de Innovación</div>
-          <div class="timeline-sub">Segundo Lugar — Categoría Impacto Social · Nivel Nacional</div>
-          <p class="timeline-desc">Competencia realizada en diez países latinoamericanos. Premio obtenido en la categoría de mayor relevancia social.</p>
+          <div class="timeline-date" data-i18n="education.awardDate">Award</div>
+          <div class="timeline-title" data-i18n="education.awardTitle">🏆 Latin American Innovation Rally</div>
+          <div class="timeline-sub" data-i18n="education.awardSubtitle">Second Place — Social Impact Category · National Level</div>
+          <p class="timeline-desc" data-i18n="education.awardDescription">A competition held across ten Latin American countries. Awarded in the category with the greatest social impact.</p>
         </div>
 
       </div>
@@ -383,15 +372,15 @@
       <div class="contact-grid">
         <div class="contact-details">
           <div class="section-header">
-            <div class="section-label">// Contacto</div>
-            <h2 class="section-title">Hablemos</h2>
+            <div class="section-label" data-i18n="contact.label">// Contact</div>
+            <h2 class="section-title" data-i18n="contact.title">Let's Talk</h2>
             <div class="section-line"></div>
           </div>
           <div class="contact-info">
             <div class="contact-item">
               <div class="contact-icon">✉</div>
               <div>
-                <div class="contact-label">Mail</div>
+                <div class="contact-label" data-i18n="contact.email">Email</div>
                 <a class="contact-val" href="mailto:longodiegoaimar@gmail.com">longodiegoaimar@gmail.com</a>
               </div>
             </div>
@@ -418,20 +407,20 @@
             </div>
           </div>
         </div>
-        <div class="contact-stats" aria-label="Estadísticas de juego">
+        <div class="contact-stats" aria-label="Game statistics" data-i18n-aria-label="contact.gameStatistics">
           <img class="contact-stats-frame" src="assets/playerStats.png" alt="" aria-hidden="true">
           <div class="contact-stats-intro">
-            <p id="contactMessage" aria-live="polite"><span id="contactMessageText">¡Destruiste solo 0 meteoritos! Veo que preferiste explorar la página antes que disparar. ¡Me parece perfecto! Ponete en contacto y hablemos de tu idea.</span></p>
+            <p id="contactMessage" aria-live="polite"><span id="contactMessageText" data-i18n="game.initialMessage">You've destroyed 0 meteors! I see you preferred exploring the page before shooting. That's totally fine! Get in touch and let's talk about your idea.</span></p>
           </div>
-          <div class="contact-stats-list" aria-label="Estadísticas de la misión">
+          <div class="contact-stats-list" aria-label="Mission statistics" data-i18n-aria-label="contact.missionStatistics">
             <div class="contact-stat">
-              <output id="contactDestroyed" aria-label="Meteoritos destruidos">0</output>
+              <output id="contactDestroyed" aria-label="Meteors destroyed" data-i18n-aria-label="contact.meteorsDestroyed">0</output>
             </div>
             <div class="contact-stat">
-              <output id="contactShots" aria-label="Disparos totales">0</output>
+              <output id="contactShots" aria-label="Total shots" data-i18n-aria-label="contact.totalShots">0</output>
             </div>
             <div class="contact-stat">
-              <output id="contactMisses" aria-label="Clics errados">0</output>
+              <output id="contactMisses" aria-label="Missed clicks" data-i18n-aria-label="contact.missedClicks">0</output>
             </div>
           </div>
         </div>
@@ -441,7 +430,7 @@
   </main>
 
   <!-- Botón Scroll to Top -->
-  <button class="scroll-to-top" id="scrollToTop" title="Volver al inicio">▲</button>
+  <button class="scroll-to-top" id="scrollToTop" title="Back to top" aria-label="Back to top" data-i18n-title="common.backToTop" data-i18n-aria-label="common.backToTop">▲</button>
 
   <!-- ── SCRIPTS ───────────────────────────── -->
   <script type="module" src="main.js"></script>

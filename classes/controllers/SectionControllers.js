@@ -62,26 +62,27 @@ export class ExperienceBar {
 }
 
 export class AchievementManager {
-  constructor({ containerSelector = '#achv-container', beep, eventBus } = {}) {
+  constructor({ containerSelector = '#achv-container', beep, eventBus, localization } = {}) {
     // Intent: prepara el contenedor de toasts y el sistema de logros para secciones visibles.
     this.container = document.querySelector(containerSelector);
     this.beep = beep || (() => {});
     this.eventBus = eventBus;
+    this.localization = localization;
     this.achvData = {
-      'sobre-mi': { icon: '◉', label: 'Logro desbloqueado', title: 'Conociste al desarrollador' },
-      proyectos: { icon: '⬡', label: 'Logro desbloqueado', title: 'Explorador de proyectos' },
-      habilidades: { icon: '⚔', label: 'Logro desbloqueado', title: 'Stack Tecnológico revisado' },
-      formacion: { icon: '🎓', label: 'Logro desbloqueado', title: 'Ruta académica completada' },
-      contacto: { icon: '✉', label: 'Logro desbloqueado', title: '¡Listo para conectar!' }
+      'sobre-mi': { icon: '◉', titleKey: 'achievement.about' },
+      proyectos: { icon: '⬡', titleKey: 'achievement.projects' },
+      habilidades: { icon: '⚔', titleKey: 'achievement.skills' },
+      formacion: { icon: '🎓', titleKey: 'achievement.education' },
+      contacto: { icon: '✉', titleKey: 'achievement.contact' }
     };
     this.unlocked = new Set();
     this.init();
   }
 
   // Intent: crea una notificación visual de logro con tono de audio para reforzar el feedback del usuario.
-  showAchievement({ id, icon, label, title }) {
+  showAchievement({ id, icon, label, title, titleKey }) {
     if (this.eventBus) {
-      this.eventBus.emit('achievement:detected', { id, icon, label, title });
+      this.eventBus.emit('achievement:detected', { id, icon, label, title, titleKey });
       this.beep(880, 0.05, 'square', 0.05);
       setTimeout(() => this.beep(1046, 0.08, 'square', 0.05), 90);
       return;
@@ -113,7 +114,14 @@ export class AchievementManager {
         const id = entry.target.id;
         if (entry.isIntersecting && this.achvData[id] && !this.unlocked.has(id)) {
           this.unlocked.add(id);
-          this.showAchievement({ ...this.achvData[id], id });
+          const achievement = this.achvData[id];
+          this.showAchievement({
+            id,
+            icon: achievement.icon,
+            label: this.localization.translate('achievement.label'),
+            title: this.localization.translate(achievement.titleKey),
+            titleKey: achievement.titleKey
+          });
         }
       });
     }, { threshold: 0.4 });

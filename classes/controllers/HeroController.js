@@ -2,10 +2,11 @@ import HeroGameModel from '../models/HeroGameModel.js';
 import HeroGameView from '../views/HeroGameView.js';
 
 export class TypewriterEffect {
-  constructor({ elementSelector = '#heroTypeTitle', text = 'Game Development | Backend Developer' } = {}) {
+  constructor({ elementSelector = '#heroTypeTitle', localization } = {}) {
     // Intent: prepara el elemento del hero y el texto base para desplegar un efecto de escritura.
     this.element = document.querySelector(elementSelector);
-    this.text = text;
+    this.localization = localization;
+    this.localization?.eventBus?.on('language:changed', () => this.init());
     this.init();
   }
 
@@ -13,12 +14,14 @@ export class TypewriterEffect {
   init() {
     if (!this.element) return;
 
+    window.clearTimeout(this.timer);
+    this.text = this.localization?.translate('hero.title') || this.element.textContent;
     let index = 0;
     const typeChar = () => {
       if (index <= this.text.length) {
         this.element.textContent = this.text.slice(0, index);
         index += 1;
-        setTimeout(typeChar, 45);
+        this.timer = window.setTimeout(typeChar, 45);
       }
     };
 
@@ -198,19 +201,29 @@ export class ShipsHero {
     heroSelector = '.hero',
     shipCount = 7,
     playExplosion = () => {},
-    eventBus
+    eventBus,
+    localization
   } = {}) {
     this.container = document.querySelector(containerSelector);
     this.hero = document.querySelector(heroSelector);
     this.playExplosion = playExplosion;
-    this.model = new HeroGameModel({ eventBus });
-    this.view = new HeroGameView({ eventBus, model: this.model });
+    this.localization = localization;
+    this.model = new HeroGameModel({ eventBus, localization });
+    this.view = new HeroGameView({ eventBus, model: this.model, localization });
     this.shipCount = shipCount;
     this.shipId = 0;
     this.activeShips = new Map();
     this.respawnTimers = new Set();
     this.lastFrameTime = 0;
+    this.localization?.eventBus?.on('language:changed', () => this.updateShipLabels());
     this.init();
+  }
+
+  updateShipLabels() {
+    this.activeShips.forEach((_, ship) => {
+      const key = ship.classList.contains('is-destroying') ? 'game.meteorDestroyed' : 'game.destroyMeteor';
+      ship.setAttribute('aria-label', this.localization.translate(key));
+    });
   }
 
   init() {
@@ -324,7 +337,7 @@ export class ShipsHero {
     ship.type = 'button';
     ship.className = 'hero-ship';
     ship.dataset.shipId = String(shipId);
-    ship.setAttribute('aria-label', 'Destroy meteor');
+    ship.setAttribute('aria-label', this.localization?.translate('game.destroyMeteor') || 'Destroy meteor');
     ship.style.left = `${trajectory.x}%`;
     ship.style.top = `${trajectory.y}%`;
     ship.style.animationDelay = `${-Math.random() * 3.2}s`;
@@ -373,7 +386,7 @@ export class ShipsHero {
     const explosionVariants = ['burst', 'twirl', 'shockwave', 'shatter'];
     ship.dataset.explosion = explosionVariants[Math.floor(Math.random() * explosionVariants.length)];
     ship.classList.add('is-destroying');
-    ship.setAttribute('aria-label', 'Meteor destroyed');
+    ship.setAttribute('aria-label', this.localization?.translate('game.meteorDestroyed') || 'Meteor destroyed');
     ship.innerHTML = '<span class="ship-explosion" aria-hidden="true">' +
       Array.from({ length: 8 }, () => '<i></i>').join('') +
       '</span>';

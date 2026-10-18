@@ -1,6 +1,7 @@
 export default class HeroGameView {
-  constructor({ eventBus, model } = {}) {
+  constructor({ eventBus, model, localization } = {}) {
     this.eventBus = eventBus;
+    this.localization = localization;
     this.ammoElement = document.querySelector('#heroAmmo');
     this.scoreElement = document.querySelector('#heroScore');
     this.destroyedStatsElement = document.querySelector('#contactDestroyed');
@@ -18,8 +19,16 @@ export default class HeroGameView {
   render(state) {
     if (!state) return;
 
-    if (this.ammoElement) this.ammoElement.textContent = `AMMO ${state.ammo}/${state.maxAmmo}`;
-    if (this.scoreElement) this.scoreElement.textContent = `METEORS DESTROYED ${state.destroyedShips}`;
+    if (this.ammoElement) {
+      this.ammoElement.textContent = this.localization
+        ? this.localization.translate('hero.ammo', { ammo: state.ammo, maxAmmo: state.maxAmmo })
+        : `AMMO ${state.ammo}/${state.maxAmmo}`;
+    }
+    if (this.scoreElement) {
+      this.scoreElement.textContent = this.localization
+        ? this.localization.translate('game.score', { destroyed: state.destroyedShips })
+        : `METEORS DESTROYED ${state.destroyedShips}`;
+    }
     if (this.destroyedStatsElement) this.destroyedStatsElement.textContent = String(state.destroyedShips);
     if (this.shotsStatsElement) this.shotsStatsElement.textContent = String(state.totalShots);
     if (this.missesStatsElement) this.missesStatsElement.textContent = String(state.missedClicks);

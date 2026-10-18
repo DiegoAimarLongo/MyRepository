@@ -1,6 +1,8 @@
 export default class HeroGameModel {
-  constructor({ eventBus, maxAmmo = 5 } = {}) {
+  constructor({ eventBus, localization, maxAmmo = 5 } = {}) {
     this.eventBus = eventBus;
+    this.localization = localization;
+    this.eventBus?.on('language:changed', () => this.emitState());
     this.state = {
       ammo: maxAmmo,
       maxAmmo,
@@ -58,25 +60,36 @@ export default class HeroGameModel {
 
   getPerformanceMessage() {
     const { destroyedShips, totalShots, missedClicks } = this.state;
+    const translate = this.localization?.translate.bind(this.localization);
 
     if (destroyedShips >= 20) {
-      return `¡RÉCORD DE MISIÓN: Destruiste ${destroyedShips} meteoritos y solo erraste ${missedClicks} tiros! Dominaste el juego, ahora dominemos tu próximo desarrollo. ¡Enviame un mensaje!`;
+      return translate
+        ? translate('game.message.record', { destroyed: destroyedShips, missed: missedClicks })
+        : `MISSION RECORD: You destroyed ${destroyedShips} meteors and missed only ${missedClicks} shots! You've mastered the game; now let's master your next project. Send me a message!`;
     }
 
     if (totalShots < 5) {
-      return `¡Destruiste solo ${destroyedShips} meteoritos! Veo que preferiste explorar la página antes que disparar. ¡Me parece perfecto! Ponete en contacto y hablemos de tu idea.`;
+      return translate
+        ? translate('game.message.explore', { destroyed: destroyedShips })
+        : `You've destroyed ${destroyedShips} meteors! I see you preferred exploring the page before shooting. That's totally fine! Get in touch and let's talk about your idea.`;
     }
 
     if (destroyedShips < 5) {
-      return `¡Destruiste ${destroyedShips} meteoritos y erraste ${missedClicks} tiros! La defensa espacial no es lo tuyo, pero por suerte la programación sí es lo mío. ¡Hablemos por un proyecto!`;
+      return translate
+        ? translate('game.message.low', { destroyed: destroyedShips, missed: missedClicks })
+        : `You destroyed ${destroyedShips} meteors and missed ${missedClicks} shots! Space defense may not be your thing, but luckily, programming is mine. Let's talk about a project!`;
     }
 
     const accuracy = destroyedShips / totalShots;
     if (accuracy >= 0.75) {
-      return `¡Destruiste ${destroyedShips} meteoritos con solo ${missedClicks} disparos fallidos! Veo que tenés una puntería impecable. ¡Imaginá lo que podríamos lograr trabajando juntos en un proyecto!`;
+      return translate
+        ? translate('game.message.accurate', { destroyed: destroyedShips, missed: missedClicks })
+        : `You destroyed ${destroyedShips} meteors with only ${missedClicks} missed shots! Your aim is impeccable. Imagine what we could achieve together on a project!`;
     }
 
-    return `¡Destruiste ${destroyedShips} meteoritos, pero dejaste ${missedClicks} disparos en el espacio! Se nota tu entusiasmo y rapidez. Hablemos para encauzar esa energía en tu próximo proyecto.`;
+    return translate
+      ? translate('game.message.average', { destroyed: destroyedShips, missed: missedClicks })
+      : `You destroyed ${destroyedShips} meteors, but sent ${missedClicks} shots into space! Your enthusiasm and quick reflexes are clear. Let's channel that energy into your next project.`;
   }
 
   emitState() {

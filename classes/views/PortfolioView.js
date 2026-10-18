@@ -1,6 +1,7 @@
 export default class PortfolioView {
-  constructor({ eventBus, selectors = {} } = {}) {
+  constructor({ eventBus, localization, selectors = {} } = {}) {
     this.eventBus = eventBus;
+    this.localization = localization;
     this.selectors = {
       navItems: selectors.navItems || '.nav-item',
       xpBar: selectors.xpBar || '#xpBar',
@@ -25,6 +26,7 @@ export default class PortfolioView {
     this.eventBus.on('state:achievement-unlocked', (achievement) => this.renderAchievement(achievement));
     this.eventBus.on('state:sound-volume-changed', (volume) => this.setSoundVolume(volume));
     this.eventBus.on('state:music-volume-changed', (volume) => this.setMusicVolume(volume));
+    this.eventBus.on('language:changed', () => this.translateAchievements());
   }
 
   setActiveSection(sectionId) {
@@ -50,10 +52,12 @@ export default class PortfolioView {
     this.musicVolume?.style.setProperty('--volume-percent', `${volume}%`);
   }
 
-  renderAchievement({ icon, label, title }) {
+  renderAchievement({ id, icon, label, title, titleKey }) {
     if (!this.achievements) return;
     const toast = document.createElement('div');
     toast.className = 'achv-toast';
+    toast.dataset.achievementId = id;
+    toast.dataset.titleKey = titleKey;
     toast.innerHTML = `
       <div class="achv-icon">${icon}</div>
       <div class="achv-text">
@@ -62,5 +66,13 @@ export default class PortfolioView {
       </div>`;
     this.achievements.appendChild(toast);
     setTimeout(() => toast.remove(), 4000);
+  }
+
+  translateAchievements() {
+    if (!this.localization || !this.achievements) return;
+    this.achievements.querySelectorAll('.achv-toast').forEach((toast) => {
+      toast.querySelector('.achv-label').textContent = this.localization.translate('achievement.label');
+      toast.querySelector('.achv-title').textContent = this.localization.translate(toast.dataset.titleKey);
+    });
   }
 }

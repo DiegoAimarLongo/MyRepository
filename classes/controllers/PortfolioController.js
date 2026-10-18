@@ -6,12 +6,14 @@ import { TypewriterEffect, ParticlesHero, HeroInteraction, ShipsHero } from './H
 import CarouselSystem from './CarouselController.js';
 import PortfolioModel from '../models/PortfolioModel.js';
 import PortfolioView from '../views/PortfolioView.js';
+import LocalizationManager from '../services/LocalizationManager.js';
 
 export default class PortfolioController {
   constructor({ eventBus }) {
     this.eventBus = eventBus;
+    this.localization = new LocalizationManager({ eventBus });
     this.model = new PortfolioModel({ eventBus });
-    this.view = new PortfolioView({ eventBus });
+    this.view = new PortfolioView({ eventBus, localization: this.localization });
     this.view.bindState();
     this.bindEvents();
     this.audio = new AudioManager({ eventBus });
@@ -34,18 +36,23 @@ export default class PortfolioController {
     new InteractiveCursor();
     new NavigationManager({ beep, eventBus: this.eventBus });
     new ExperienceBar({ eventBus: this.eventBus });
-    new AchievementManager({ beep, eventBus: this.eventBus });
-    new TypewriterEffect();
+    new AchievementManager({ beep, eventBus: this.eventBus, localization: this.localization });
+    new TypewriterEffect({ localization: this.localization });
     new ParticlesHero();
     new ShipsHero({
       eventBus: this.eventBus,
+      localization: this.localization,
       playExplosion: this.audio.playMeteorExplosion.bind(this.audio)
     });
     new ParticlesHero({ canvasSelector: '#skillsParticles', heroSelector: '#habilidades', particleCount: 260 });
     new ParticlesHero({ canvasSelector: '#contactParticles', heroSelector: '#contacto', particleCount: 180 });
     new HeroInteraction();
     new SkillReveal();
-    new CarouselSystem({ containerSelector: '.projects-grid', cardsPerView: 3 });
+    new CarouselSystem({
+      containerSelector: '.projects-grid',
+      cardsPerView: 3,
+      localization: this.localization
+    });
     this.bindScrollToTop();
   }
 

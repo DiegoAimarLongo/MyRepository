@@ -23,7 +23,7 @@ export default class AudioManager {
     if (playRequest) {
       playRequest.catch((error) => {
         if (error.name !== 'NotAllowedError') {
-          console.error('No se pudo reproducir la música de fondo.', error);
+          console.error('Could not play background music.', error);
         }
       });
     }
@@ -40,7 +40,7 @@ export default class AudioManager {
     if (playRequest) {
       playRequest.catch((error) => {
         if (error.name !== 'NotAllowedError') {
-          console.error('No se pudo reproducir el efecto de explosión.', error);
+          console.error('Could not play the explosion sound effect.', error);
         }
       });
     }
