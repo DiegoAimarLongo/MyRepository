@@ -41,7 +41,15 @@ No build step or package installation is required.
 
 ```text
 .
-├── assets/          # Portfolio and project images
+├── assets/
+│   ├── audio/       # Music and sound effects
+│   └── images/
+│       ├── contact/
+│       ├── lenguaje/
+│       ├── profile/
+│       ├── projects/
+│       ├── skills/
+│       └── sprites/
 ├── classes/
 │   ├── controllers/ # UI input, feature coordination, and app composition
 │   ├── core/        # Shared infrastructure (event bus)
