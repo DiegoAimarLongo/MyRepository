@@ -15,7 +15,7 @@
   width: 100%;
   aspect-ratio: 534 / 497;
   margin: 0;
-  background: url('../assets/contacto.png') center / 100% 100% no-repeat;
+  background: url('../assets/images/contact/contacto.png') center / 100% 100% no-repeat;
 }
 
 #contacto .contact-item {
