@@ -1,4 +1,19 @@
 /* ── SKILLS ──────────────────────────────── */
+.skills-categories {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.skill-category-title {
+  margin: 0 0 0.85rem;
+  color: var(--cyan);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.35);
+}
+
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -29,24 +44,17 @@
 
 .skill-icon {
   width: 36px;
+  min-width: 36px;
   height: 36px;
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: 900;
-  font-family: 'Share Tech Mono', monospace;
+  object-fit: contain;
+  filter: drop-shadow(0 0 4px rgba(0, 212, 255, 0.45)) drop-shadow(0 0 8px rgba(123, 92, 240, 0.3));
+  transition: filter 0.2s ease;
 }
 
-.icon-cs    { background: rgba(123, 92, 240, 0.2); color: var(--accent2); }
-.icon-js    { background: rgba(255, 200, 0, 0.15); color: #ffcc00; }
-.icon-unity { background: rgba(255, 255, 255, 0.1); color: #e0e0e0; }
-.icon-git   { background: rgba(255, 80, 50, 0.15); color: #ff5032; }
-.icon-sql   { background: rgba(0, 212, 255, 0.1);  color: var(--cyan); }
-.icon-godot { background: rgba(0, 255, 136, 0.1);  color: var(--green); }
-.icon-pixi  { background: rgba(255, 136, 0, 0.1);  color: #ff8800; }
-.icon-scrum { background: rgba(100, 180, 255, 0.1); color: #64b4ff; }
+.skill-card:hover .skill-icon {
+  filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.7)) drop-shadow(0 0 12px rgba(123, 92, 240, 0.55));
+}
 
 .skill-name {
   font-family: 'Orbitron', sans-serif;
