@@ -40,12 +40,12 @@
 
     <div class="sidebar-bottom">
       <div class="language-control">
-        <label for="languageSelect" data-i18n="language.label">🌐 Language</label>
-        <select id="languageSelect" aria-label="Choose language" data-i18n-aria-label="language.choose">
-          <option value="en">English</option>
-          <option value="es">Español</option>
-          <option value="pt-BR">Português (Brasil)</option>
-        </select>
+        <span class="language-label" data-i18n="language.label">🌐 Language</span>
+        <div class="language-options" role="group" aria-label="Choose language" data-i18n-aria-label="language.choose">
+          <button class="language-button" type="button" data-language="en" aria-label="English" title="English" data-i18n-aria-label="language.english" data-i18n-title="language.english"><img src="assets/lenguaje/ingles.png" alt="" aria-hidden="true"></button>
+          <button class="language-button" type="button" data-language="es" aria-label="Español" title="Español" data-i18n-aria-label="language.spanish" data-i18n-title="language.spanish"><img src="assets/lenguaje/español.png" alt="" aria-hidden="true"></button>
+          <button class="language-button" type="button" data-language="pt-BR" aria-label="Português (Brasil)" title="Português (Brasil)" data-i18n-aria-label="language.portuguese" data-i18n-title="language.portuguese"><img src="assets/lenguaje/portugues.png" alt="" aria-hidden="true"></button>
+        </div>
       </div>
       <div class="volume-control">
         <label for="soundVolume"><span data-i18n="audio.sfx">🔊 SFX</span><output id="soundVolumeValue" for="soundVolume">100%</output></label>

@@ -3,6 +3,9 @@ const translations = {
     'page.title': 'Diego Aimar Longo',
     'language.label': '🌐 Language',
     'language.choose': 'Choose language',
+    'language.english': 'English',
+    'language.spanish': 'Spanish',
+    'language.portuguese': 'Portuguese (Brazil)',
     'nav.home': 'Home',
     'nav.about': 'About Me',
     'nav.projects': 'Projects',
@@ -102,6 +105,9 @@ const translations = {
     'page.title': 'Diego Aimar Longo',
     'language.label': '🌐 Idioma',
     'language.choose': 'Elegir idioma',
+    'language.english': 'Inglés',
+    'language.spanish': 'Español',
+    'language.portuguese': 'Portugués (Brasil)',
     'nav.home': 'Inicio',
     'nav.about': 'Sobre mí',
     'nav.projects': 'Proyectos',
@@ -201,6 +207,9 @@ const translations = {
     'page.title': 'Diego Aimar Longo',
     'language.label': '🌐 Idioma',
     'language.choose': 'Escolher idioma',
+    'language.english': 'Inglês',
+    'language.spanish': 'Espanhol',
+    'language.portuguese': 'Português (Brasil)',
     'nav.home': 'Início',
     'nav.about': 'Sobre mim',
     'nav.projects': 'Projetos',
@@ -325,12 +334,14 @@ Object.entries(translations).forEach(([language, dictionary]) => {
 export default class LocalizationManager {
   constructor({ eventBus } = {}) {
     this.eventBus = eventBus;
-    this.languageSelect = document.querySelector('#languageSelect');
+    this.languageButtons = [...document.querySelectorAll('[data-language]')];
     this.language = this.getSavedLanguage();
     this.applyLanguage(this.language);
 
-    this.languageSelect?.addEventListener('change', () => {
-      this.setLanguage(this.languageSelect.value);
+    this.languageButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        this.setLanguage(button.dataset.language);
+      });
     });
   }
 
@@ -383,10 +394,10 @@ export default class LocalizationManager {
       element.setAttribute('title', this.translate(element.dataset.i18nTitle));
     });
 
-    if (this.languageSelect) {
-      this.languageSelect.value = language;
-      this.languageSelect.setAttribute('aria-label', this.translate('language.choose'));
-    }
+    this.languageButtons.forEach((button) => {
+      const isSelected = button.dataset.language === language;
+      button.setAttribute('aria-pressed', String(isSelected));
+    });
   }
 
   translate(key, parameters = {}) {

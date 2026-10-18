@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 4px;
   margin: 0 4px;
   padding: 6px 8px;
   background: var(--panel);
@@ -16,23 +16,45 @@
   letter-spacing: 0.5px;
 }
 
-.language-control select {
-  flex: 1;
-  min-width: 0;
-  max-width: 110px;
-  padding: 4px 2px;
+.language-label {
+  white-space: nowrap;
+}
+
+.language-options {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.language-button {
+  width: 29px;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  padding: 0;
   border: 1px solid var(--border);
   border-radius: 4px;
   background: var(--bg3);
-  color: var(--cyan);
-  font: inherit;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
 }
 
-.sidebar-bottom > .volume-control:nth-child(2) {
-  margin-top: 9px;
+.language-button img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
-.language-control select:focus-visible {
+.language-button:hover,
+.language-button[aria-pressed="true"] {
+  border-color: var(--cyan);
+  background: rgba(0, 212, 255, 0.12);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
+
+.language-button:focus-visible {
   outline: 2px solid var(--cyan);
   outline-offset: 2px;
 }
