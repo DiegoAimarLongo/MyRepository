@@ -23,8 +23,7 @@
   box-shadow: 0 12px 24px rgba(5, 6, 15, 0.22);
 }
 
-.project-card::before,
-.skill-card::before {
+.project-card::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -34,14 +33,12 @@
   transition: opacity 0.2s ease;
 }
 
-.project-card.is-targeted,
-.skill-card.is-targeted {
+.project-card.is-targeted {
   border-color: var(--cyan);
   box-shadow: 0 16px 34px rgba(0, 212, 255, 0.16), 0 0 24px rgba(0, 212, 255, 0.12);
 }
 
-.project-card.is-targeted::before,
-.skill-card.is-targeted::before {
+.project-card.is-targeted::before {
   opacity: 1;
 }
 

@@ -165,13 +165,11 @@ section {
     margin-bottom: 2rem;
   }
 
-  .projects-grid,
-  .skills-grid {
+  .projects-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .project-body,
-  .skill-card,
   .timeline-item,
   .contact-award {
     padding: 1rem;
