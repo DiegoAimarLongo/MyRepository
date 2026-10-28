@@ -62,26 +62,16 @@ section {
   margin-bottom: 3rem;
 }
 
-.section-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 4px;
+ .section-title {
+  width: fit-content;
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 3px;
   color: var(--accent2);
   text-transform: uppercase;
   margin-bottom: 0.5rem;
-}
-
-.section-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 700;
-  color: var(--text);
-}
-
-.section-line {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--cyan));
-  border-radius: 2px;
-  margin-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(90deg, var(--accent), var(--cyan)) 1;
 }

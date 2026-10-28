@@ -1,6 +1,3 @@
-
-# Diego Aimar Longo — Portfolio
-
 Personal portfolio showcasing my work and experience in software and game development. The site is built with vanilla HTML, CSS, and JavaScript, with a retro-inspired visual style and interactive elements.
 
 ## Features
