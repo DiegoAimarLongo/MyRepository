@@ -37,6 +37,7 @@ export class HeroInteraction {
     this.pointer = { x: 0.5, y: 0.5 };
     this.targetRotation = { x: 0, y: 0 };
     this.rotation = { x: 0, y: 0 };
+    this.running = false;
     this.init();
   }
 
@@ -51,7 +52,25 @@ export class HeroInteraction {
       card.addEventListener('mouseleave', () => this.resetCard(card));
     });
 
+    this.observeVisibility();
+  }
+
+  observeVisibility() {
+    this.visibilityObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) this.start();
+      else this.stop();
+    }, { rootMargin: '120px 0px' });
+    this.visibilityObserver.observe(this.hero);
+  }
+
+  start() {
+    if (this.running) return;
+    this.running = true;
     this.animate();
+  }
+
+  stop() {
+    this.running = false;
   }
 
   handleMove(event) {
@@ -89,6 +108,7 @@ export class HeroInteraction {
   }
 
   animate() {
+    if (!this.running) return;
     this.rotation.x += (this.targetRotation.x - this.rotation.x) * 0.08;
     this.rotation.y += (this.targetRotation.y - this.rotation.y) * 0.08;
     this.hero.style.setProperty('--hero-tilt-x', `${this.rotation.x}deg`);
@@ -108,6 +128,8 @@ export class ParticlesHero {
     this.particleCount = particleCount;
     this.mouseX = -9999;
     this.mouseY = -9999;
+    this.running = false;
+    this.frame = 0;
     this.init();
   }
 
@@ -135,7 +157,7 @@ export class ParticlesHero {
 
   // Intent: dibuja cada frame las partículas con efecto de repulsión respecto al cursor para dar sensación de movimiento.
   animate() {
-    if (!this.ctx || !this.canvas) return;
+    if (!this.running || !this.ctx || !this.canvas) return;
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -164,7 +186,29 @@ export class ParticlesHero {
       this.ctx.globalAlpha = 1;
     });
 
-    requestAnimationFrame(() => this.animate());
+    this.frame = requestAnimationFrame(() => this.animate());
+  }
+
+  start() {
+    if (this.running) return;
+    this.running = true;
+    this.animate();
+  }
+
+  stop() {
+    this.running = false;
+    if (this.frame) cancelAnimationFrame(this.frame);
+    this.frame = 0;
+  }
+
+  observeVisibility() {
+    this.visibilityObserver?.disconnect();
+    this.visibilityObserver = new IntersectionObserver(([entry]) => {
+      this.heroVisible = entry.isIntersecting;
+      if (this.heroVisible && !document.hidden) this.start();
+      else this.stop();
+    }, { rootMargin: '160px 0px' });
+    this.visibilityObserver.observe(this.hero);
   }
 
   // Intent: prepara el canvas, reacciona al mouse y sincroniza un bucle de animación constante para el fondo del hero.
@@ -191,7 +235,11 @@ export class ParticlesHero {
       this.particles.push(particle);
     }
 
-    this.animate();
+    this.observeVisibility();
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) this.stop();
+      else if (this.heroVisible) this.start();
+    });
   }
 }
 
@@ -215,6 +263,8 @@ export class ShipsHero {
     this.activeShips = new Map();
     this.respawnTimers = new Set();
     this.lastFrameTime = 0;
+    this.running = false;
+    this.frame = 0;
     this.localization?.eventBus?.on('language:changed', () => this.updateShipLabels());
     this.init();
   }
@@ -240,7 +290,33 @@ export class ShipsHero {
       this.spawnShip();
     }
 
+    this.observeVisibility();
+  }
+
+  observeVisibility() {
+    this.visibilityObserver = new IntersectionObserver(([entry]) => {
+      this.heroVisible = entry.isIntersecting;
+      if (this.heroVisible && !document.hidden) this.start();
+      else this.stop();
+    }, { rootMargin: '160px 0px' });
+    this.visibilityObserver.observe(this.hero);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) this.stop();
+      else if (this.heroVisible) this.start();
+    });
+  }
+
+  start() {
+    if (this.running) return;
+    this.running = true;
     this.animate();
+  }
+
+  stop() {
+    this.running = false;
+    if (this.frame) cancelAnimationFrame(this.frame);
+    this.frame = 0;
+    this.lastFrameTime = 0;
   }
 
   getTrajectory() {
@@ -307,6 +383,7 @@ export class ShipsHero {
   }
 
   animate(timestamp = performance.now()) {
+    if (!this.running) return;
     const delta = this.lastFrameTime ? Math.min(timestamp - this.lastFrameTime, 32) : 16;
     this.lastFrameTime = timestamp;
 
@@ -325,7 +402,7 @@ export class ShipsHero {
       }
     });
 
-    window.requestAnimationFrame((nextTimestamp) => this.animate(nextTimestamp));
+    this.frame = window.requestAnimationFrame((nextTimestamp) => this.animate(nextTimestamp));
   }
 
   spawnShip() {

@@ -45,7 +45,14 @@ export default class CarouselSystem {
     this.updateCarousel();
 
     // Event listeners
-    window.addEventListener('resize', () => this.updateCarousel());
+    let resizeFrame = 0;
+    window.addEventListener('resize', () => {
+      if (resizeFrame) return;
+      resizeFrame = requestAnimationFrame(() => {
+        resizeFrame = 0;
+        this.updateCarousel();
+      });
+    }, { passive: true });
   }
 
   createControls() {

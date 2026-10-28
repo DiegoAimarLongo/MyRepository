@@ -74,6 +74,13 @@ export default class PortfolioController {
     const button = document.getElementById('scrollToTop');
     if (!button) return;
     button.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    window.addEventListener('scroll', () => button.classList.toggle('visible', window.scrollY > 300));
+    let scrollFrame = 0;
+    window.addEventListener('scroll', () => {
+      if (scrollFrame) return;
+      scrollFrame = requestAnimationFrame(() => {
+        scrollFrame = 0;
+        button.classList.toggle('visible', window.scrollY > 300);
+      });
+    }, { passive: true });
   }
 }

@@ -56,7 +56,14 @@ export class ExperienceBar {
 
   // Intent: escucha el scroll y sincroniza la barra en cada movimiento para dar feedback de recorrido.
   init() {
-    document.addEventListener('scroll', () => this.update());
+    let frame = 0;
+    document.addEventListener('scroll', () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        this.update();
+      });
+    }, { passive: true });
     this.update();
   }
 }

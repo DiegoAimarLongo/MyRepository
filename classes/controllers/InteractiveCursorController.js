@@ -8,6 +8,8 @@ export default class InteractiveCursor {
     this.my = 0;
     this.rx = 0;
     this.ry = 0;
+    this.running = false;
+    this.frame = 0;
     this.init();
   }
 
@@ -23,14 +25,25 @@ export default class InteractiveCursor {
     });
 
     const animate = () => {
+      if (!this.running) return;
       this.rx += (this.mx - this.rx) * 0.30;
       this.ry += (this.my - this.ry) * 0.30;
       this.ring.style.left = this.rx + 'px';
       this.ring.style.top = this.ry + 'px';
-      requestAnimationFrame(animate);
+      this.frame = requestAnimationFrame(animate);
     };
 
+    this.running = true;
     animate();
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        this.running = false;
+        cancelAnimationFrame(this.frame);
+      } else if (!this.running) {
+        this.running = true;
+        animate();
+      }
+    });
 
     document.addEventListener('mousedown', () => this.cursor.classList.add('click'));
     document.addEventListener('mouseup', () => this.cursor.classList.remove('click'));

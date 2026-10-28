@@ -12,7 +12,7 @@ export default class AudioManager {
     this.eventBus = eventBus;
     this.backgroundMusic = new Audio('assets/audio/global.mp3');
     this.backgroundMusic.loop = true;
-    this.backgroundMusic.preload = 'auto';
+    this.backgroundMusic.preload = 'none';
     this.backgroundMusic.volume = this.musicVolume / 100;
   }
 
@@ -51,14 +51,14 @@ export default class AudioManager {
     this.eventBus?.emit('audio:volume-changed', this.soundVolume);
   }
 
-  setMusicVolume(volume) {
+  setMusicVolume(volume, { play = true } = {}) {
     this.musicVolume = Math.max(0, Math.min(100, Number(volume)));
     this.backgroundMusic.volume = this.musicVolume / 100;
     this.eventBus?.emit('audio:music-volume-changed', this.musicVolume);
 
     if (this.musicVolume === 0) {
       this.backgroundMusic.pause();
-    } else {
+    } else if (play) {
       this.playMusic();
     }
   }

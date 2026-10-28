@@ -9,7 +9,7 @@ export default class AudioController {
     this.musicVolumeInput = document.querySelector(musicVolumeSelector);
     this.bindEvents();
     this.audioManager.setSoundVolume(this.soundVolumeInput?.value ?? this.audioManager.soundVolume);
-    this.audioManager.setMusicVolume(this.musicVolumeInput?.value ?? this.audioManager.musicVolume);
+    this.audioManager.setMusicVolume(this.musicVolumeInput?.value ?? this.audioManager.musicVolume, { play: false });
     this.startAudio();
   }
 

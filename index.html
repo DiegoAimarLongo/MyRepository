@@ -4,7 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Diego Aimar Longo</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/layout.css" />
+  <link rel="stylesheet" href="styles/hero.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/about.css" />
+  <link rel="stylesheet" href="styles/projects.css" />
+  <link rel="stylesheet" href="styles/skills.css" />
+  <link rel="stylesheet" href="styles/timeline.css" />
+  <link rel="stylesheet" href="styles/contact.css" />
+  <link rel="stylesheet" href="styles/utilities.css" />
+  <link rel="stylesheet" href="styles/pointer.css" />
+  <link rel="stylesheet" href="styles/progress.css" />
+  <link rel="stylesheet" href="styles/particles.css" />
+  <link rel="stylesheet" href="styles/achievements.css" />
+  <link rel="stylesheet" href="styles/audio-controls.css" />
+  <link rel="stylesheet" href="styles/carousel.css" />
   <link rel="stylesheet" href="styles/architecture.css" />
   <link rel="stylesheet" href="styles/responsive.css" />
 </head>
@@ -137,7 +152,7 @@
 
          <div class="project-card">
           <div class="project-thumb thumb-1">
-            <img class="project-image" src="assets/images/projects/GamePointDevelopment.jpg" alt="GamePoint Development project" data-i18n-alt="projects.gamepointAlt">
+            <img class="project-image" src="assets/images/projects/GamePointDevelopment.jpg" alt="GamePoint Development project" loading="lazy" decoding="async" data-i18n-alt="projects.gamepointAlt">
           </div>
           <div class="project-body">
             <div class="project-title">GamePoint Development</div>
@@ -153,7 +168,7 @@
 
         <div class="project-card">
           <div class="project-thumb thumb-2">
-            <img class="project-image" src="assets/images/projects/trailOfBonesPicture.jpg" alt="Trail of Bones game scene" data-i18n-alt="projects.trailAlt">
+            <img class="project-image" src="assets/images/projects/trailOfBonesPicture.jpg" alt="Trail of Bones game scene" loading="lazy" decoding="async" data-i18n-alt="projects.trailAlt">
           </div>
           <div class="project-body">
             <div class="project-title">Trail of Bones</div>
@@ -170,7 +185,7 @@
 
         <div class="project-card">
           <div class="project-thumb thumb-3">
-            <img class="project-image" src="assets/images/projects/orbitalPicture.jpg" alt="Orbital Arousal gameplay" data-i18n-alt="projects.orbitalAlt">
+            <img class="project-image" src="assets/images/projects/orbitalPicture.jpg" alt="Orbital Arousal gameplay" loading="lazy" decoding="async" data-i18n-alt="projects.orbitalAlt">
           </div>
           <div class="project-body">
             <div class="project-title">Orbital Arousal</div>
@@ -187,7 +202,7 @@
 
         <div class="project-card">
           <div class="project-thumb thumb-4">
-            <img class="project-image" src="assets/images/projects/matePicture.jpg" alt="Mate e' Mitos concept art" data-i18n-alt="projects.mateAlt">
+            <img class="project-image" src="assets/images/projects/matePicture.jpg" alt="Mate e' Mitos concept art" loading="lazy" decoding="async" data-i18n-alt="projects.mateAlt">
           </div>
           <div class="project-body">
             <div class="project-title">Mate e' Mitos</div>
@@ -203,7 +218,7 @@
 
         <div class="project-card">
           <div class="project-thumb thumb-5">
-            <img class="project-image" src="assets/images/projects/saveTheEggPicture.jpg" alt="Save The EGG gameplay" data-i18n-alt="projects.eggAlt">
+            <img class="project-image" src="assets/images/projects/saveTheEggPicture.jpg" alt="Save The EGG gameplay" loading="lazy" decoding="async" data-i18n-alt="projects.eggAlt">
           </div>
           <div class="project-body">
             <div class="project-title">Save The EGG</div>
@@ -228,58 +243,76 @@
       </div>
 
       <div class="skills-terminal">
-        <div class="terminal-shell">
+        <header class="terminal-header">
+          <div class="terminal-brand"><span>&lt;/&gt;</span> SKILLS_SHELL <b>v2.4</b></div>
+        </header>
 
-          <div class="terminal-command">
-            <span class="terminal-user">diego@portfolio</span>
-            <span>:</span><span class="terminal-path">~/portfolio/skills</span>
-            <span>$</span>
-            <code>tree --depth 2 tech-stack</code>
+        <div class="terminal-window">
+          <div class="terminal-titlebar">
+            <div class="window-controls" aria-hidden="true"><i></i><i></i><i></i></div>
+            <span>diego@portfolio:~ (bash)</span>
+            <strong><i></i> SYSTEM_STATUS: ONLINE</strong>
           </div>
 
-          <div class="terminal-output skill-tree">
-            <div class="tree-root" aria-hidden="true">tech-stack/</div>
-            <section class="skill-category skill-category--primary" aria-labelledby="languages-title">
-              <h3 class="skill-category-title" id="languages-title">
-                <span class="visually-hidden" data-i18n="skills.languages">Languages &amp; backend</span>
-                <span class="tree-label">01_languages_and_backend/</span>
-              </h3>
-              <div class="skills-grid">
-                <div class="skill-card"><span class="skill-name">C#</span></div>
-                <div class="skill-card"><span class="skill-name">JavaScript</span></div>
-                <div class="skill-card"><span class="skill-name">Node.js</span></div>
-                <div class="skill-card"><span class="skill-name">Python</span></div>
-                <div class="skill-card is-last"><span class="skill-name">SQL</span></div>
-              </div>
-            </section>
+          <div class="terminal-content">
+            <div class="terminal-command">
+              <span>diego@portfolio</span>:<em>~/skills</em>$
+              <code>./fetch_tech_stack.sh --format=clean --layout=grid</code>
+              <small>[EXEC] Loading tech stack entries... 13/13 modules loaded successfully.</small>
+            </div>
 
-            <div class="skills-secondary-grid">
-              <section class="skill-category" aria-labelledby="engines-title">
-                <h3 class="skill-category-title" id="engines-title">
-                  <span class="visually-hidden" data-i18n="skills.engines">Game engines &amp; frameworks</span>
-                  <span class="tree-label">02_game_engines/</span>
-                </h3>
-                <div class="skills-grid">
-                  <div class="skill-card"><span class="skill-name">Unity</span></div>
-                  <div class="skill-card"><span class="skill-name">Godot Engine</span></div>
-                  <div class="skill-card"><span class="skill-name">Construct 2</span></div>
-                  <div class="skill-card is-last"><span class="skill-name">PixiJS</span></div>
-                </div>
-              </section>
+            <div class="skills-view skills-tree" id="skills-tree" role="tabpanel" aria-label="ASCII technology stack tree">
+<pre><span class="tree-root">tech-stack/</span>
+├── <span class="tree-purple">01_languages_and_backend/</span>
+│   ├── <span class="tree-item">csharp.cs</span><span class="tree-dots"> .......... </span><span class="tree-meta">[Compiled / Unity &amp; Backend]</span>
+│   ├── <span class="tree-item">javascript.js</span><span class="tree-dots"> ...... </span><span class="tree-meta">[Dynamic / Browser &amp; Node]</span>
+│   ├── <span class="tree-item">nodejs.js</span><span class="tree-dots"> .......... </span><span class="tree-meta">[Runtime / Server APIs]</span>
+│   ├── <span class="tree-item">python.py</span><span class="tree-dots"> .......... </span><span class="tree-meta">[Script / Automation]</span>
+│   └── <span class="tree-item">database.sql</span><span class="tree-dots"> ....... </span><span class="tree-meta">[Query / Relational DB]</span>
+├── <span class="tree-purple">02_game_engines/</span>
+│   ├── <span class="tree-item">unity.engine</span><span class="tree-dots"> ....... </span><span class="tree-meta">[Core 2D / 3D]</span>
+│   ├── <span class="tree-item">godot.engine</span><span class="tree-dots"> ....... </span><span class="tree-meta">[Open Source]</span>
+│   ├── <span class="tree-item">construct2.app</span><span class="tree-dots"> ..... </span><span class="tree-meta">[HTML5 2D]</span>
+│   └── <span class="tree-item">pixi.js</span><span class="tree-dots"> ....... </span><span class="tree-meta">[2D Renderer]</span>
+└── <span class="tree-green">03_tools_and_workflow/</span>
+    ├── <span class="tree-item">github</span><span class="tree-dots"> .......... </span><span class="tree-meta">[Version Control]</span>
+    ├── <span class="tree-item">linux_mint</span><span class="tree-dots"> .......... </span><span class="tree-meta">[Environment]</span>
+    ├── <span class="tree-item">scrum_agile</span><span class="tree-dots"> ......... </span><span class="tree-meta">[Methodology]</span>
+    └── <span class="tree-item">blender_3d</span><span class="tree-dots"> .......... </span><span class="tree-meta">[Asset Pipeline]</span></pre>
+            </div>
 
-              <section class="skill-category skill-category--last" aria-labelledby="tools-title">
-                <h3 class="skill-category-title" id="tools-title">
-                  <span class="visually-hidden" data-i18n="skills.tools">Tools &amp; methodologies</span>
-                  <span class="tree-label">03_tools_and_workflow/</span>
-                </h3>
-                <div class="skills-grid">
-                  <div class="skill-card"><span class="skill-name">Git / GitHub</span></div>
-                  <div class="skill-card"><span class="skill-name">Linux</span></div>
-                  <div class="skill-card is-last"><span class="skill-name">Scrum / Agile</span></div>
-                </div>
-              </section>
+            <div class="skills-terminal-translations" aria-hidden="true" hidden>
+              <span data-i18n="skills.inspectPrefix" data-terminal-text="skills.inspectPrefix">&gt; INSPECT_SKILL:</span>
+              <span data-i18n="skills.executePrefix" data-terminal-text="skills.executePrefix">&gt; EXECUTING:</span>
+              <span data-i18n="skills.detail" data-terminal-text="skills.detail">Skill profile</span>
+              <span data-i18n="skills.commandHelp" data-terminal-text="skills.commandHelp">Available: cat languages.txt · cat engines.txt · cat tools.txt · clear</span>
+              <span data-i18n="skills.commandLanguages" data-terminal-text="skills.commandLanguages">[Languages &amp; Backend] C#, JavaScript, Node.js, Python, SQL.</span>
+              <span data-i18n="skills.commandEngines" data-terminal-text="skills.commandEngines">[Game Engines] Unity Engine, Godot Engine, Construct 2, PixiJS.</span>
+              <span data-i18n="skills.commandTools" data-terminal-text="skills.commandTools">[Tools &amp; Workflow] Git/GitHub, Linux, Scrum/Agile, Blender &amp; Creative Tools.</span>
+              <span data-i18n="skills.commandNotFound" data-terminal-text="skills.commandNotFound">bash: command not found. Type 'help' for available commands.</span>
+            </div>
+
+            <div class="skills-output" id="skills-output" role="status" aria-live="polite" hidden>
+              <strong id="skills-output-title">&gt; COMMAND OUTPUT:</strong>
+              <p id="skills-output-content"></p>
             </div>
           </div>
+
+          <footer class="terminal-footer">
+            <nav aria-label="Technology stack commands">
+              <span>Quick cmds:</span>
+              <button type="button" data-command="cat languages.txt">cat languages.txt</button>
+              <button type="button" data-command="cat engines.txt">cat engines.txt</button>
+              <button type="button" data-command="cat tools.txt">cat tools.txt</button>
+              <button type="button" data-command="help">help</button>
+              <button class="clear-command" type="button" data-command="clear">clear</button>
+            </nav>
+            <form class="terminal-input" id="skills-command-form">
+              <label for="skills-command">$</label>
+              <input id="skills-command" type="text" autocomplete="off" placeholder="Type a command (e.g. 'help')" data-i18n-placeholder="skills.commandPlaceholder" />
+              <i aria-hidden="true"></i>
+            </form>
+          </footer>
         </div>
       </div>
     </section>
@@ -338,21 +371,21 @@
               </div>
             </div>
             <div class="contact-item">
-              <div class="contact-icon"><img src="assets/images/contact/linkedin.png" alt="" aria-hidden="true"></div>
+              <div class="contact-icon"><img src="assets/images/contact/linkedin.png" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
               <div>
                 <div class="contact-label">LinkedIn</div>
                 <a class="contact-val" href="https://linkedin.com/in/diegogamedev/" target="_blank" rel="noopener noreferrer">linkedin.com/in/diegogamedev</a>
               </div>
             </div>
             <div class="contact-item">
-              <div class="contact-icon"><img src="assets/images/contact/gitHub.png" alt="" aria-hidden="true"></div>
+              <div class="contact-icon"><img src="assets/images/contact/gitHub.png" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
               <div>
                 <div class="contact-label">GitHub</div>
                 <a class="contact-val" href="https://github.com/DiegoAimarLongo" target="_blank" rel="noopener noreferrer">github.com/DiegoAimarLongo</a>
               </div>
             </div>
             <div class="contact-item">
-              <div class="contact-icon"><img src="assets/images/contact/instagram.png" alt="" aria-hidden="true"></div>
+              <div class="contact-icon"><img src="assets/images/contact/instagram.png" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
               <div>
                 <div class="contact-label">Instagram</div>
                 <a class="contact-val" href="https://instagram.com/eldiegazzok/" target="_blank" rel="noopener noreferrer">instagram.com/eldiegazzok</a>
@@ -387,6 +420,7 @@
 
   <!-- ── SCRIPTS ───────────────────────────── -->
   <script type="module" src="main.js"></script>
+  <script src="skillsTerminal.js"></script>
 
 </body>
 </html>
